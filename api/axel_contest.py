@@ -99,7 +99,7 @@ class AxelContest(Player, metaclass=ABCMeta):
             self.log("Unit not found. Exiting...")
             return
 
-        unit_name = self.gd.get_character(cid)['name']
+        unit_name = self.gd.get_character(cid)['name'] if self.gd.get_character(cid) is not None else 'UNKNOWN'
         last_cleared_stage = collection['contest_stage'] if 'contest_stage' in collection else 0
 
         self.log(f"Started Axel Contest for {unit_name} - Last cleared stage: {last_cleared_stage}"
