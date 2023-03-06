@@ -36,6 +36,12 @@ class Constants:
                               30023]
     Place_1_Effects = [10001]
     Place_2_Effects = [20001, 20002, 20003, 20004, 20005]
+    Dispatch_2_Star_Prinny_HL_Cost = 5000
+    Dispatch_2_Star_Prinny_Prinny_Cost = 6
+    Dispatch_3_Star_Prinny_HL_Cost = 40000
+    Dispatch_3_Star_Prinny_Prinny_Cost = 36
+    Dispatch_4_Star_Prinny_HL_Cost = 290000
+    Dispatch_4_Star_Prinny_Prinny_Cost = 216
 
     session_id = ''  # FILL SESSION_ID HERE
     user_id = ''  # FILL USER_ID HERE
