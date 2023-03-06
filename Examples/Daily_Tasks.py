@@ -2,7 +2,7 @@ import datetime
 
 from dateutil import parser
 
-from api.constants import Constants
+from api.constants import Constants, Event_Types
 from main import API
 
 a = API()
@@ -44,15 +44,20 @@ a.clear_character_gates()
 #  Passes a dark assembly agenda for mission completion (make sure id is valid)
 a.complete_dark_assembly_mission(110016)
 
-# Calculate when AP is filled
-player_data = a.client.player_index()
-current_ap = player_data['result']['status']['act']
-max_ap = player_data['result']['status']['act_max']
-ap_filled_date = datetime.datetime.now() + datetime.timedelta(minutes=(max_ap - current_ap) * 2)
+## Clear UDT or Etna Defense stages (if they are open)
+a.clear_event(event_type=Event_Types.Etna_Defense)
+a.clear_event(event_type=Event_Types.UDT_Training)
 
-# Server time is utc -4. Spins available every 8 hours
-lastRouleteTimeString = a.client.hospital_index()['result']['last_hospital_at']
-lastRouletteTime = parser.parse(lastRouleteTimeString)
-utcminus4time = datetime.datetime.utcnow() + datetime.timedelta(hours=-4)
-if utcminus4time > lastRouletteTime + datetime.timedelta(hours=8):
-    result = a.client.hospital_roulette()
+## Do event daily 500% stages, buy AP and claim quests
+a.event_buy_daily_AP(542001)
+a.story_event_daiy_500Bonus(team_to_use=5)
+a.event_claim_daily_missions()
+a.event_claim_character_missions()
+a.event_claim_story_missions()
+
+## Claims quests
+a.client.trophy_get_reward_daily()
+a.client.trophy_get_reward_weekly()
+a.client.trophy_get_reward()
+
+a.present_receive_all_except_equip_and_AP()

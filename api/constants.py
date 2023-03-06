@@ -10,6 +10,8 @@ class Constants:
     Current_Raid_Badass_Boss_ID = 2332
     Current_Story_Event_ID = 228
     Current_Story_Event_Area_IDs =  [1228101, 1228102, 1228103, 1228104, 1228105]
+    Current_Story_Event_ID_JP = 442
+    Current_Story_Event_Area_IDs_JP =  [1442101, 1442102, 1442103, 1442104, 1442105]
     Etna_Defense_Area_ID_GL = 0
     Enta_Defense_Event_ID_GL = 0
     Etna_Defense_Area_ID_JP = 1436101
@@ -228,7 +230,7 @@ class ErrorMessages:
     Raid_Battle_Finished = 'The raid Boss is already conquered'
 
 class JP_ErrorMessages:
-    Weapon_Full_Error = 'Weapon Slot is full\nPlease expand slot or sell weapons'
+    Weapon_Full_Error = '武器の所持数がいっぱいです\n所持枠を拡張するか売却などをしてください'
     Armor_Full_Error = '防具の所持数がいっぱいです\n所持枠を拡張するか売却などをしてください'
     Innocent_Full_Error = 'Max possession number of Innocents reached.'
     Raid_Battle_Finished = 'The raid Boss is already conquered'

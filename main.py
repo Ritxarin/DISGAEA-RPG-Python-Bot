@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import datetime
-import json
-import sys
 
 from api.CustomExceptions import NoAPLeftException
 from api.constants import Item_World_Mode
@@ -496,15 +494,37 @@ class API(BaseAPI):
 
         return drop_result
 
-    def getDone(self):
+    ################################################################
+    ###########      STAGE METHODS   ###############################
+    ################################################################
+
+    def get_cleared_stages(self, refresh:bool=False):
         stages = set()
-        r = self.player_clear_stages()
+        r = self.player_clear_stages(refresh=refresh)
         if len(r) <= 0:
             return
         for i in r:
             if i['clear_num'] >= 1:
                 stages.add(i['m_stage_id'])
         return stages
+    
+    def is_stage_cleared(self, stage_id:int):
+        stages = self.get_cleared_stages(False)
+        return stage_id in stages
+    
+    def get_3starred_stages(self, refresh:bool=False):
+        stages = []
+        r = self.player_stage_missions(refresh)
+        if len(r) <= 0:
+            return
+        for i in r:
+            if i['clear_flg_1'] == 1 and i['clear_flg_2'] == 1 and i['clear_flg_3'] == 1:
+                stages.append(i['m_stage_id'])
+        return stages
+    
+    def is_stage_3starred(self, stage_id:int):
+        stages = self.get_3starred_stages(False)
+        return stage_id in stages
 
     def getAreaStages(self, m_area_id):
         ss = []
@@ -521,7 +541,7 @@ class API(BaseAPI):
         i = 0
         blacklist = set()
 
-        complete = self.getDone()
+        complete = self.get_cleared_stages()
         for rank in [1, 2, 3]:
             for s in ss:
                 if limit is not None and i >= limit:
@@ -595,7 +615,7 @@ class API(BaseAPI):
         self.player_innocents(True)
         self.player_characters(True)
         self.player_character_collections(True)
-        self.getDone()
+        self.get_cleared_stages(True)
         self.player_stage_missions(True)
         self.pd.dump_to_file(file_path, {
             "app_constants": self.client.app_constants()['result'],

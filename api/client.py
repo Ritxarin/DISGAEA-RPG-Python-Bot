@@ -1173,7 +1173,7 @@ class Client:
 
     def hospital_roulette(self):
         data = self.__rpc('hospital/roulette', {})
-        if 'api_error' in data and data['api_error']['message'] == 'Unable to restore yet':
+        if 'api_error' in data:
             return
         Logger.info(f"Hospital Roulettte - Recovered {data['result']['recovery_num']} AP")
         return data
@@ -1197,10 +1197,12 @@ class Client:
     #########################
     
     def story_event_missions(self):
-        return self.__rpc('event/missions', {"m_event_id":Constants.Current_Story_Event_ID})
+        m_event_id = Constants.Current_Story_Event_ID if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
+        return self.__rpc('event/missions', {"m_event_id":m_event_id})
 
     def story_event_daily_missions(self):
-        return self.__rpc('event/mission_dailies', {"m_event_id":Constants.Current_Story_Event_ID})
+        m_event_id = Constants.Current_Story_Event_ID if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
+        return self.__rpc('event/mission_dailies', {"m_event_id":m_event_id})
         
     def story_event_claim_daily_missions(self, mission_ids: list[int] = []):
         return self.__rpc('event/receive_mission_daily', {"ids":mission_ids})
