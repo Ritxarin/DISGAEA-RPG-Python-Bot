@@ -35,9 +35,11 @@ ap_filled_date = datetime.datetime.utcnow() + datetime.timedelta(minutes=(max_ap
 # when ap is full run axel contest for one character to burn AP. Specify the highest floor to run here
 highest_axel_contest_level_to_clear = 100
 
+time_delta = -4 if a.o.region == 2 else 9
+
 while True:
 
-    serverTime = datetime.datetime.utcnow() + datetime.timedelta(hours=-4)
+    serverTime = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)
     if serverTime > lastRouletteTime + datetime.timedelta(hours=8):
         result = a.client.hospital_roulette()
         lastRouleteTimeString = a.client.hospital_index()['result']['last_hospital_at']

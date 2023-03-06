@@ -14,8 +14,8 @@ class Constants:
     Current_Story_Event_Area_IDs_JP =  [1442101, 1442102, 1442103, 1442104, 1442105]
     Etna_Defense_Area_ID_GL = 0
     Enta_Defense_Event_ID_GL = 0
-    Etna_Defense_Area_ID_JP = 1436101
-    Enta_Defense_Event_ID_JP = 436
+    Etna_Defense_Area_ID_JP = 0
+    Enta_Defense_Event_ID_JP = 0
     Etna_Defense_Daily_Run_Limit = 10
     UDT_Training_Area_ID_GL = 0
     UDT_Training_Event_ID_GL = 0

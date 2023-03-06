@@ -12,7 +12,8 @@ class ItemSurvey(Shop, metaclass=ABCMeta):
         super().__init__()
 
     def item_survey_complete_and_start_again(self, min_item_rank_to_deposit=40, auto_donate=True):
-        server_date_time = datetime.datetime.utcnow() + datetime.timedelta(hours=-4)
+        time_delta = -4 if self.o.region == 2 else 9
+        server_date_time = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)
         weapons_finished = []
         equipments_finished = []
         iw_survey_data = self.client.item_world_survey_index()
