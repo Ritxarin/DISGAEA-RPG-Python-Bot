@@ -307,7 +307,7 @@ class API(BaseAPI):
 
         if finish_mode == Battle_Finish_Mode.Tower_Finish:
             exp_data = self.get_battle_exp_data_tower_finish(start)
-        if finish_mode == Battle_Finish_Mode.Single_Character:
+        elif finish_mode == Battle_Finish_Mode.Single_Character:
             exp_data = self.get_battle_exp_data_single_unit_finish(start)
         else:
             exp_data = self.get_battle_exp_data(start)
@@ -318,7 +318,7 @@ class API(BaseAPI):
         res = self.parseReward(end)
         self.check_resp(end)
 
-        if not self.is_helper_in_friend_list(help_player['t_player_id']) and send_friend_request:
+        if send_friend_request and not self.is_helper_in_friend_list(help_player['t_player_id']):
             self.log(f"Send friend request to {help_player['name']} - Rank {help_player['rank']}")
             self.client.friend_send_request(help_player['t_player_id'])
 
@@ -666,7 +666,7 @@ class API(BaseAPI):
         return deck_data
 
     # team_no index starts at 0 Deduct 1 to offset. Character ids: '149980157,115286421,86661270,181611027,0'
-    def update_team(self, team_no, character_ids):
+    def update_team(self, team_no:int, character_ids):
         x = character_ids.split(",")
         if len(x) != 5:
             print(f"You need to specify 5 character ids")
@@ -677,6 +677,7 @@ class API(BaseAPI):
         deck_data = self.player_get_deck_data()
         deck_data['charaIdList'][team_no - 1] = character_ids
         self.client.player_update_deck(deck_data)
+        self.player_decks(refresh=True)
 
 
     ################################################################

@@ -58,11 +58,12 @@ class Battle(Player, metaclass=ABCMeta):
         res = []
         for d in start['result']['enemy_list']:
             for r in d:
-                res.append({
-                    "finish_member_ids": self.get_random_deck_member(start['result']['t_deck_no']),
-                    "finish_type": random.randint(Battle_Finish_Type.Normal_Attack, Battle_Finish_Type.Special_Move),
-                    "m_enemy_id": d[r]
-                })
+                if d[r] != 0:
+                    res.append({
+                        "finish_member_ids": self.get_random_deck_member(start['result']['t_deck_no']),
+                        "finish_type": random.randint(Battle_Finish_Type.Normal_Attack, Battle_Finish_Type.Special_Move),
+                        "m_enemy_id": d[r]
+                    })
         return res
 
     def get_random_deck_member(self, deck_no):
@@ -77,11 +78,12 @@ class Battle(Player, metaclass=ABCMeta):
         res = []
         for d in start['result']['enemy_list']:
             for r in d:
-                res.append({
-                    "finish_member_ids": self.pd.deck(start['result']['t_deck_no']),
-                    "finish_type": Battle_Finish_Type.Tower_Attack.value,
-                    "m_enemy_id": d[r]
-                })
+                if d[r] != 0:
+                    res.append({
+                        "finish_member_ids": self.pd.deck(start['result']['t_deck_no']),
+                        "finish_type": Battle_Finish_Type.Tower_Attack.value,
+                        "m_enemy_id": d[r]
+                    })
         return res
 
     ## Finish battle, leader unit kills all enemies thus grabbing all bonus exp
@@ -92,11 +94,12 @@ class Battle(Player, metaclass=ABCMeta):
         res = []
         for d in start['result']['enemy_list']:
             for r in d:
-                res.append({
-                    "finish_member_ids": [leader_unit],
-                    "finish_type": Battle_Finish_Type.Special_Move,
-                    "m_enemy_id": d[r]
-                })
+                if d[r] != 0:
+                    res.append({
+                        "finish_member_ids": [leader_unit],
+                        "finish_type": Battle_Finish_Type.Special_Move,
+                        "m_enemy_id": d[r]
+                    })
         return res
 
     def do_tower(self, m_tower_no=1):

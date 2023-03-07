@@ -348,6 +348,9 @@ class PlayerData:
                 if 'items' in resp['result']['after_t_data']:
                     for i in resp['result']['after_t_data']['items']:
                         self.update_items(i)
+                if 'characters' in resp['result']['after_t_data']:
+                    for character in resp['result']['after_t_data']['characters']:
+                        self.characters.append(character)
             if 'after_t_characters' in resp['result']:
                 for char in resp['result']['after_t_characters']:
                     self.update_character(char)

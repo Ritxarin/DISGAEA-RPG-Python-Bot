@@ -1,7 +1,7 @@
 import random
 from abc import ABCMeta
 
-from api.constants import Constants, Mission_Status
+from api.constants import Constants, Mission_Status, ErrorMessages
 from api.player import Player
 from data import data as gamedata
 
@@ -208,3 +208,35 @@ class Raid(Player, metaclass=ABCMeta):
                 self.raid_battle_end_giveup(raid_stage_id, raid_boss['id'])
                 self.raid_boss_count += 1
                 self.log(f"Farmed boss with level {raid_boss['level']}. Total bosses farmed: {self.raid_boss_count}")
+
+    def raid_defeat_own_boss(self, party_to_use):
+        own_boss = self.client.raid_current()['result']['current_t_raid_status']
+        if own_boss is not None:
+            #Battle and give up automatically
+            raid_stage_id = self.raid_find_stageid(own_boss['m_raid_boss_id'], own_boss['level'])   
+            if raid_stage_id != 0:
+                if own_boss['level'] == 50:
+                    battle_start_data = self.raid_battle_start(raid_stage_id, own_boss['id'], party_to_use)
+                    if 'error' in battle_start_data and battle_start_data['error'] == ErrorMessages.Raid_Battle_Finished:
+                        return
+                    enemy_id = battle_start_data['result']['enemy_list'][0]['pos1']
+                    battle_end_data = self.raid_battle_finish_lvl50_boss(raid_stage_id, own_boss['id'], enemy_id)
+                    #reward_date = self.raid_reward(own_boss['id'])
+                if own_boss['level'] == 100:
+                    battle_start_data = self.raid_battle_start(raid_stage_id, own_boss['id'], party_to_use)
+                    if 'error' in battle_start_data and battle_start_data['error'] == ErrorMessages.Raid_Battle_Finished:
+                        return
+                    enemy_id = battle_start_data['result']['enemy_list'][0]['pos1']
+                    battle_end_data = self.raid_battle_finish_lvl100_boss(raid_stage_id, own_boss['id'], enemy_id)
+                    #reward_date = self.raid_reward(own_boss['id'])
+                if own_boss['level'] != 100 and own_boss['level'] != 50 and not own_boss['is_send_help']:                          
+                    sharing_result = self.client.raid_send_help_request(own_boss['id'])
+                    self.log("Shared boss with %s users" % sharing_result['result']['send_help_count'])
+    
+    def raid_battle_finish_lvl50_boss(self, stage_id, raid_status_id, enemy_id):
+        data = self.client.raid_battle_finish_lvl50_boss(stage_id, raid_status_id, enemy_id)
+        return data
+
+    def raid_battle_finish_lvl100_boss(self, stage_id, raid_status_id, enemy_id):
+        data = self.client.raid_battle_finish_lvl100_boss(stage_id, raid_status_id, enemy_id)
+        return data  
