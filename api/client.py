@@ -776,6 +776,11 @@ class Client:
     def player_update_deck(self, deck_data):
         data = self.__rpc('player/update_deck', {"deck_data": deck_data})
         return data
+    
+    # material_t_character_ids = [220159023,220159708,220159706,220159047,220159046]
+    def player_awakening(self, t_character_id:int, material_t_character_ids:list[int], material_m_item_id:int=0):
+        data = self.__rpc('player/awakening', {"t_character_id":t_character_id,"material_t_character_ids":material_t_character_ids,"material_m_item_id":material_m_item_id})
+        return data
 
     #################
     # Kingdom Endpoints
