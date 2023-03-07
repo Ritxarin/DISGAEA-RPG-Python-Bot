@@ -18,19 +18,11 @@ class PvP(Base, metaclass=ABCMeta):
             self.log("Claiming PvP season reward")
             reward = self.client.pvp_receive_rewards()
 
-        current_orbs = pvp_data['result']['t_arena']['act']
-        time_delta = -4 if self.o.region == 2 else 9
+        current_orbs = self.pvp_get_remaining_orbs()
+
         if current_orbs == 0:
-            # When 10 orbs are remaining it displays act=0. Calculate based on last recovery time
-            pvp_recover_date_string = pvp_data['result']['t_arena']['act_at']
-            pvp_recover_date = parser.parse(pvp_recover_date_string)        
-            server_time = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)
-            pvp_arena_fully_recovered_time = pvp_recover_date + datetime.timedelta(minutes=500)
-            if server_time > pvp_arena_fully_recovered_time:
-                current_orbs = 10
-            else:
-                self.log("No PvP orbs remaining.")
-                return
+            self.log("No PvP orbs remaining.")
+            return
 
         while current_orbs > 0:
             oponent = self.pvp_select_opponent()
@@ -49,4 +41,17 @@ class PvP(Base, metaclass=ABCMeta):
 
     def pvp_get_remaining_orbs(self):
         pvp_data = self.client.pvp_info()
-        return pvp_data['result']['t_arena']['act']
+        current_orbs = pvp_data['result']['t_arena']['act']
+        time_delta = -4 if self.o.region == 2 else 9
+
+        if current_orbs == 0:
+            # When 10 orbs are remaining it displays act=0. Calculate based on last recovery time
+            pvp_recover_date_string = pvp_data['result']['t_arena']['act_at']
+            pvp_recover_date = parser.parse(pvp_recover_date_string)        
+            server_time = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)
+            pvp_arena_fully_recovered_time = pvp_recover_date + datetime.timedelta(minutes=500)
+            if server_time > pvp_arena_fully_recovered_time:
+                return 10
+            return 0
+        else:
+            return current_orbs
