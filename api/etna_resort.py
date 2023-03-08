@@ -268,6 +268,9 @@ class EtnaResort(Items, metaclass=ABCMeta):
 
         if len(items) > 0:
             for item in items:
+                if self.pd.is_item_in_equipment_preset(item['id']):
+                    continue
+                
                 equip_type = self.pd.get_equip_type(item)
                 if remove_innocents:
                     self.remove_innocents(item)
