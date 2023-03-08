@@ -204,7 +204,7 @@ class Player(Base):
             unit_weapons = [x for x in self.player_weapons() if x['set_chara_id'] == unit_id]
             unit_gear = unit_weapons + unit_equipments
             max_level = min((unit['rebirth_num'] +1) *100,9999)
-            character_name = character['name'] if character is not None else 'unknown'
+            character_name = character['name'] if character is not None else f"unknown - ID: {unit['m_character_id']}"
             self.log(f"{character_name} - ID: {unit_id} - Level: {unit['lv']} / { max_level} - SR count: {unit['super_rebirth_num']} - Equipped items:")
             for equipment in unit_gear:
                 if 'm_equipment_id' in equipment:
