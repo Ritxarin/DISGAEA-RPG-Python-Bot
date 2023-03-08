@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import random
 
 from api.CustomExceptions import NoAPLeftException
 from api.constants import Item_World_Mode
@@ -293,7 +294,11 @@ class API(BaseAPI):
         if help_t_player_id != 0:
             help_player = self.battle_help_get_friend_by_id(help_t_player_id)
         else:
-            help_player = self.client.battle_help_list()['result']['help_players'][0]
+            if send_friend_request:
+                helper_data = self.client.battle_help_list()['result']['help_players']            
+                help_player = helper_data[random.randint(0, len(helper_data)-1)]
+            else:
+                help_player = helper_data[0]
 
         start = self.client.battle_start(
             m_stage_id=m_stage_id, help_t_player_id=help_player['t_player_id'],
@@ -764,3 +769,4 @@ class API(BaseAPI):
 
     def get_cleared_stages(self):
         self.player_clear_stages()
+
