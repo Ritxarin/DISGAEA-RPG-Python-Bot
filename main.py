@@ -294,8 +294,8 @@ class API(BaseAPI):
         if help_t_player_id != 0:
             help_player = self.battle_help_get_friend_by_id(help_t_player_id)
         else:
-            if send_friend_request:
-                helper_data = self.client.battle_help_list()['result']['help_players']            
+            helper_data = self.client.battle_help_list()['result']['help_players']   
+            if send_friend_request:                         
                 help_player = helper_data[random.randint(0, len(helper_data)-1)]
             else:
                 help_player = helper_data[0]
@@ -770,3 +770,4 @@ class API(BaseAPI):
     def get_cleared_stages(self):
         self.player_clear_stages()
 
+    
