@@ -245,7 +245,8 @@ class API(BaseAPI):
 
     def doQuest(self, m_stage_id=101102, team_num=None, auto_rebirth: bool = None,
                 help_t_player_id: int = 0, send_friend_request: bool = False,
-                finish_mode: Battle_Finish_Mode = Battle_Finish_Mode.Random_Finish):
+                finish_mode: Battle_Finish_Mode = Battle_Finish_Mode.Random_Finish,
+                randomize_helper:bool=False):
         if auto_rebirth is None:
             auto_rebirth = self.o.auto_rebirth
 
@@ -295,7 +296,7 @@ class API(BaseAPI):
             help_player = self.battle_help_get_friend_by_id(help_t_player_id)
         else:
             helper_data = self.client.battle_help_list()['result']['help_players']   
-            if send_friend_request:                         
+            if randomize_helper:                         
                 help_player = helper_data[random.randint(0, len(helper_data)-1)]
             else:
                 help_player = helper_data[0]
@@ -538,7 +539,7 @@ class API(BaseAPI):
                 ss.append(s)
         return ss
 
-    def completeStory(self, m_area_id=None, limit=None, farming_all=False, raid_team=None, send_friend_request:bool=False):
+    def completeStory(self, m_area_id=None, limit=None, raid_team=None, send_friend_request:bool=False):
         ss = []
         for s in self.gd.stages:
             ss.append(s['id'])
@@ -546,7 +547,7 @@ class API(BaseAPI):
         i = 0
         blacklist = set()
 
-        complete = self.get_cleared_stages()
+        cleared_stages = self.get_cleared_stages()
         for rank in [1, 2, 3]:
             for s in ss:
                 if limit is not None and i >= limit:
@@ -559,12 +560,19 @@ class API(BaseAPI):
                 # Skip non story areas
                 if m_area_id is None and stage['m_area_id'] > 1000: continue
 
-                if not farming_all and s in complete:
-                    self.log('already complete - area: %s stage: %s rank: %s name: %s' % (
+                if self.is_stage_3starred(s):
+                    self.log('Stage already 3 starred - area: %s stage: %s rank: %s name: %s' % (
                         stage['m_area_id'], s, rank, stage['name']
                     ))
                     continue
-                if not stage['appear_m_stage_id'] in complete and stage['appear_m_stage_id'] != 0:
+
+                if stage['act'] == 0 and s in cleared_stages:
+                    self.log('Story stage already completed - area: %s stage: %s rank: %s name: %s' % (
+                        stage['m_area_id'], s, rank, stage['name']
+                    ))
+                    continue
+
+                if not stage['appear_m_stage_id'] in cleared_stages and stage['appear_m_stage_id'] != 0:
                     self.log('not unlocked - area: %s stage: %s rank: %s name: %s' % (
                         stage['m_area_id'], s, rank, stage['name']
                     ))
@@ -573,8 +581,8 @@ class API(BaseAPI):
                 if stage['m_area_id'] in blacklist:
                     continue
                 try:
-                    self.doQuest(s, auto_rebirth=self.o.auto_rebirth, send_friend_request=send_friend_request)
-                    complete.add(s)                    
+                    self.doQuest(s, auto_rebirth=self.o.auto_rebirth, send_friend_request=send_friend_request, randomize_helper=True)
+                    cleared_stages.add(s)                    
                     if raid_team is not None:
                         self.raid_share_own_boss(raid_team)
                         self.raid_farm_shared_bosses(raid_team)
@@ -766,8 +774,3 @@ class API(BaseAPI):
         if event_data['result']['events'][0]['is_item_reward_receivable']:
             self.log(f"Claiming character copy")
             r = self.client.event_receive_rewards(event_id=character_gate)
-
-    def get_cleared_stages(self):
-        self.player_clear_stages()
-
-    
