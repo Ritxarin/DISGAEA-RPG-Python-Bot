@@ -2,12 +2,12 @@ from enum import IntEnum
 
 
 class Constants:
-    Current_Raid_ID = 233
-    Current_Raid_Event_Point_Gacha = 76
-    Current_Raid_Innocent_Regular_Roulette = 77
-    Current_Raid_Innocent_Special_Roulette = 78
-    Current_Raid_Normal_Boss_ID = 2331
-    Current_Raid_Badass_Boss_ID = 2332
+    Current_Raid_ID_GL = 233
+    Current_Raid_ID_JP = 446
+    Current_Raid_Normal_Boss_ID_GL = 2331
+    Current_Raid_Badass_Boss_ID_GL = 2332
+    Current_Raid_Normal_Boss_ID_JP = 4461
+    Current_Raid_Badass_Boss_ID_JP = 4462
     Current_Story_Event_ID = 228
     Current_Story_Event_Area_IDs =  [1228101, 1228102, 1228103, 1228104, 1228105]
     Current_Story_Event_ID_JP = 442
@@ -220,6 +220,11 @@ class Event_Types(IntEnum):
     UDT_Training = 5 
     Raid = 6
     Etna_Defense = 10
+
+class Raid_Gacha_Type(IntEnum):
+    Raid_Point_Gacha = 1
+    Innocent_Roulette = 2
+    Special_Innocent_Roulette = 3
 
 class Character_Gate(IntEnum):
     Majin_Etna = 2

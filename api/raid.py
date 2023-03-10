@@ -1,7 +1,7 @@
 import random
 from abc import ABCMeta
 
-from api.constants import Constants, Mission_Status, ErrorMessages
+from api.constants import Constants, Mission_Status, ErrorMessages, Raid_Gacha_Type
 from api.player import Player
 from data import data as gamedata
 
@@ -12,6 +12,9 @@ class Raid(Player, metaclass=ABCMeta):
         super().__init__()
         self.raid_boss_count = 0
 
+    def raid_get_raid_id(self):
+        return Constants.Current_Raid_ID_GL if self.o.region == 2 else Constants.Current_Raid_ID_JP
+    
     def raid_battle_start(self, stage_id, raid_status_id, raid_party):
         return self.client.battle_start(m_stage_id=stage_id, raid_status_id=raid_status_id, deck_no=raid_party)
 
@@ -79,7 +82,7 @@ class Raid(Player, metaclass=ABCMeta):
     def raid_claim_all_point_rewards(self):
         self.log("Claiming raid point rewards.")
         initial_stones = self.player_stone_sum()['result']['_items'][0]['num']
-        raid_data = self.client.event_index(event_ids=Constants.Current_Raid_ID)
+        raid_data = self.client.event_index(event_ids=self.raid_get_raid_id())
         if raid_data['result']['events'][0]['gacha_data'] is None:
             self.log("Raid data not found. Please make sure the Current_Raid_ID value is correct on the constants file")
             return
@@ -95,12 +98,14 @@ class Raid(Player, metaclass=ABCMeta):
         uses_left = 5000 - current_uses
         current_stones = 0
 
+        raid_event_point_gacha_id = self.raid_get_gacha_id(gacha_type = Raid_Gacha_Type.Raid_Point_Gacha)
+
         while uses_left > 0 and current_points >= 100:
             uses_to_claim = min(uses_left, 100)
             points_needed = uses_to_claim * 100
             if current_points < points_needed:
                 uses_to_claim = current_points // 100
-            data = self.client.raid_gacha(Constants.Current_Raid_Event_Point_Gacha, uses_to_claim)
+            data = self.client.raid_gacha(raid_event_point_gacha_id, uses_to_claim)
             current_points = data['result']['after_t_data']['t_events'][0]['point']
             uses_left = 5000 - data['result']['after_t_data']['t_events'][0]['gacha_data']['sum']
             if len(data['result']['after_t_data']['stones']) > 0:
@@ -111,7 +116,11 @@ class Raid(Player, metaclass=ABCMeta):
 
     def raid_spin_innocent_roulette(self):
         self.log("Spinning raid innocent roulette.")
-        raid_data = self.client.event_index(event_ids=Constants.Current_Raid_ID)
+
+        innocent_roulette_id = self.raid_get_gacha_id(gacha_type = Raid_Gacha_Type.Innocent_Roulette)
+        special_innocent_roulette_id = self.raid_get_gacha_id(gacha_type = Raid_Gacha_Type.Special_Innocent_Roulette)
+
+        raid_data = self.client.event_index(event_ids=self.raid_get_raid_id())
         if raid_data['result']['events'][0]['gacha_data'] is None:
             self.log("Raid data not found. Please make sure the Current_Raid_ID value is correct on the constants file")
             return
@@ -125,10 +134,10 @@ class Raid(Player, metaclass=ABCMeta):
 
         while spins_left > 0 or is_big_chance is True:
             if is_big_chance:
-                data = self.client.raid_gacha(Constants.Current_Raid_Innocent_Special_Roulette, 1)
+                data = self.client.raid_gacha(innocent_roulette_id, 1)
                 special_spin = "Special Spin - "
             else:
-                data = self.client.raid_gacha(Constants.Current_Raid_Innocent_Regular_Roulette, 1)
+                data = self.client.raid_gacha(special_innocent_roulette_id, 1)
                 special_spin = ""
 
             if('error' in data and "Max possession number of Innocents reached." in data['error']):
@@ -149,7 +158,7 @@ class Raid(Player, metaclass=ABCMeta):
         innocent_types = gamedata['innocent_types']
         finished = False
         while not finished:
-            battle_logs = self.client.raid_history(Constants.Current_Raid_ID)['result']['battle_logs']
+            battle_logs = self.client.raid_history(self.raid_get_raid_id())['result']['battle_logs']
             battles_to_claim = [x for x in battle_logs if not x['already_get_present']]
             finished = len(battles_to_claim) == 0
             for i in battles_to_claim:
@@ -167,7 +176,7 @@ class Raid(Player, metaclass=ABCMeta):
 
     def raid_claim_surplus_points(self):
         print("Exchanging surplus raid points for HL...")
-        raid_data = self.client.event_index(Constants.Current_Raid_ID)
+        raid_data = self.client.event_index(self.raid_get_raid_id())
         if raid_data['result']['events'][0]['gacha_data'] is None:
             self.log("Raid data not found. Please make sure the Current_Raid_ID value is correct on the constants file")
             return
@@ -184,7 +193,7 @@ class Raid(Player, metaclass=ABCMeta):
         self.log(f"Exchanged {points_to_exchange} points")
 
     def raid_claim_missions(self):
-        r = self.client.raid_event_missions()
+        r = self.client.raid_event_missions(self.raid_get_raid_id())
         mission_ids = []
         incomplete_mission_ids = []
         
@@ -208,6 +217,15 @@ class Raid(Player, metaclass=ABCMeta):
                 self.raid_battle_end_giveup(raid_stage_id, raid_boss['id'])
                 self.raid_boss_count += 1
                 self.log(f"Farmed boss with level {raid_boss['level']}. Total bosses farmed: {self.raid_boss_count}")
+
+    def raid_get_gacha_id(self, gacha_type:Raid_Gacha_Type):
+        raid_ID = self.raid_get_raid_id()
+        raid_gacha_data = gamedata['event_gacha']
+        raid_gacha = next((x for x in raid_gacha_data if x['m_event_id'] == raid_ID and x['gacha_type'] ==gacha_type),None)
+        if gacha_type is None:
+            self.log("Raid data not found. Please make sure constants are up to date")
+            return
+        return raid_gacha['id']
 
     def raid_defeat_own_boss(self, party_to_use):
         own_boss = self.client.raid_current()['result']['current_t_raid_status']

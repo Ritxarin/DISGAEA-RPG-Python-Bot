@@ -178,5 +178,185 @@
     "super_rebirth_num": 30,
     "magic_element": 380,
     "karma": 850
+  },
+  {
+    "id": 31,
+    "super_rebirth_num": 31,
+    "magic_element": 380,
+    "karma": 1000
+  },
+  {
+    "id": 32,
+    "super_rebirth_num": 32,
+    "magic_element": 390,
+    "karma": 1000
+  },
+  {
+    "id": 33,
+    "super_rebirth_num": 33,
+    "magic_element": 390,
+    "karma": 1050
+  },
+  {
+    "id": 34,
+    "super_rebirth_num": 34,
+    "magic_element": 400,
+    "karma": 1050
+  },
+  {
+    "id": 35,
+    "super_rebirth_num": 35,
+    "magic_element": 400,
+    "karma": 1100
+  },
+  {
+    "id": 36,
+    "super_rebirth_num": 36,
+    "magic_element": 410,
+    "karma": 1100
+  },
+  {
+    "id": 37,
+    "super_rebirth_num": 37,
+    "magic_element": 410,
+    "karma": 1150
+  },
+  {
+    "id": 38,
+    "super_rebirth_num": 38,
+    "magic_element": 420,
+    "karma": 1150
+  },
+  {
+    "id": 39,
+    "super_rebirth_num": 39,
+    "magic_element": 420,
+    "karma": 1200
+  },
+  {
+    "id": 40,
+    "super_rebirth_num": 40,
+    "magic_element": 430,
+    "karma": 1200
+  },
+  {
+    "id": 41,
+    "super_rebirth_num": 41,
+    "magic_element": 430,
+    "karma": 1250
+  },
+  {
+    "id": 42,
+    "super_rebirth_num": 42,
+    "magic_element": 440,
+    "karma": 1250
+  },
+  {
+    "id": 43,
+    "super_rebirth_num": 43,
+    "magic_element": 440,
+    "karma": 1300
+  },
+  {
+    "id": 44,
+    "super_rebirth_num": 44,
+    "magic_element": 450,
+    "karma": 1300
+  },
+  {
+    "id": 45,
+    "super_rebirth_num": 45,
+    "magic_element": 450,
+    "karma": 1350
+  },
+  {
+    "id": 46,
+    "super_rebirth_num": 46,
+    "magic_element": 460,
+    "karma": 1350
+  },
+  {
+    "id": 47,
+    "super_rebirth_num": 47,
+    "magic_element": 460,
+    "karma": 1400
+  },
+  {
+    "id": 48,
+    "super_rebirth_num": 48,
+    "magic_element": 470,
+    "karma": 1400
+  },
+  {
+    "id": 49,
+    "super_rebirth_num": 49,
+    "magic_element": 470,
+    "karma": 1450
+  },
+  {
+    "id": 50,
+    "super_rebirth_num": 50,
+    "magic_element": 480,
+    "karma": 1450
+  },
+  {
+    "id": 51,
+    "super_rebirth_num": 51,
+    "magic_element": 490,
+    "karma": 1500
+  },
+  {
+    "id": 52,
+    "super_rebirth_num": 52,
+    "magic_element": 500,
+    "karma": 1500
+  },
+  {
+    "id": 53,
+    "super_rebirth_num": 53,
+    "magic_element": 510,
+    "karma": 1550
+  },
+  {
+    "id": 54,
+    "super_rebirth_num": 54,
+    "magic_element": 520,
+    "karma": 1550
+  },
+  {
+    "id": 55,
+    "super_rebirth_num": 55,
+    "magic_element": 530,
+    "karma": 1600
+  },
+  {
+    "id": 56,
+    "super_rebirth_num": 56,
+    "magic_element": 540,
+    "karma": 1600
+  },
+  {
+    "id": 57,
+    "super_rebirth_num": 57,
+    "magic_element": 550,
+    "karma": 1650
+  },
+  {
+    "id": 58,
+    "super_rebirth_num": 58,
+    "magic_element": 560,
+    "karma": 1650
+  },
+  {
+    "id": 59,
+    "super_rebirth_num": 59,
+    "magic_element": 570,
+    "karma": 1700
+  },
+  {
+    "id": 60,
+    "super_rebirth_num": 60,
+    "magic_element": 580,
+    "karma": 1700
   }
 ]

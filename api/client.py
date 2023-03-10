@@ -77,6 +77,9 @@ class Client:
             Logger.info(res['content'])
             exit(1)
         if 'api_error' in res:
+            if 'code' in res['api_error'] and res['api_error']['code'] == 1002:
+                Logger.info('Date has changed. Please log in again.')
+                sys.exit()
             if 'code' in res['api_error'] and res['api_error']['code'] == 30005:
                 Logger.info(res['api_error'])
                 if self.o.use_potions:
@@ -599,11 +602,15 @@ class Client:
     def raid_index(self):
         return self.__rpc('raid/index', {})
 
-    def raid_ranking(self, raid_ID = Constants.Current_Raid_ID):
+    def raid_ranking(self, raid_ID:int=0):
+        if raid_ID == 0:
+            raid_ID = Constants.Current_Raid_ID_GL if self.o.region == 2 else Constants.Current_Raid_ID_JP
         data = self.__rpc('raid/ranking', {"m_event_id":raid_ID,"m_raid_boss_kind_id":0})
         return data
     
-    def raid_ranking_player(self, t_player_id, raid_ID = Constants.Current_Raid_ID):
+    def raid_ranking_player(self, t_player_id, raid_ID:int=0):
+        if raid_ID == 0:
+            raid_ID = Constants.Current_Raid_ID_GL if self.o.region == 2 else Constants.Current_Raid_ID_JP
         data = self.rpc('raid/ranking_player', {"m_raid_id":raid_ID,"m_raid_boss_kind_id":0,"t_player_id":t_player_id})
         return data
 
@@ -616,7 +623,9 @@ class Client:
     def raid_current(self):
         return self.__rpc('raid/current', {})
 
-    def raid_history(self, raidID=Constants.Current_Raid_ID):
+    def raid_history(self, raidID:int=0):
+        if raid_ID == 0:
+            raid_ID = Constants.Current_Raid_ID_GL if self.o.region == 2 else Constants.Current_Raid_ID_JP
         return self.__rpc('raid/history', {"m_event_id": raidID})
 
     # reward for a specific boss battle
@@ -630,12 +639,15 @@ class Client:
         return self.__rpc('raid_boss/update', {"m_raid_boss_id": m_raid_boss_id, "step": step})
 
     def raid_exchange_surplus_points(self, points_to_exchange):
+        raid_ID = Constants.Current_Raid_ID_GL if self.o.region == 2 else Constants.Current_Raid_ID_JP
         data = self.__rpc('event/exchange_surplus_point',
-                          {"m_event_id": Constants.Current_Raid_ID, "exchange_count": points_to_exchange})
+                          {"m_event_id": raid_ID, "exchange_count": points_to_exchange})
         return data
 
-    def raid_event_missions(self):
-        return self.__rpc('event/missions', {"m_event_id":Constants.Current_Raid_ID})
+    def raid_event_missions(self, raid_ID:int=0):
+        if raid_ID == 0:
+            raid_ID = Constants.Current_Raid_ID_GL if self.o.region == 2 else Constants.Current_Raid_ID_JP
+        return self.__rpc('event/missions', {"m_event_id":raid_ID})
 
     #################
     # Gacha Endpoints
