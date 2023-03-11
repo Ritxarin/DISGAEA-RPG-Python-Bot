@@ -22,6 +22,7 @@ class API(BaseAPI):
         self.o.wait = wait
         self.o.set_region(region)
         self.o.set_device(device)
+        self.gd.__init__(self.o.region)
 
     def get_mail_and_rewards(self):
         self.client.trophy_get_reward_daily()
@@ -386,6 +387,9 @@ class API(BaseAPI):
                     if raid_team is not None:
                         self.raid_share_own_boss(raid_team)
                         self.raid_farm_shared_bosses(raid_team)
+                    own_boss = self.client.raid_current()['result']['current_t_raid_status']
+                    if own_boss is not None:       
+                        self.raid_defeat_own_boss(party_to_use=5)
                 except KeyboardInterrupt:
                     return False
                 except NoAPLeftException:

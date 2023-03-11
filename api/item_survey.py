@@ -21,7 +21,7 @@ class ItemSurvey(Shop, metaclass=ABCMeta):
             items_in_iw_survey.append(item['id'])
 
         return item_id in items_in_iw_survey
-
+    
     def item_survey_complete_and_start_again(self, min_item_rank_to_deposit=40, auto_donate=True):
         time_delta = -4 if self.o.region == 2 else 9
         server_date_time = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)
@@ -47,8 +47,8 @@ class ItemSurvey(Shop, metaclass=ABCMeta):
                 self.log(f"\tRetrieving {len(weapons_finished)} weapons and {len(equipments_finished)} items")
                 result = self.client.item_world_survey_end(weapons_finished, equipments_finished, False)
                 if result['error'] == ErrorMessages.Armor_Full_Error or result['error'] == ErrorMessages.Weapon_Full_Error or result['error'] == JP_ErrorMessages.Armor_Full_Error or result['error'] == JP_ErrorMessages.Weapon_Full_Error:
-                    sell_equipments = result['error'] == ErrorMessages.Armor_Full_Error or JP_ErrorMessages.Armor_Full_Error
-                    sell_weapons = result['error'] == ErrorMessages.Weapon_Full_Error or JP_ErrorMessages.Weapon_Full_Error
+                    sell_equipments = result['error'] == ErrorMessages.Armor_Full_Error or result['error'] == JP_ErrorMessages.Armor_Full_Error
+                    sell_weapons = result['error'] == ErrorMessages.Weapon_Full_Error or  result['error'] == JP_ErrorMessages.Weapon_Full_Error
                     self.shop_free_inventory_space(sell_weapons, sell_equipments, 10)
                     retry = True
         if auto_donate and (len(weapons_finished) > 0 or len (equipments_finished)> 0):

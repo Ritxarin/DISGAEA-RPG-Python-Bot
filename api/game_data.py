@@ -1,12 +1,10 @@
 from data import data as gamedata
 
-
 class GameData:
-    def __init__(self):
-        self.stages = gamedata['stages']
+    def __init__(self, region:int=2):
+        self.stages = gamedata['stages'] if region == 2 else gamedata['stages_jp']
         self.items = gamedata['items']
         self.characters = gamedata['characters']
-        self.stages = gamedata['stages']
         self.weapons = gamedata['weapon']
         self.equipment = gamedata['equip']
         self.innocent_types = gamedata['innocent_types']

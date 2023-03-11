@@ -32,7 +32,7 @@ class Client:
         self.b = boltrend()
         self.s = requests.Session()
         self.s.verify = False
-        self.gd = GameData()
+        self.gd = GameData(self.o.region)
         # self.s.proxies.update({'http': 'http://127.0.0.1:8080','https': 'http://127.0.0.1:8080',})
         # self.set_proxy('127.0.0.1:8080')
 
@@ -623,10 +623,10 @@ class Client:
     def raid_current(self):
         return self.__rpc('raid/current', {})
 
-    def raid_history(self, raidID:int=0):
+    def raid_history(self, raid_ID:int=0):
         if raid_ID == 0:
             raid_ID = Constants.Current_Raid_ID_GL if self.o.region == 2 else Constants.Current_Raid_ID_JP
-        return self.__rpc('raid/history', {"m_event_id": raidID})
+        return self.__rpc('raid/history', {"m_event_id": raid_ID})
 
     # reward for a specific boss battle
     def raid_reward(self, t_raid_status_id):

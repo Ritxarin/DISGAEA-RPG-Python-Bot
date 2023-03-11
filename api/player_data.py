@@ -9,8 +9,8 @@ from api.options import Options
 
 class PlayerData:
     def __init__(self, options):
-        self.gd: GameData = GameData()
         self.o: Options = options
+        self.gd: GameData = GameData(self.o.region)
         self.decks: [dict[Iterable]] = []
         self.gems: [dict[Iterable]] = []
         self.items: [dict[Iterable]] = []

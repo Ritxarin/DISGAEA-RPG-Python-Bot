@@ -10,8 +10,8 @@ from api.player_data import PlayerData
 
 class Base(object, metaclass=ABCMeta):
     def __init__(self):
-        self.gd: GameData = GameData()
         self.o: Options = Options(region=1, device=1)
+        self.gd: GameData = GameData(self.o.region)
         self.pd: PlayerData = PlayerData(options=self.o)
         self.client: Client = Client(self.o)
         self.logger: Logger = Logger()

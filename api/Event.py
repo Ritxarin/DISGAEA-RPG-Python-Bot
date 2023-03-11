@@ -94,9 +94,8 @@ class Event(Player, metaclass=ABCMeta):
         if number_of_runs == daily_run_limit:
             self.log("Reached daily challenge limit for the event")
             return
-        from data import data as gamedata
-        dic = gamedata['stages']
-        event_stages = [x for x in dic if x["m_area_id"] == event_area_id]
+        stages = self.gd.stages
+        event_stages = [x for x in stages if x["m_area_id"] == event_area_id]
         event_stages.sort(key=lambda x: x['sort'], reverse=True)
         
         # initial run, 3 star event first
@@ -116,12 +115,11 @@ class Event(Player, metaclass=ABCMeta):
     def clear_story_event(self, team_to_use:int=1):        
         event_area_IDs =  Constants.Current_Story_Event_Area_IDs if self.o.region == 2 else Constants.Current_Story_Event_Area_IDs_JP
         self.player_stage_missions(True)
-        from data import data as gamedata
-        dic = gamedata['stages']
+        stages = self.gd.stages
         rank = [1,2,3]
         for k in rank:
             for i in event_area_IDs:
-                stage_for_area_and_rank = [x for x in dic if x["m_area_id"]==i and x["rank"]==k]
+                stage_for_area_and_rank = [x for x in stages if x["m_area_id"]==i and x["rank"]==k]
                 for stage in stage_for_area_and_rank:
                     if self.is_stage_3starred(stage['id']):
                         continue
@@ -130,10 +128,10 @@ class Event(Player, metaclass=ABCMeta):
     def story_event_daiy_500Bonus(self, team_to_use:int=1):        
         event_area_IDs =  Constants.Current_Story_Event_Area_IDs if self.o.region == 2 else Constants.Current_Story_Event_Area_IDs_JP
         from data import data as gamedata
-        dic = gamedata['stages']
+        stages = self.gd.stages
         rank = [1,2,3]
         for k in rank:
             for area_id in event_area_IDs:
-                bonus_stage = [x for x in dic if x["m_area_id"]==area_id and x["rank"]==k and x["no"] == 5]
+                bonus_stage = [x for x in stages if x["m_area_id"]==area_id and x["rank"]==k and x["no"] == 5]
                 self.doQuest(m_stage_id=bonus_stage[0]['id'], team_num=team_to_use)
                 self.raid_share_own_boss(party_to_use=team_to_use)
