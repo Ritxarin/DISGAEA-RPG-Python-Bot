@@ -126,48 +126,22 @@ class API(BaseAPI):
     def loginfromcache(self):
         self.client.login_from_cache()
         self.client.app_constants()
-        self.client.player_tutorial()
-        self.client.battle_status()
-        # player/profile
-        # player/sync
         self.player_characters(True)
         self.player_weapons(True)
-        self.client.player_weapon_effects(updated_at=0, page=1)
+        self.player_weapon_effects(True)
         self.player_equipment(True)
-        self.client.player_equipment_effects(updated_at=0, page=1)
+        self.player_equipment_effects(True)
         self.player_items(True)
-        # self.client.player_clear_stages(updated_at=0, page=1)
-        # self.client.player_stage_missions(updated_at=0, page=1)
         self.player_innocents(True)
-        data= self.client.player_index()
+
+        data = self.client.player_index()
         if 'result' in data:
             self.o.current_ap = int(data['result']['status']['act'])
-        self.client.player_agendas()
-        self.client.player_boosts()
+
         self.player_character_collections()
         self.player_decks()
-        self.client.friend_index()
-        self.client.player_home_customizes()
-        self.client.passport_index()
-        self.player_stone_sum()
-        self.client.player_sub_tutorials()
-        self.client.system_version_manage()
-        self.client.player_gates()
-        self.client.event_index()
-        self.client.stage_boost_index()
-        self.client.information_popup()
-        self.client.player_character_mana_potions()
-        self.client.potential_current()
-        self.client.potential_conditions()
-        self.client.character_boosts()
-        self.client.survey_index()
-        self.client.kingdom_entries()
-        self.client.breeding_center_list()
-        self.client.trophy_daily_requests()
-        self.client.weapon_equipment_update_effect_unconfirmed()
-        self.client.memory_index()
-        self.client.battle_skip_parties()
         self.player_get_equipment_presets()
+        self.player_stone_sum()
 
     ################################################################
     ###########      MAIL METHODS   ################################
@@ -242,6 +216,10 @@ class API(BaseAPI):
         if current_nq > initial_nq:
             self.log(f"Total Nether Quartz gained: {current_nq - initial_nq}")
         self.log("Finished claiming presents.")
+
+    ################################################################
+    ###########      QUEST METHODS    ##############################
+    ################################################################
 
     def doQuest(self, m_stage_id=101102, team_num=None, auto_rebirth: bool = None,
                 help_t_player_id: int = 0, send_friend_request: bool = False,
@@ -349,6 +327,81 @@ class API(BaseAPI):
         res = self.parseReward(end)
         return res
 
+    def Complete_Overlord_Tower(self, team_no: int = 1):
+        tower_level = 1
+        while tower_level <= Constants.Highest_Tower_Level:
+            self.log(f"Clearing Overlord Tower level {tower_level}...")
+            start = self.client.tower_start(m_tower_no=tower_level, deck_no=team_no)
+            end = self.client.battle_end(battle_exp_data=self.get_battle_exp_data(start), m_tower_no=tower_level,
+                                         m_stage_id=0,
+                                         battle_type=4, result=1)
+            tower_level += 1
+        self.log("Completed Overlod Tower")
+
+    def completeStory(self, m_area_id=None, limit=None, raid_team=None, send_friend_request:bool=False):
+        ss = []
+        for s in self.gd.stages:
+            ss.append(s['id'])
+        ss.sort(reverse=False)
+        i = 0
+        blacklist = set()
+
+        cleared_stages = self.get_cleared_stages()
+        ranks = [1, 2, 3, 4 ,5 ,6] if self.is_carnage_unlocked() else [1, 2, 3]
+        for rank in ranks:
+            for s in ss:
+                if limit is not None and i >= limit:
+                    return False
+                stage = self.gd.get_stage(s)
+                if m_area_id is not None and m_area_id != stage['m_area_id']:
+                    continue
+                if stage['rank'] != rank: continue
+
+                # Skip non story areas
+                if m_area_id is None and stage['m_area_id'] > 1000: continue
+
+                if self.is_stage_3starred(s):
+                    self.log('Stage already 3 starred - area: %s stage: %s rank: %s name: %s' % (
+                        stage['m_area_id'], s, rank, stage['name']
+                    ))
+                    continue
+
+                if stage['act'] == 0 and s in cleared_stages:
+                    self.log('Story stage already completed - area: %s stage: %s rank: %s name: %s' % (
+                        stage['m_area_id'], s, rank, stage['name']
+                    ))
+                    continue
+
+                if not stage['appear_m_stage_id'] in cleared_stages and stage['appear_m_stage_id'] != 0:
+                    self.log('not unlocked - area: %s stage: %s rank: %s name: %s' % (
+                        stage['m_area_id'], s, rank, stage['name']
+                    ))
+                    continue
+
+                if stage['m_area_id'] in blacklist:
+                    continue
+                try:
+                    self.doQuest(s, auto_rebirth=self.o.auto_rebirth, send_friend_request=send_friend_request, randomize_helper=True)
+                    cleared_stages.add(s)                    
+                    if raid_team is not None:
+                        self.raid_share_own_boss(raid_team)
+                        self.raid_farm_shared_bosses(raid_team)
+                except KeyboardInterrupt:
+                    return False
+                except NoAPLeftException:
+                    return
+                except:
+                    self.log_err('failed stage: %s area: %s' % (s, stage['m_area_id']))
+                    blacklist.add(stage['m_area_id'])
+                    continue
+                self.player_stone_sum()
+                self.player_items()
+                i += 1
+
+    ################################################################
+    ##############      IW METHODS    ##############################
+    ################################################################
+
     def upgrade_items(self, item_limit: int = None, items=None):
         if items is None:
             items = self.items_to_upgrade()
@@ -361,6 +414,12 @@ class API(BaseAPI):
             self.log_err('No items found to upgrade')
 
         for w in items:
+
+            if self.is_item_in_iw_survey(w['id']):
+                continue
+            if self.etna_resort_is_item_in_depository(w['id']):
+                continue
+
             self.client.trophy_get_reward_repetition()
             self.log_upgrade_item(w)
             while 1:
@@ -385,6 +444,7 @@ class API(BaseAPI):
         item_list = []
         for w in filter(self.__item_filter, items):
             item_list.append(w)
+
         return item_list
 
     def __item_filter(self, e, i_filter=None):
@@ -415,17 +475,6 @@ class API(BaseAPI):
                 (item['name'], w['rarity_value'], self.gd.get_item_rank(w), w['lv'],
                 w['lv_max'], w['lock_flg'])
             )
-
-    def Complete_Overlord_Tower(self, team_no: int = 1):
-        tower_level = 1
-        while tower_level <= Constants.Highest_Tower_Level:
-            self.log(f"Clearing Overlord Tower level {tower_level}...")
-            start = self.client.tower_start(m_tower_no=tower_level, deck_no=team_no)
-            end = self.client.battle_end(battle_exp_data=self.get_battle_exp_data(start), m_tower_no=tower_level,
-                                         m_stage_id=0,
-                                         battle_type=4, result=1)
-            tower_level += 1
-        self.log("Completed Overlod Tower")
 
     def doItemWorld(self, equipment_id=None, equipment_type=1):
         if equipment_id is None:
@@ -539,65 +588,10 @@ class API(BaseAPI):
                 ss.append(s)
         return ss
 
-    def completeStory(self, m_area_id=None, limit=None, raid_team=None, send_friend_request:bool=False):
-        ss = []
-        for s in self.gd.stages:
-            ss.append(s['id'])
-        ss.sort(reverse=False)
-        i = 0
-        blacklist = set()
-
-        cleared_stages = self.get_cleared_stages()
-        for rank in [1, 2, 3]:
-            for s in ss:
-                if limit is not None and i >= limit:
-                    return False
-                stage = self.gd.get_stage(s)
-                if m_area_id is not None and m_area_id != stage['m_area_id']:
-                    continue
-                if stage['rank'] != rank: continue
-
-                # Skip non story areas
-                if m_area_id is None and stage['m_area_id'] > 1000: continue
-
-                if self.is_stage_3starred(s):
-                    self.log('Stage already 3 starred - area: %s stage: %s rank: %s name: %s' % (
-                        stage['m_area_id'], s, rank, stage['name']
-                    ))
-                    continue
-
-                if stage['act'] == 0 and s in cleared_stages:
-                    self.log('Story stage already completed - area: %s stage: %s rank: %s name: %s' % (
-                        stage['m_area_id'], s, rank, stage['name']
-                    ))
-                    continue
-
-                if not stage['appear_m_stage_id'] in cleared_stages and stage['appear_m_stage_id'] != 0:
-                    self.log('not unlocked - area: %s stage: %s rank: %s name: %s' % (
-                        stage['m_area_id'], s, rank, stage['name']
-                    ))
-                    continue
-
-                if stage['m_area_id'] in blacklist:
-                    continue
-                try:
-                    self.doQuest(s, auto_rebirth=self.o.auto_rebirth, send_friend_request=send_friend_request, randomize_helper=True)
-                    cleared_stages.add(s)                    
-                    if raid_team is not None:
-                        self.raid_share_own_boss(raid_team)
-                        self.raid_farm_shared_bosses(raid_team)
-                except KeyboardInterrupt:
-                    return False
-                except NoAPLeftException:
-                    return
-                except:
-                    self.log_err('failed stage: %s area: %s' % (s, stage['m_area_id']))
-                    blacklist.add(stage['m_area_id'])
-                    continue
-                self.player_stone_sum()
-                self.player_items()
-                i += 1
-
+    ################################################################
+    ##############      IW METHODS    ##############################
+    ################################################################
+    
     def useCodes(self, codes):
         for c in codes:
             self.client.boltrend_exchange_code(c)
@@ -638,6 +632,11 @@ class API(BaseAPI):
         self.client.agenda_start(agenda_id)
         self.client.agenda_vote(agenda_id, [])
         self.client.agenda_get_campaign()
+
+    def is_carnage_unlocked(self):
+        agendas = self.client.agenda_index()
+        carnage = next((x for x in agendas['result']['t_agendas'] if x['m_agenda_id'] == 59), None)
+        return carnage is not None and carnage['status'] == 1
 
     def player_get_deck_data(self):
         deck_data = self.client.player_decks()
@@ -774,3 +773,5 @@ class API(BaseAPI):
         if event_data['result']['events'][0]['is_item_reward_receivable']:
             self.log(f"Claiming character copy")
             r = self.client.event_receive_rewards(event_id=character_gate)
+
+    

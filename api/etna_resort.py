@@ -26,6 +26,14 @@ class EtnaResort(Items, metaclass=ABCMeta):
         self.player_innocents(True)
         return data
 
+    def etna_resort_is_item_in_depository(self, item_id:int):
+        depository_data = self.client.breeding_center_list()
+        item_ids = []
+        items_in_depository = depository_data['result']['t_weapons'] + depository_data['result']['t_equipments']
+        for item in items_in_depository:
+            item_ids.append(item['id'])
+        return item_id in item_ids
+
     def etna_resort_get_all_daily_rewards(self):
         return self.client.trophy_get_reward_daily_request()
 
@@ -312,21 +320,20 @@ class EtnaResort(Items, metaclass=ABCMeta):
         retry = True
         self.log("Attempting to refine item...")
         attempt_count = 0
-        result = ''
+        initial_rarity = e['rarity_value']
         while retry:
             attempt_count += 1
             res = self.client.etna_resort_refine(item_type, item_id)
-            if 'result' in res and 'success_type' in res['result']:
-                result = res['result']['success_type']
-                retry = False
+            if 'result' in res and 'success_type' in res['result']:              
                 if item_type == 3:
                     final_rarity = res['result']['t_weapon']['rarity_value']
                 else:
                     final_rarity = res['result']['t_equipment']['rarity_value']
-            else:
-                retry = False
+                if final_rarity != initial_rarity:
+                    retry = False
+
         self.log(
-            f"Refined item. Attempts used {attempt_count}. Rarity increase: {result}. Current rarity {final_rarity}")
+            f"Refined item. Attempts used {attempt_count}. Rarity increase: {final_rarity-initial_rarity}. Current rarity {final_rarity}")
         e['rarity_value'] = final_rarity
         return final_rarity
 

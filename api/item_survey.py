@@ -11,6 +11,17 @@ class ItemSurvey(Shop, metaclass=ABCMeta):
     def __init__(self):
         super().__init__()
 
+    def is_item_in_iw_survey(self, item_id:int):
+        items_in_iw_survey = []
+        iw_survey_data = self.client.item_world_survey_index()
+        for item in iw_survey_data['result']['t_weapons']:
+            items_in_iw_survey.append(item['id'])
+
+        for item in iw_survey_data['result']['t_equipments']:
+            items_in_iw_survey.append(item['id'])
+
+        return item_id in items_in_iw_survey
+
     def item_survey_complete_and_start_again(self, min_item_rank_to_deposit=40, auto_donate=True):
         time_delta = -4 if self.o.region == 2 else 9
         server_date_time = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)

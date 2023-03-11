@@ -145,7 +145,7 @@ class Player(Base):
         if len(self.pd.clear_stages) > 0 and not refresh:
             return self.pd.clear_stages
         self.pd.clear_stages = []
-        self.logger.debug("refreshing player stage missions...")
+        self.logger.debug("refreshing cleared stages...")
         page_index = 1
         iterate_next_page = True
         while iterate_next_page:

@@ -220,6 +220,7 @@ class Event_Types(IntEnum):
     UDT_Training = 5 
     Raid = 6
     Etna_Defense = 10
+    Sugoroku = 13
 
 class Raid_Gacha_Type(IntEnum):
     Raid_Point_Gacha = 1
