@@ -358,8 +358,10 @@ class API(BaseAPI):
                     continue
                 if stage['rank'] != rank: continue
 
-                # Skip non story areas
-                if m_area_id is None and stage['m_area_id'] > 1000: continue
+                # Skip non story areas, but do anecdote
+                if m_area_id is None and stage['m_area_id']> 1000:
+                    if stage['m_area_id'] < 200000 or stage['m_area_id'] > 200315: 
+                        continue
 
                 if self.is_stage_3starred(s):
                     self.log('Stage already 3 starred - area: %s stage: %s rank: %s name: %s' % (
@@ -387,9 +389,6 @@ class API(BaseAPI):
                     if raid_team is not None:
                         self.raid_share_own_boss(raid_team)
                         self.raid_farm_shared_bosses(raid_team)
-                    own_boss = self.client.raid_current()['result']['current_t_raid_status']
-                    if own_boss is not None:       
-                        self.raid_defeat_own_boss(party_to_use=5)
                 except KeyboardInterrupt:
                     return False
                 except NoAPLeftException:

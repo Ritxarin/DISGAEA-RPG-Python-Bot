@@ -17,6 +17,9 @@ class PvP(Base, metaclass=ABCMeta):
         if not pvp_data['result']['t_arena']['is_previous_reward_received'] or not pvp_data['result']['t_arena']['is_half_reward_received']:
             self.log("Claiming PvP season reward")
             reward = self.client.pvp_receive_rewards()
+            if 'api_error' in reward and reward['api_error']['message'] == 'ランキング集計期間中です'  or reward['api_error']['message'] == 'Calculating Ranking':
+                self.log('PvP is calculating ranking, please try again later...')
+                return
 
         current_orbs = self.pvp_get_remaining_orbs()
 

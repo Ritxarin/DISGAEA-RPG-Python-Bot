@@ -354,6 +354,8 @@ class PlayerData:
             if 'after_t_characters' in resp['result']:
                 for char in resp['result']['after_t_characters']:
                     self.update_character(char)
+            if 'after_t_character' in resp['result']:
+                 self.update_character(resp['result']['after_t_character'])
             if 'consume_t_innocent_ids' in resp['result']:
                 for i in resp['result']['consume_t_innocent_ids']:
                     self.innocents.remove(self.get_innocent_by_id(i))
