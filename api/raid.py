@@ -1,7 +1,7 @@
 import random
 from abc import ABCMeta
 
-from api.constants import Constants, Mission_Status, ErrorMessages, Raid_Gacha_Type
+from api.constants import Constants, Mission_Status, ErrorMessages, Raid_Gacha_Type, JP_ErrorMessages
 from api.player import Player
 from data import data as gamedata
 
@@ -140,7 +140,7 @@ class Raid(Player, metaclass=ABCMeta):
                 data = self.client.raid_gacha(special_innocent_roulette_id, 1)
                 special_spin = ""
 
-            if('error' in data and "Max possession number of Innocents reached." in data['error']):
+            if 'error' in data and (data['error'] == ErrorMessages.Innocent_Full_Error or data['error'] == JP_ErrorMessages.Innocent_Full_Error):
                 return
 
             spins_left = data['result']['after_t_data']['t_events'][0]['gacha_data']['chance_stock_num']
@@ -170,8 +170,8 @@ class Raid(Player, metaclass=ABCMeta):
                     if innocent_type is None:
                         self.log(
                             f"Special type id = {reward_data['result']['after_t_data']['innocents'][0]['m_innocent_id']}")
-                    self.log(
-                        f"Obtained innocent of type {innocent_type['name']} and value: {reward_data['result']['after_t_data']['innocents'][0]['effect_values'][0]}")
+                    else:
+                        self.log(f"Obtained innocent of type {innocent_type['name']} and value: {reward_data['result']['after_t_data']['innocents'][0]['effect_values'][0]}")
         self.log("Finished claiming raid rewards.")
 
     def raid_claim_surplus_points(self):

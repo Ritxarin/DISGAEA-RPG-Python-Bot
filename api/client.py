@@ -471,34 +471,40 @@ class Client:
         if raid_battle_result != '':
             prms = {
                 "m_stage_id": m_stage_id,
-                "m_tower_no": m_tower_no,
-                "equipment_id": equipment_id,
+                "m_tower_no": m_tower_no,                
+                "equipment_id": equipment_id, 
                 "equipment_type": equipment_type,
                 "innocent_dead_flg": 0,
                 "t_raid_status_id": raid_status_id,
                 "raid_battle_result": raid_battle_result,
                 "m_character_id": 0,
-                "division_battle_result": "",
+                "arena_battle_result":"",
                 "battle_type": battle_type,
-                "result": result,
-                "battle_exp_data": battle_exp_data,
+                "result": result, 
+                "battle_exp_data": battle_exp_data,                                        
                 "common_battle_result": common_battle_result,
                 "skip_party_update_flg": skip_party_update_flg,
+                "m_event_id":0,
+                "board_battle_result":""
             }
         else:
             prms = {
-                "battle_exp_data": battle_exp_data,
-                "equipment_type": equipment_type,
-                "m_tower_no": m_tower_no,
-                "raid_battle_result": raid_battle_result,
                 "m_stage_id": m_stage_id,
-                "equipment_id": equipment_id,
-                "t_raid_status_id": 0,
+                "m_tower_no": m_tower_no,
+                "equipment_id": equipment_id, 
+                "equipment_type": equipment_type,
+                "innocent_dead_flg": 0,
+                "t_raid_status_id": 0, 
+                "raid_battle_result": raid_battle_result, 
+                "m_character_id": 0,
+                "arena_battle_result":"",
                 "battle_type": battle_type,
                 "result": result,
-                "innocent_dead_flg": 0,
+                "battle_exp_data": battle_exp_data,
+                "common_battle_result": common_battle_result,                        
                 "skip_party_update_flg": skip_party_update_flg,
-                "common_battle_result": common_battle_result,
+                "m_event_id":0,
+                "board_battle_result":""               
             }
 
         if division_battle_result is not None:
@@ -524,7 +530,9 @@ class Client:
             "result": 1,
             "battle_exp_data": battle_exp_data,
             "common_battle_result": common_battle_result,
-            "skip_party_update_flg": True
+            "skip_party_update_flg": True,
+            "m_event_id":0,
+            "board_battle_result":""
         })
 
     def battle_skip(self, m_stage_id, deck_no: int, skip_number: int, helper_player, reincarnation_character_ids=[]):
@@ -586,10 +594,10 @@ class Client:
             "result": 0,
             "battle_exp_data": [],
             "common_battle_result": "eyJhbGciOiJIUzI1NiJ9.eyJoZmJtNzg0a2hrMjYzOXBmIjoiIiwieXBiMjgydXR0eno3NjJ3eCI6MCwiZHBwY2JldzltejhjdXd3biI6MCwiemFjc3Y2amV2NGl3emp6bSI6MCwia3lxeW5pM25ubTNpMmFxYSI6MCwiZWNobTZ0aHR6Y2o0eXR5dCI6MCwiZWt1c3ZhcGdwcGlrMzVqaiI6MCwieGE1ZTMyMm1nZWo0ZjR5cSI6MH0.9DYl6QK2TkTIq81M98itbAqafdUE4nIPTYB_pp_NTd4",
-            "skip_party_update_flg": True
+            "skip_party_update_flg": True,
+            "m_event_id":0,
+            "board_battle_result":""
         })
-
-
 
 
     #################
@@ -1282,7 +1290,6 @@ class Client:
             "skip_party_update_flg": True,
             "m_event_id" : Constants.Current_Sugoroku_Event_ID,
             "board_battle_result" : "eyJhbGciOiJIUzI1NiJ9.eyJjNFVkcFZ1WUV3NDVCZHhoIjpbeyJ0X2NoYXJhY3Rlcl9pZCI6OTg1Mzc5MjA4LCJocCI6MCwic3AiOjIwfSx7InRfY2hhcmFjdGVyX2lkIjo5ODUzNzkyOTUsImhwIjowLCJzcCI6MzB9LHsidF9jaGFyYWN0ZXJfaWQiOjk4NTM3OTIwMCwiaHAiOjAsInNwIjoyMH0seyJ0X2NoYXJhY3Rlcl9pZCI6OTg1Mzc5MjE5LCJocCI6MCwic3AiOjEwfSx7InRfY2hhcmFjdGVyX2lkIjo5ODUzNzkyMTcsImhwIjowLCJzcCI6MzB9XSwiZUsyVDQ5cVVqTDVNVm4zeiI6W3sid2F2ZSI6MSwicG9zIjoxLCJocCI6Mjc4N30seyJ3YXZlIjoxLCJwb3MiOjIsImhwIjoyNjI4fSx7IndhdmUiOjEsInBvcyI6MywiaHAiOjIzMjN9LHsid2F2ZSI6MSwicG9zIjo0LCJocCI6MjYyNn0seyJ3YXZlIjoxLCJwb3MiOjUsImhwIjoyNjMyfSx7IndhdmUiOjIsInBvcyI6MSwiaHAiOjIzMjN9LHsid2F2ZSI6MiwicG9zIjoyLCJocCI6Mjc4MX0seyJ3YXZlIjoyLCJwb3MiOjMsImhwIjoyNzgxfSx7IndhdmUiOjIsInBvcyI6NCwiaHAiOjI2MzJ9LHsid2F2ZSI6MiwicG9zIjo1LCJocCI6MjkzOH1dfQ.wjJaRp_gvrrVJ1bVEu3wgj6wX2FZPudz-WaXBdwfAeM"
-
         })
 
     ##########################
@@ -1317,7 +1324,9 @@ class Client:
                 "result":0,
                 "battle_exp_data":[{"m_enemy_id":enemy_id,"finish_type":2,"finish_member_ids":[197923696]}],
                 "common_battle_result":"eyJhbGciOiJIUzI1NiJ9.eyJhODNiY2ZiODdhMmQ5MzQ5Ijo0LCJiYmVjNmUzMjA5OGQ2YjUyIjoxLCJoZmJtNzg0a2hrMjYzOXBmIjoiIiwieXBiMjgydXR0eno3NjJ3eCI6MjQ3Nzg5OTI2MDkzNiwiZHBwY2JldzltejhjdXd3biI6NTIxLCJ6YWNzdjZqZXY0aXd6anptIjowLCJreXF5bmkzbm5tM2kyYXFhIjowLCJlY2htNnRodHpjajR5dHl0IjowLCJla3VzdmFwZ3BwaWszNWpqIjowLCJ4YTVlMzIybWdlajRmNHlxIjoxfQ.NWfLAzcDGIL5mInbdkX8DW0lKMeN1f-NFSo3ldZnw_c",
-                "skip_party_update_flg":True
+                "skip_party_update_flg":True,
+                "m_event_id":0,
+                "board_battle_result":""
             })
 
     def raid_battle_finish_lvl100_boss(self,stage_id, raid_status_id, enemy_id):
@@ -1337,5 +1346,7 @@ class Client:
                 "result":0,
                 "battle_exp_data":[{"m_enemy_id":enemy_id,"finish_type":2,"finish_member_ids":[197923696]}],
                 "common_battle_result":"eyJhbGciOiJIUzI1NiJ9.eyJhODNiY2ZiODdhMmQ5MzQ5Ijo0LCJiYmVjNmUzMjA5OGQ2YjUyIjoxLCJoZmJtNzg0a2hrMjYzOXBmIjoiIiwieXBiMjgydXR0eno3NjJ3eCI6MTEwODA0NTgxNTI4OSwiZHBwY2JldzltejhjdXd3biI6MTgxMSwiemFjc3Y2amV2NGl3emp6bSI6MCwia3lxeW5pM25ubTNpMmFxYSI6MCwiZWNobTZ0aHR6Y2o0eXR5dCI6MCwiZWt1c3ZhcGdwcGlrMzVqaiI6MCwieGE1ZTMyMm1nZWo0ZjR5cSI6MX0.D4kxdQFOzgoTQKvLKzUb7v7cmGBuNnHfMFgH0ldLmgI",
-                "skip_party_update_flg":True
+                "skip_party_update_flg":True,
+                "m_event_id":0,
+                "board_battle_result":""
             })

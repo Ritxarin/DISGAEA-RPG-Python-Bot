@@ -339,7 +339,7 @@ class API(BaseAPI):
             tower_level += 1
         self.log("Completed Overlod Tower")
 
-    def completeStory(self, m_area_id=None, limit=None, raid_team=None, send_friend_request:bool=False):
+    def completeStory(self, m_area_id=None, limit=None, raid_team=None, send_friend_request:bool=False, team_to_use:int=1):
         ss = []
         for s in self.gd.stages:
             ss.append(s['id'])
@@ -382,7 +382,7 @@ class API(BaseAPI):
                 if stage['m_area_id'] in blacklist:
                     continue
                 try:
-                    self.doQuest(s, auto_rebirth=self.o.auto_rebirth, send_friend_request=send_friend_request, randomize_helper=True)
+                    self.doQuest(m_stage_id=s, team_num=team_to_use, auto_rebirth=self.o.auto_rebirth, send_friend_request=send_friend_request, randomize_helper=True)
                     cleared_stages.add(s)                    
                     if raid_team is not None:
                         self.raid_share_own_boss(raid_team)
@@ -754,28 +754,42 @@ class API(BaseAPI):
 
     def clear_character_gate(self, character_gate: Character_Gate):
         run_count = 0
-        stage_id = 0
+        area_id = 0
         if character_gate == Character_Gate.Majin_Etna:
-            stage_id = 100210102
-        if character_gate == Character_Gate.Pure_Flonne:
-            stage_id = 101410102
-        if character_gate == Character_Gate.Bloodis:
-            stage_id = 102710102
-        if character_gate == Character_Gate.Sister_Artina:
-            stage_id = 103410102
-        if character_gate == Character_Gate.Killidia:
-            stage_id = 104510102
-        if character_gate == Character_Gate.Pringer_X:
-            stage_id = 108410101
+            area_id = 1002101
+        elif character_gate == Character_Gate.Pure_Flonne:
+            area_id = 1014101
+        elif character_gate == Character_Gate.Bloodis:
+            area_id = 1027101
+        elif character_gate == Character_Gate.Sister_Artina:
+            area_id = 1034101
+        elif character_gate == Character_Gate.Killidia:
+            area_id = 1045101
+        elif character_gate == Character_Gate.Pringer_X:
+            area_id = 1084101
 
         event_data = self.client.event_index(event_ids=[character_gate])
         run_count = event_data['result']['events'][0]['challenge_num']
+        if run_count == 3:
+            return
+        stages = self.gd.stages
+        event_stages = [x for x in stages if x["m_area_id"] == area_id]
+        event_stages.sort(key=lambda x: x['sort'], reverse=True)
+
+        # initial run, 3 star event first
+        for event_stage in event_stages:
+            if self.is_stage_3starred(stage_id=event_stage['id']):
+                continue
+            self.doQuest(m_stage_id=event_stage['id'])
+            run_count +=1
+            if run_count == 3:
+                return
+        # If there are runs left, do them on the highest stagge
         while run_count < 3:
-            self.doQuest(stage_id)
-            run_count += 1
+            self.doQuest(m_stage_id=event_stages[0]['id'])
+            run_count +=1
+
         event_data = self.client.event_index(event_ids=[character_gate])
         if event_data['result']['events'][0]['is_item_reward_receivable']:
             self.log(f"Claiming character copy")
             r = self.client.event_receive_rewards(event_id=character_gate)
-
-    

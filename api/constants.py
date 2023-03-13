@@ -244,5 +244,5 @@ class ErrorMessages:
 class JP_ErrorMessages:
     Weapon_Full_Error = '武器の所持数がいっぱいです\n所持枠を拡張するか売却などをしてください'
     Armor_Full_Error = '防具の所持数がいっぱいです\n所持枠を拡張するか売却などをしてください'
-    Innocent_Full_Error = 'Max possession number of Innocents reached.'
+    Innocent_Full_Error = '不正なリクエストです'
     Raid_Battle_Finished = 'The raid Boss is already conquered'
