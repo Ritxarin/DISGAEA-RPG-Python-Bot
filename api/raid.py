@@ -134,10 +134,10 @@ class Raid(Player, metaclass=ABCMeta):
 
         while spins_left > 0 or is_big_chance is True:
             if is_big_chance:
-                data = self.client.raid_gacha(innocent_roulette_id, 1)
+                data = self.client.raid_gacha(special_innocent_roulette_id, 1)
                 special_spin = "Special Spin - "
             else:
-                data = self.client.raid_gacha(special_innocent_roulette_id, 1)
+                data = self.client.raid_gacha(innocent_roulette_id, 1)
                 special_spin = ""
 
             if 'error' in data and (data['error'] == ErrorMessages.Innocent_Full_Error or data['error'] == JP_ErrorMessages.Innocent_Full_Error):
