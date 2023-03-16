@@ -105,5 +105,6 @@ a.quick_login()
 
 When you do, open DRPG JP on a different device and use the transfer code there. You do not need to log in afterwards, once you've used the code you can use the bot once again.
 
-8. Once you've succesfulyl logged in, you can use loginfromcache() instead of dologin. Instead of logging in again, it will resume the previous session. It will reduce the number og logins, thus making it so that the trasnfer code will break less often.
-9. If you want to reroll, copy the new transfer code into transfercode.txt
+8. Once you've succesfulyl logged in, you can use loginfromcache() instead of dologin. Instead of logging in again, it will resume the previous session. It will reduce the number og logins, thus making it so that the transfer code will break less often.
+9. After logging in to the game (dmm/phone) or after a daily reset you will need to use a.dologin(user_id, one_time_code) before you can use loginfromcache() again.
+10. If you want to reroll, copy the new transfer code into transfercode.txt, and use the new player id

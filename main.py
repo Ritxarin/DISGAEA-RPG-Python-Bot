@@ -385,10 +385,14 @@ class API(BaseAPI):
                     continue
                 try:
                     self.doQuest(m_stage_id=s, team_num=team_to_use, auto_rebirth=self.o.auto_rebirth, send_friend_request=send_friend_request, randomize_helper=True)
+                    # self.reincarnation_farm(team_number=team_to_use, stage_id=s, repeat_count=1)
                     cleared_stages.add(s)                    
                     if raid_team is not None:
                         self.raid_share_own_boss(raid_team)
                         self.raid_farm_shared_bosses(raid_team)
+                    # own_boss = self.client.raid_current()['result']['current_t_raid_status']
+                    # if own_boss is not None:       
+                    #     self.raid_defeat_own_boss(party_to_use=5)
                 except KeyboardInterrupt:
                     return False
                 except NoAPLeftException:
@@ -568,7 +572,7 @@ class API(BaseAPI):
     
     def is_stage_cleared(self, stage_id:int):
         stages = self.get_cleared_stages(False)
-        return stage_id in stages
+        return stages is not None and stage_id in stages
     
     def get_3starred_stages(self, refresh:bool=False):
         stages = []
@@ -582,7 +586,7 @@ class API(BaseAPI):
     
     def is_stage_3starred(self, stage_id:int):
         stages = self.get_3starred_stages(False)
-        return stage_id in stages
+        return stages is not None and stage_id in stages
 
     def getAreaStages(self, m_area_id):
         ss = []
