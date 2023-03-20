@@ -328,6 +328,15 @@ class API(BaseAPI):
         res = self.parseReward(end)
         return res
 
+    def Is_Area_Event_Remembrance(self, area_id):
+        return area_id >=  2001101 and area_id <= 2054106
+    
+    def Is_Area_AnecdoteStory(self, area_id):
+        return area_id >= 200000 and area_id <= 200315
+    
+    def Is_Area_Disgaea_Memories(self, area_id):
+        return area_id >= 90101 and area_id <= 90701
+    
     def Complete_Overlord_Tower(self, team_no: int = 1):
         tower_level = 1
         while tower_level <= Constants.Highest_Tower_Level:
@@ -358,9 +367,9 @@ class API(BaseAPI):
                     continue
                 if stage['rank'] != rank: continue
 
-                # Skip non story areas, but do anecdote
+                # Skip non story areas, but do anecdote, remembrance and disgaea episodes
                 if m_area_id is None and stage['m_area_id']> 1000:
-                    if stage['m_area_id'] < 200000 or stage['m_area_id'] > 200315: 
+                    if not self.Is_Area_AnecdoteStory(stage['m_area_id']) and not self.Is_Area_Event_Remembrance(stage['m_area_id']) and not self.Is_Area_Disgaea_Memories(stage['m_area_id']): 
                         continue
 
                 if self.is_stage_3starred(s):
@@ -635,9 +644,20 @@ class API(BaseAPI):
             "app_constants": self.client.app_constants()['result'],
         })
 
-    def complete_dark_assembly_mission(self, agenda_id=138):
-        self.client.agenda_start(agenda_id)
-        self.client.agenda_vote(agenda_id, [])
+    def vote_dark_assembly_agenda(self, agenda_id=138, use_bribes=False):
+        r1 = self.client.agenda_start(agenda_id)
+        bribe_data = []
+        #[{"lowmaker_id":26776096,"item_id":402,"num":1},{"lowmaker_id":26776096,"item_id":401,"num":1}]
+        if use_bribes:
+            senators_to_bribe = [x for x in r1['result']['t_lowmakers'] if x['power'] >= 9]
+            for senator in senators_to_bribe:
+                if senator['fav_rate'] >=6:
+                    continue
+                bribe_data.append(
+                    {"lowmaker_id":senator['id'],"item_id":401,"num":6-senator['fav_rate']}
+                )
+        r2 = self.client.agenda_vote(agenda_id, bribe_data)
+        self.log(r2['result']['result_message'])
         self.client.agenda_get_campaign()
 
     def is_carnage_unlocked(self):

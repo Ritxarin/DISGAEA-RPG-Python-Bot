@@ -91,7 +91,7 @@ class Bot:
         self.api.get_mail_and_rewards()
         self.send_sardines()
 
-        self.api.complete_dark_assembly_mission(110016)
+        self.api.vote_dark_assembly_agenda(110016)
 
         # Buy items from HL shop
         self.api.buy_daily_items_from_shop()

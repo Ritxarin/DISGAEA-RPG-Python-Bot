@@ -39,6 +39,7 @@ r_ids = [
     67
 ]
 
+
 inno_blacklist = [x['id'] for x in a.find_recipe_innocents(True, recipe_ids=r_ids)]
 tickets_used = {}
 tickets_to_buy = {}
@@ -111,7 +112,15 @@ def check_recipe(recipe_id: int, skip_equipped: bool = True, override_min_rank: 
         return conversions
 
     # gather all the possible conversions
-    innocent_conversions = innocents_to_convert(recipe, override_min_rank=override_min_rank)
+    innocent_conversions = innocents_to_convert(missing_mats, override_min_rank=override_min_rank)
+
+    # override min rank is false - we will graze without training - pick innocent with lowest value
+    if not override_min_rank:
+        innocent_conversions.sort(key=lambda x: x['subject_effect_values'], reverse=False)
+    # otherwise, pick the one with the highest value to reduce training needed
+    else:
+        innocent_conversions.sort(key=lambda x: x['subject_effect_values'], reverse=True)
+        
     for mat in missing_mats:
         for data in innocent_conversions:
             i = a.pd.get_innocent_by_id(data['subject_id'])
@@ -188,37 +197,35 @@ def log_conversion(data):
 
 # will provide a list of innocents that could be converted to complete recipe
 # if loose_check is True it will ignore the innocents rank, so it can be leveled up later
-def innocents_to_convert(recipe, override_min_rank: bool = False):
+def innocents_to_convert(missing_mats, override_min_rank: bool = False):
     conversions = []
-    materials = recipe['materials']
-    mat_map = {material['id']: a.find_recipe_material_innocents(material) for material in materials}
-    for mat in materials:
+
+    for mat in missing_mats:
         # if we are missing mats, lets see if we can find an innocent to convert
-        if len(mat_map[mat['id']]) == 0:
-            min_r, max_r = a.gd.get_innocent_rank_min_max(mat['rank'])
-            m_character_id = mat['m_character_id']
-            m_innocent_id = mat['m_innocent_id']
+        min_r, max_r = a.gd.get_innocent_rank_min_max(mat['rank'])
+        m_character_id = mat['m_character_id']
+        m_innocent_id = mat['m_innocent_id']
 
-            # Gather ticket info for conversion
-            ticket_item_def = a.gd.get_ranch_ticket(m_character_id)
-            ticket_item = a.pd.get_item_by_m_item_id(ticket_item_def['id'])
+        # Gather ticket info for conversion
+        ticket_item_def = a.gd.get_ranch_ticket(m_character_id)
+        ticket_item = a.pd.get_item_by_m_item_id(ticket_item_def['id'])
 
-            # a.log('complete_recipes - %s - missing materials, mat_id: %s' % (recipe['name'], mat['id']))
-            # look for an innocent with matching rank and type
-            for i in a.player_innocents():
-                if i['m_innocent_id'] == m_innocent_id and bot.check_innocent_rank(i, mat['rank'], override_min_rank):
-                    conversions.append({
-                        'recipe_id': recipe['id'],
-                        'material_id': mat['id'],
-                        'target_character_id': m_character_id,
-                        'target_innocent_id': m_innocent_id,
-                        'subject_id': i['id'],
-                        'subject_character_id': i['m_character_id'],
-                        'subject_innocent_id': m_innocent_id,
-                        'ticket_id': ticket_item['id'],
-                        'min_r': min_r,
-                        'max_r': max_r,
-                    })
+        # a.log('complete_recipes - %s - missing materials, mat_id: %s' % (recipe['name'], mat['id']))
+        # look for an innocent with matching rank and type
+        for i in a.player_innocents():
+            if i['m_innocent_id'] == m_innocent_id and bot.check_innocent_rank(i, mat['rank'], override_min_rank):
+                conversions.append({
+                    'material_id': mat['id'],
+                    'target_character_id': m_character_id,
+                    'target_innocent_id': m_innocent_id,
+                    'subject_id': i['id'],
+                    'subject_character_id': i['m_character_id'],
+                    'subject_innocent_id': m_innocent_id,
+                    'subject_effect_values': i['effect_values'],
+                    'ticket_id': ticket_item['id'],
+                    'min_r': min_r,
+                    'max_r': max_r,
+                })
 
     return conversions
 

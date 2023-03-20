@@ -41,8 +41,9 @@ a.bingo_spin_roulette()
 # Clear available character gates
 a.clear_character_gates()
 
-#  Passes a dark assembly agenda for mission completion (make sure id is valid)
-a.complete_dark_assembly_mission(110016)
+#  Votes a dark assembly agenda for mission completion (make sure id is valid)
+# use_bribes will bribe the 4 and 2 star enators
+a.vote_dark_assembly_agenda(agenda_id=110016, use_bribes=False)
 
 ## Clear UDT or Etna Defense stages (if they are open)
 a.clear_event(event_type=Event_Types.Etna_Defense)
