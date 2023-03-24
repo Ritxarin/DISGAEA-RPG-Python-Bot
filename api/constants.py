@@ -8,8 +8,8 @@ class Constants:
     Current_Raid_Badass_Boss_ID_GL = 2332
     Current_Raid_Normal_Boss_ID_JP = 4461
     Current_Raid_Badass_Boss_ID_JP = 4462
-    Current_Story_Event_ID = 228
-    Current_Story_Event_Area_IDs =  [1228101, 1228102, 1228103, 1228104, 1228105]
+    Current_Story_Event_ID_GL = 826
+    Current_Story_Event_Area_IDs =  [1826101, 1826102, 1826103, 1826104, 1826105]
     Current_Story_Event_ID_JP = 442
     Current_Story_Event_Area_IDs_JP =  [1442101, 1442102, 1442103, 1442104, 1442105]
     Etna_Defense_Area_ID_GL = 0
@@ -46,7 +46,7 @@ class Constants:
     session_id = ''  # FILL SESSION_ID HERE
     user_id = ''  # FILL USER_ID HERE
     ticket = ''  # FILL TICKET FOR STEAM LOGIN
-
+    
 class Raid_ID(IntEnum):
     SUMMER_PRINNY_RAID_ID = 135
     MAKAI_KINGDOM_RAID_ID = 143
@@ -121,6 +121,7 @@ class Innocent_ID(IntEnum):
     HL = 8
     WM = 9
     SkillMastery = 10
+
 class EquipmentType(IntEnum):
     WEAPON = 1
     ARMOR = 2
@@ -137,9 +138,15 @@ class Items(IntEnum):
     AP_Pot = 301
     AP_Pot_50 = 302
     Prinny_Steel = 3201
+    Prism_Hides = 1602
+    Mana_Pot = 2301
+    Event_Review_Sphere = 2601
     PriPrism = 4101
     Prilixir = 4201
+    Memory_Enhancement_Pieces = 4701
     Nether_Essence = 4801
+    Super_Awakening_Prinny = 5001
+    Abyss_Key = 5301
     Prinny_1star_blue = 4000001
 
 class Item_World_Mode(IntEnum):

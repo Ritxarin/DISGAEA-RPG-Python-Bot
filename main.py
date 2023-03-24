@@ -645,7 +645,19 @@ class API(BaseAPI):
         })
 
     def vote_dark_assembly_agenda(self, agenda_id=138, use_bribes=False):
+        agendas = self.client.agenda_index()
+        agenda = next((x for x in agendas['result']['t_agendas'] if x['m_agenda_id'] == agenda_id), None)
+        if agenda is None:
+            self.log(f"Agenda with id {agenda_id} is not found")
+            return
+
+        if agenda['status'] != 0:
+            self.log(f"Agenda has already been passed.")
+            return
         r1 = self.client.agenda_start(agenda_id)
+        if 'api_error' in r1:
+            return
+        
         bribe_data = []
         #[{"lowmaker_id":26776096,"item_id":402,"num":1},{"lowmaker_id":26776096,"item_id":401,"num":1}]
         if use_bribes:

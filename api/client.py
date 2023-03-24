@@ -515,6 +515,9 @@ class Client:
     def battle_story(self, m_stage_id):
         return self.__rpc('battle/story', {"m_stage_id": m_stage_id})
 
+    def battle_reset(self):
+        return self.__rpc('battle/reset', {})
+
     def axel_context_battle_end(self, m_character_id, battle_exp_data, common_battle_result: str = ''):
         return self.__rpc('battle/end', {
             "m_stage_id": 0,
@@ -1222,11 +1225,11 @@ class Client:
     #########################
     
     def story_event_missions(self):
-        m_event_id = Constants.Current_Story_Event_ID if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
+        m_event_id = Constants.Current_Story_Event_ID_GL if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
         return self.__rpc('event/missions', {"m_event_id":m_event_id})
 
     def story_event_daily_missions(self):
-        m_event_id = Constants.Current_Story_Event_ID if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
+        m_event_id = Constants.Current_Story_Event_ID_GL if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
         return self.__rpc('event/mission_dailies', {"m_event_id":m_event_id})
         
     def story_event_claim_daily_missions(self, mission_ids: list[int] = []):

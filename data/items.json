@@ -1100,6 +1100,16 @@
     "sell_price": 0
   },
   {
+    "id": 1982,
+    "name": "Master Pass Summon Ticket",
+    "item_type": 19,
+    "icon_no": 1982,
+    "effect_value": [9210001],
+    "description": "A summon ticket that allows you to summon popular character.",
+    "max_num": 999,
+    "sell_price": 0
+  },
+  {
     "id": 1999,
     "name": "1st Anniversary Celebration Ticket",
     "item_type": 19,
@@ -1215,7 +1225,7 @@
     "item_type": 20,
     "icon_no": 2011,
     "effect_value": [38],
-    "description": "Disgaea (Tentative) Exclusive PT",
+    "description": "Disgaea Wars (Tentative) Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1225,7 +1235,7 @@
     "item_type": 20,
     "icon_no": 2012,
     "effect_value": [41],
-    "description": "Summer! Sea! Scary Seaside Resort \nOpening?! Exclusive PT",
+    "description": "Summer! Sea! Scary Seaside Resort \nOpening?! Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1245,7 +1255,7 @@
     "item_type": 20,
     "icon_no": 2014,
     "effect_value": [47],
-    "description": "Treasure Island! Treasure Hunting! Exclusive PT",
+    "description": "Treasure Island! Treasure Hunting! Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1255,7 +1265,7 @@
     "item_type": 20,
     "icon_no": 2015,
     "effect_value": [50],
-    "description": "Mao XENO from Another Dimension Exclusive PT",
+    "description": "Mao XENO from Another Dimension Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1265,7 +1275,7 @@
     "item_type": 20,
     "icon_no": 2016,
     "effect_value": [54],
-    "description": "Sparkle! Splendid Sardine Fireworks Exclusive PT",
+    "description": "Sparkle! Splendid Sardine Fireworks Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1285,7 +1295,7 @@
     "item_type": 20,
     "icon_no": 2018,
     "effect_value": [58],
-    "description": "Visitors to the Netherworld Exclusive PT",
+    "description": "Visitors to the Netherworld Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1295,7 +1305,7 @@
     "item_type": 20,
     "icon_no": 2019,
     "effect_value": [60],
-    "description": "Assault?! The Sin of Envy! Exclusive PT",
+    "description": "Assault?! The Sin of Envy! Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1305,7 +1315,7 @@
     "item_type": 20,
     "icon_no": 2020,
     "effect_value": [61],
-    "description": "Matt and the Magic Mirror Exclusive PT",
+    "description": "Matt and the Magic Mirror Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1315,7 +1325,7 @@
     "item_type": 20,
     "icon_no": 2015,
     "effect_value": [65],
-    "description": "Mao XENO from Another Dimension Exclusive PT",
+    "description": "Mao XENO from Another Dimension Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1325,7 +1335,7 @@
     "item_type": 20,
     "icon_no": 2022,
     "effect_value": [66],
-    "description": "Zombie Carnival - Halloween Exclusive PT",
+    "description": "Zombie Panic - Halloween Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1335,7 +1345,7 @@
     "item_type": 20,
     "icon_no": 2023,
     "effect_value": [69],
-    "description": "Disgaea Protagonist Contest! Exclusive PT",
+    "description": "Disgaea Protagonist Contest! Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1345,7 +1355,7 @@
     "item_type": 20,
     "icon_no": 2024,
     "effect_value": [72],
-    "description": "Sicily XENO Exclusive PT",
+    "description": "Sicily XENO Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1355,7 +1365,7 @@
     "item_type": 20,
     "icon_no": 2025,
     "effect_value": [73],
-    "description": "Spectacular Celebration Party Exclusive PT",
+    "description": "Spectacular Celebration Party Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1565,7 +1575,7 @@
     "item_type": 20,
     "icon_no": 2018,
     "effect_value": [149],
-    "description": "Visitors to the Netherworld Exclusive PT",
+    "description": "Visitors to the Netherworld Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1605,7 +1615,7 @@
     "item_type": 20,
     "icon_no": 2050,
     "effect_value": [162],
-    "description": "Debut! Evil Magi Pure\u2606Madoka Dedicated Pts",
+    "description": "Debut!! Demonic Magi Pure\u2606Magica Dedicated Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1625,7 +1635,7 @@
     "item_type": 20,
     "icon_no": 2052,
     "effect_value": [178],
-    "description": "Commemorating 2,000th Anniversary?! Dedicated Pts",
+    "description": "Commemorating 2000th Anniversary?! Dedicated Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1715,7 +1725,7 @@
     "item_type": 20,
     "icon_no": 2061,
     "effect_value": [222],
-    "description": "Disgaea (Tentative) Exclusive PT",
+    "description": "Disgaea Wars (Tentative) Exclusive Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -1981,7 +1991,7 @@
   },
   {
     "id": 3402,
-    "name": "Netherworld New Year Exchange Ticket",
+    "name": "New Year Exchange Ticket",
     "item_type": 34,
     "icon_no": 3402,
     "effect_value": [87],
@@ -2111,11 +2121,11 @@
   },
   {
     "id": 3416,
-    "name": "2nd Anniversary Special Exchange Ticket",
+    "name": "1.5th Anniv. Special Exchange Ticket",
     "item_type": 34,
     "icon_no": 3416,
     "effect_value": [180],
-    "description": "Can be used at the 2nd Anniversary Special Exchange",
+    "description": "Can be used at the 1.5th Anniversary Special Exchange",
     "max_num": 9999,
     "sell_price": 0
   },
@@ -2181,7 +2191,7 @@
   },
   {
     "id": 3423,
-    "name": "Netherworld New Year Exchange Ticket",
+    "name": "New Year Exchange Ticket",
     "item_type": 34,
     "icon_no": 3423,
     "effect_value": [197],
@@ -2326,6 +2336,16 @@
     "icon_no": 3414,
     "effect_value": [243],
     "description": "Can be used at the Fest Character Exchange",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 3491,
+    "name": "Fest Character Redeem Ticket",
+    "item_type": 34,
+    "icon_no": 3407,
+    "effect_value": [9211],
+    "description": "Can be used to redeem Fest Character",
     "max_num": 9999,
     "sell_price": 0
   },
@@ -2785,7 +2805,7 @@
     "item_type": 45,
     "icon_no": 4501,
     "effect_value": [162],
-    "description": "Debut! Evil Magi Pure\u2606Madoka Dedicated Hidden Stage Pts",
+    "description": "Debut!! Demonic Magi Pure\u2606Magica Dedicated Hidden Stage Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -2795,7 +2815,7 @@
     "item_type": 45,
     "icon_no": 4501,
     "effect_value": [178],
-    "description": "Commemorating 2,000th Anniversary?! Dedicated Hidden Stage Pts",
+    "description": "Commemorating 2000th Anniversary?! Dedicated Hidden Stage Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -2835,7 +2855,7 @@
     "item_type": 45,
     "icon_no": 4501,
     "effect_value": [213],
-    "description": "Burn! Scarecrow Festival with the Saintess Dedicated Hidden Stage Pts",
+    "description": "Burn! Straw Doll Festival with the Saintess Dedicated Hidden Stage Pts",
     "max_num": 99999999,
     "sell_price": 0
   },
@@ -2915,7 +2935,7 @@
     "item_type": 49,
     "icon_no": 4901,
     "effect_value": [162],
-    "description": "Debut! Evil Magi Pure\u2606Madoka Dedicated Hidden Ticket",
+    "description": "Debut!! Demonic Magi Pure\u2606Magica Dedicated Hidden Ticket",
     "max_num": 9999,
     "sell_price": 0
   },
@@ -2925,7 +2945,7 @@
     "item_type": 49,
     "icon_no": 4901,
     "effect_value": [178],
-    "description": "Commemorating 2,000th Anniversary?! Dedicated Hidden Ticket",
+    "description": "Commemorating 2000th Anniversary?! Dedicated Hidden Ticket",
     "max_num": 9999,
     "sell_price": 0
   },
@@ -2965,7 +2985,7 @@
     "item_type": 49,
     "icon_no": 4901,
     "effect_value": [213],
-    "description": "Burn! Scarecrow Festival with the Saintess Dedicated Hidden Ticket",
+    "description": "Burn! Straw Doll Festival with the Saintess Dedicated Hidden Ticket",
     "max_num": 9999,
     "sell_price": 0
   },
@@ -2986,6 +3006,16 @@
     "icon_no": 4901,
     "effect_value": [228],
     "description": "Invasion! The Evil Witch and the Majin! Dedicated Hidden Ticket",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 4991,
+    "name": "Hidden Ticket",
+    "item_type": 49,
+    "icon_no": 4901,
+    "effect_value": [826],
+    "description": "Love Laboratory Advertising \u2665 Plan Dedicated Hidden Ticket",
     "max_num": 9999,
     "sell_price": 0
   },
@@ -3810,6 +3840,36 @@
     "sell_price": 1200
   },
   {
+    "id": 202200,
+    "name": "Event Points",
+    "item_type": 20,
+    "icon_no": 2022,
+    "effect_value": [866],
+    "description": "Zombie Panic - Halloween Exclusive PT",
+    "max_num": 99999999,
+    "sell_price": 0
+  },
+  {
+    "id": 203900,
+    "name": "Event Points",
+    "item_type": 20,
+    "icon_no": 2039,
+    "effect_value": [826],
+    "description": "Love Laboratory Advertising \u2665 Plan Dedicated Pts",
+    "max_num": 99999999,
+    "sell_price": 0
+  },
+  {
+    "id": 204900,
+    "name": "Event Points",
+    "item_type": 20,
+    "icon_no": 2049,
+    "effect_value": [8156],
+    "description": "Kagemaru Raid Dedicated Pts",
+    "max_num": 99999999,
+    "sell_price": 0
+  },
+  {
     "id": 380001,
     "name": "Super HP Boost Recipe 1",
     "item_type": 38,
@@ -4500,6 +4560,16 @@
     "sell_price": 1000
   },
   {
+    "id": 450200,
+    "name": "Hidden Stage Pts",
+    "item_type": 45,
+    "icon_no": 4501,
+    "effect_value": [826],
+    "description": "Love Laboratory Advertising \u2665 Plan Dedicated Hidden Stage Pts",
+    "max_num": 99999999,
+    "sell_price": 0
+  },
+  {
     "id": 2300023,
     "name": "Dedicated Mana Potion",
     "item_type": 23,
@@ -5151,11 +5221,11 @@
   },
   {
     "id": 2700051,
-    "name": "Miss Pleinair Crystal",
+    "name": "Pleinair Crystal",
     "item_type": 27,
     "icon_no": 2701,
     "effect_value": [100],
-    "description": "A crystal used for Miss Pleinair\u0027s Nether Enhancement",
+    "description": "A crystal used for Pleinair\u0027s Nether Enhancement",
     "max_num": 9999,
     "sell_price": 0
   },
@@ -6201,11 +6271,11 @@
   },
   {
     "id": 2700159,
-    "name": "Overlord-style Metallia Crystal",
+    "name": "Overlord Metallia Crystal",
     "item_type": 27,
     "icon_no": 2701,
     "effect_value": [100],
-    "description": "A crystal used for Overlord-style Metallia\u0027s Nether Enhancement",
+    "description": "A crystal used for Overlord Metallia\u0027s Nether Enhancement",
     "max_num": 9999,
     "sell_price": 0
   },
@@ -6991,11 +7061,11 @@
   },
   {
     "id": 2720050,
-    "name": "Witch-style Girl Laharl Crystal",
+    "name": "Witch Girl Laharl Crystal",
     "item_type": 27,
     "icon_no": 2701,
     "effect_value": [100],
-    "description": "A crystal used for Witch-style Girl Laharl\u0027s Nether Enhancement",
+    "description": "A crystal used for Witch Girl Laharl\u0027s Nether Enhancement",
     "max_num": 9999,
     "sell_price": 0
   },

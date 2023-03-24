@@ -28,7 +28,7 @@ class Event(Player, metaclass=ABCMeta):
         incomplete_mission_ids = []
 
         # character missions and story missions have to be claimed separately
-        m_event_id = Constants.Current_Story_Event_ID if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
+        m_event_id = Constants.Current_Story_Event_ID_GL if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
         character_mission_id = (m_event_id * 1000) + 500
         
         for mission in r['result']['missions']:
@@ -48,7 +48,7 @@ class Event(Player, metaclass=ABCMeta):
         incomplete_mission_ids = []
 
         # character missions and story missions have to be claimed separately
-        m_event_id = Constants.Current_Story_Event_ID if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
+        m_event_id = Constants.Current_Story_Event_ID_GL if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
         character_mission_id = (m_event_id * 1000) + 500
         
         for mission in r['result']['missions']:
