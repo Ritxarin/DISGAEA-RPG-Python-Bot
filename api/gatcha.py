@@ -44,6 +44,8 @@ class Gatcha(Player):
     def get_free_10pull(self, m_gacha_id, max_draws):
         if self.is_free_10pull_available(m_gacha_id, max_draws):
             res = self.client.gacha_do(is_gacha_free=False, price=0, item_type=2, num=10, m_gacha_id=m_gacha_id, item_id=0, total_draw_count=self.get_gacha_pull_count(m_gacha_id))
+            if 'api_error' in res:
+                return
             for unit in res['result']['gacha_result']:
                 character = self.gd.get_character(unit['item_id'])
                 print(f"Obtained {unit['rarity']}★ character {character['name']}")
