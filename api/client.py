@@ -622,7 +622,7 @@ class Client:
     def raid_ranking_player(self, t_player_id, raid_ID:int=0):
         if raid_ID == 0:
             raid_ID = Constants.Current_Raid_ID_GL if self.o.region == 2 else Constants.Current_Raid_ID_JP
-        data = self.rpc('raid/ranking_player', {"m_raid_id":raid_ID,"m_raid_boss_kind_id":0,"t_player_id":t_player_id})
+        data = self.__rpc('raid/ranking_player', {"m_raid_id":raid_ID,"m_raid_boss_kind_id":0,"t_player_id":t_player_id})
         return data
 
     def raid_ranking_reward(self):

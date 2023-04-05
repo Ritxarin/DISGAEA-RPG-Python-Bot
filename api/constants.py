@@ -2,16 +2,16 @@ from enum import IntEnum
 
 
 class Constants:
-    Current_Raid_ID_GL = 233
-    Current_Raid_ID_JP = 446
-    Current_Raid_Normal_Boss_ID_GL = 2331
-    Current_Raid_Badass_Boss_ID_GL = 2332
-    Current_Raid_Normal_Boss_ID_JP = 4461
-    Current_Raid_Badass_Boss_ID_JP = 4462
+    Current_Raid_ID_GL = 0
+    Current_Raid_ID_JP = 0
+    Current_Raid_Normal_Boss_ID_GL = 0
+    Current_Raid_Badass_Boss_ID_GL = 0
+    Current_Raid_Normal_Boss_ID_JP = 0
+    Current_Raid_Badass_Boss_ID_JP = 0
     Current_Story_Event_ID_GL = 826
     Current_Story_Event_Area_IDs =  [1826101, 1826102, 1826103, 1826104, 1826105]
-    Current_Story_Event_ID_JP = 0
-    Current_Story_Event_Area_IDs_JP =  []
+    Current_Story_Event_ID_JP = 455
+    Current_Story_Event_Area_IDs_JP =  [1455101, 1455102, 1455103, 1455104, 1455105]
     Etna_Defense_Area_ID_GL = 0
     Enta_Defense_Event_ID_GL = 0
     Etna_Defense_Area_ID_JP = 1451101

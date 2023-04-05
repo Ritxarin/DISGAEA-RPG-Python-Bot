@@ -42,7 +42,8 @@ class FishFleet(Player, metaclass=ABCMeta):
             # Item
             if drop['type'] == 1:
                 item = self.gd.get_item(drop['id'])
-                self.log(f"\tObtained {drop['num']} {item['name']}")
+                item_name = item['name'] if item is not None else 'unknown'
+                self.log(f"\tObtained {drop['num']} {item_name}")
             # Character
             if drop['type'] == 2:
                 unit_obtained = self.gd.get_character(drop['id'])
