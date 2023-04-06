@@ -27,8 +27,14 @@ class Player(Base):
             return self.pd.character_collections
         self.pd.character_collections = []
         self.logger.debug("refreshing player character collections...")
-        data = self.client.player_character_collections()
-        self.pd.character_collections = data['result']['_items']
+        page_index = 1
+        iterate_next_page = True
+        while iterate_next_page:
+            data = self.client.player_character_collections(updated_at=0, page=page_index)
+            if len(data['result']['_items']) <= 0:
+                iterate_next_page = False
+            self.pd.character_collections =  self.pd.character_collections + data['result']['_items']
+            page_index += 1      
         return self.pd.character_collections
 
     def player_weapons(self, refresh=False):

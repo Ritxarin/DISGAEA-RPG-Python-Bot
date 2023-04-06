@@ -694,8 +694,11 @@ class Client:
             "page": page
         })
 
-    def player_character_collections(self):
-        return self.__rpc('player/character_collections', {})
+    def player_character_collections(self, updated_at: int = 0, page: int = 1):
+        return self.__rpc('player/character_collections', {
+            "updated_at": updated_at,
+            "page": page
+        })
 
     def player_weapons(self, updated_at: int = 0, page: int = 1):
         return self.__rpc('player/weapons', {
