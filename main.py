@@ -828,3 +828,36 @@ class API(BaseAPI):
         if event_data['result']['events'][0]['is_item_reward_receivable']:
             self.log(f"Claiming character copy")
             r = self.client.event_receive_rewards(event_id=character_gate)
+
+    def reincarnation_farm(self, team_number:int=0, stage_id:int=20032504, repeat_count:int=0):
+       count = 0
+       blue_prinny_count = self.pd.get_item_by_m_item_id(4000001)['num']
+       while count < repeat_count and blue_prinny_count > 6:
+        level_1_blue_prinnies = [x for x in self.pd.characters if x['m_character_id'] == 30001 and x['rebirth_num'] == 0 and x['lv'] == 1 and x['rarity'] == 1]
+        # Need 6 level 1, 1 star blue prinnies (5 for team, 1 for awakening) - Dispatch if needed
+        if len(level_1_blue_prinnies) < 6:
+            missing_prinny_count = 6 - len(level_1_blue_prinnies)
+            consume_item_data = [{"m_item_id":4000001,"num":missing_prinny_count}]
+            res = self.client.dispatch_prinny_from_prinny_prison(consume_item_data, 1, missing_prinny_count)
+            self.check_resp(res)
+            level_1_blue_prinnies = [x for x in self.pd.characters if x['m_character_id'] == 30001 and x['rebirth_num'] == 0 and x['lv'] == 1 and x['rarity'] == 1]
+            # Update count of remaining prinnies
+            blue_prinny_count -= missing_prinny_count
+        prinnies = level_1_blue_prinnies[:6]   
+        ## Set the prinnies on the team  
+        character_ids = f"{prinnies[0]['id']},{prinnies[1]['id']},{prinnies[2]['id']},{prinnies[3]['id']},{prinnies[4]['id']}"
+        self.update_team(team_number, character_ids)
+        self.doQuest(m_stage_id=stage_id, team_num=team_number, auto_rebirth=True, finish_mode=Battle_Finish_Mode.Tower_Finish)
+        self.raid_defeat_own_boss(7)
+        # awaken last prinny with the other 5 to cleanup. Set party first
+        character_ids = f"{prinnies[5]['id']},0,0,0,0"
+        self.update_team(team_number, character_ids)
+        material_t_character_ids = []
+        for prinny in level_1_blue_prinnies[:5]:
+            material_t_character_ids.append(prinny['id'])
+            self.pd.characters.remove(self.pd.get_character_by_id(prinny['id']))
+
+        r = self.client.player_awakening(t_character_id=level_1_blue_prinnies[5]['id'], material_t_character_ids = material_t_character_ids, material_m_item_id=0)
+        self.check_resp(r)
+        count +=1
+        self.client.trophy_get_reward_repetition()
