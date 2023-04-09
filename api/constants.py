@@ -3,11 +3,11 @@ from enum import IntEnum
 
 class Constants:
     Current_Raid_ID_GL = 0
-    Current_Raid_ID_JP = 0
+    Current_Raid_ID_JP = 458
     Current_Raid_Normal_Boss_ID_GL = 0
     Current_Raid_Badass_Boss_ID_GL = 0
-    Current_Raid_Normal_Boss_ID_JP = 0
-    Current_Raid_Badass_Boss_ID_JP = 0
+    Current_Raid_Normal_Boss_ID_JP = 4581
+    Current_Raid_Badass_Boss_ID_JP = 4582
     Current_Story_Event_ID_GL = 826
     Current_Story_Event_Area_IDs =  [1826101, 1826102, 1826103, 1826104, 1826105]
     Current_Story_Event_ID_JP = 455

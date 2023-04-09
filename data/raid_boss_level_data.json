@@ -51198,5 +51198,1955 @@
     "m_enemy_id": 1446101119011,
     "min_level": 30000,
     "max_level": 30000
+  },
+  {
+    "id": 4581001,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812001,
+    "m_contribution_reward_group_id": 45813001,
+    "m_enemy_id": 1458101001011,
+    "min_level": 1,
+    "max_level": 199
+  },
+  {
+    "id": 4581002,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812002,
+    "m_contribution_reward_group_id": 45813002,
+    "m_enemy_id": 1458101001011,
+    "min_level": 200,
+    "max_level": 399
+  },
+  {
+    "id": 4581003,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812003,
+    "m_contribution_reward_group_id": 45813003,
+    "m_enemy_id": 1458101001011,
+    "min_level": 400,
+    "max_level": 599
+  },
+  {
+    "id": 4581004,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812004,
+    "m_contribution_reward_group_id": 45813004,
+    "m_enemy_id": 1458101001011,
+    "min_level": 600,
+    "max_level": 799
+  },
+  {
+    "id": 4581005,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812005,
+    "m_contribution_reward_group_id": 45813005,
+    "m_enemy_id": 1458101001011,
+    "min_level": 800,
+    "max_level": 999
+  },
+  {
+    "id": 4581006,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812006,
+    "m_contribution_reward_group_id": 45813006,
+    "m_enemy_id": 1458101001011,
+    "min_level": 1000,
+    "max_level": 1199
+  },
+  {
+    "id": 4581007,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812007,
+    "m_contribution_reward_group_id": 45813007,
+    "m_enemy_id": 1458101001011,
+    "min_level": 1200,
+    "max_level": 1399
+  },
+  {
+    "id": 4581008,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812008,
+    "m_contribution_reward_group_id": 45813008,
+    "m_enemy_id": 1458101001011,
+    "min_level": 1400,
+    "max_level": 1599
+  },
+  {
+    "id": 4581009,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812009,
+    "m_contribution_reward_group_id": 45813009,
+    "m_enemy_id": 1458101001011,
+    "min_level": 1600,
+    "max_level": 1799
+  },
+  {
+    "id": 4581010,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812010,
+    "m_contribution_reward_group_id": 45813010,
+    "m_enemy_id": 1458101001011,
+    "min_level": 1800,
+    "max_level": 1999
+  },
+  {
+    "id": 4581011,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812011,
+    "m_contribution_reward_group_id": 45813011,
+    "m_enemy_id": 1458101001011,
+    "min_level": 2000,
+    "max_level": 2199
+  },
+  {
+    "id": 4581012,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812012,
+    "m_contribution_reward_group_id": 45813012,
+    "m_enemy_id": 1458101001011,
+    "min_level": 2200,
+    "max_level": 2399
+  },
+  {
+    "id": 4581013,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812013,
+    "m_contribution_reward_group_id": 45813013,
+    "m_enemy_id": 1458101001011,
+    "min_level": 2400,
+    "max_level": 2599
+  },
+  {
+    "id": 4581014,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812014,
+    "m_contribution_reward_group_id": 45813014,
+    "m_enemy_id": 1458101001011,
+    "min_level": 2600,
+    "max_level": 2799
+  },
+  {
+    "id": 4581015,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812015,
+    "m_contribution_reward_group_id": 45813015,
+    "m_enemy_id": 1458101001011,
+    "min_level": 2800,
+    "max_level": 2999
+  },
+  {
+    "id": 4581016,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812016,
+    "m_contribution_reward_group_id": 45813016,
+    "m_enemy_id": 1458101001011,
+    "min_level": 3000,
+    "max_level": 3199
+  },
+  {
+    "id": 4581017,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812017,
+    "m_contribution_reward_group_id": 45813017,
+    "m_enemy_id": 1458101001011,
+    "min_level": 3200,
+    "max_level": 3399
+  },
+  {
+    "id": 4581018,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812018,
+    "m_contribution_reward_group_id": 45813018,
+    "m_enemy_id": 1458101001011,
+    "min_level": 3400,
+    "max_level": 3599
+  },
+  {
+    "id": 4581019,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812019,
+    "m_contribution_reward_group_id": 45813019,
+    "m_enemy_id": 1458101001011,
+    "min_level": 3600,
+    "max_level": 3799
+  },
+  {
+    "id": 4581020,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812020,
+    "m_contribution_reward_group_id": 45813020,
+    "m_enemy_id": 1458101001011,
+    "min_level": 3800,
+    "max_level": 3999
+  },
+  {
+    "id": 4581021,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812021,
+    "m_contribution_reward_group_id": 45813021,
+    "m_enemy_id": 1458101001011,
+    "min_level": 4000,
+    "max_level": 4199
+  },
+  {
+    "id": 4581022,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812022,
+    "m_contribution_reward_group_id": 45813022,
+    "m_enemy_id": 1458101001011,
+    "min_level": 4200,
+    "max_level": 4399
+  },
+  {
+    "id": 4581023,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812023,
+    "m_contribution_reward_group_id": 45813023,
+    "m_enemy_id": 1458101001011,
+    "min_level": 4400,
+    "max_level": 4599
+  },
+  {
+    "id": 4581024,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812024,
+    "m_contribution_reward_group_id": 45813024,
+    "m_enemy_id": 1458101001011,
+    "min_level": 4600,
+    "max_level": 4799
+  },
+  {
+    "id": 4581025,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812025,
+    "m_contribution_reward_group_id": 45813025,
+    "m_enemy_id": 1458101001011,
+    "min_level": 4800,
+    "max_level": 4999
+  },
+  {
+    "id": 4581026,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812026,
+    "m_contribution_reward_group_id": 45813026,
+    "m_enemy_id": 1458101001011,
+    "min_level": 5000,
+    "max_level": 5199
+  },
+  {
+    "id": 4581027,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812027,
+    "m_contribution_reward_group_id": 45813027,
+    "m_enemy_id": 1458101001011,
+    "min_level": 5200,
+    "max_level": 5399
+  },
+  {
+    "id": 4581028,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812028,
+    "m_contribution_reward_group_id": 45813028,
+    "m_enemy_id": 1458101001011,
+    "min_level": 5400,
+    "max_level": 5599
+  },
+  {
+    "id": 4581029,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812029,
+    "m_contribution_reward_group_id": 45813029,
+    "m_enemy_id": 1458101001011,
+    "min_level": 5600,
+    "max_level": 5799
+  },
+  {
+    "id": 4581030,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812030,
+    "m_contribution_reward_group_id": 45813030,
+    "m_enemy_id": 1458101001011,
+    "min_level": 5800,
+    "max_level": 5999
+  },
+  {
+    "id": 4581031,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812031,
+    "m_contribution_reward_group_id": 45813031,
+    "m_enemy_id": 1458101001011,
+    "min_level": 6000,
+    "max_level": 6199
+  },
+  {
+    "id": 4581032,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812032,
+    "m_contribution_reward_group_id": 45813032,
+    "m_enemy_id": 1458101001011,
+    "min_level": 6200,
+    "max_level": 6399
+  },
+  {
+    "id": 4581033,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812033,
+    "m_contribution_reward_group_id": 45813033,
+    "m_enemy_id": 1458101001011,
+    "min_level": 6400,
+    "max_level": 6599
+  },
+  {
+    "id": 4581034,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812034,
+    "m_contribution_reward_group_id": 45813034,
+    "m_enemy_id": 1458101001011,
+    "min_level": 6600,
+    "max_level": 6799
+  },
+  {
+    "id": 4581035,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812035,
+    "m_contribution_reward_group_id": 45813035,
+    "m_enemy_id": 1458101001011,
+    "min_level": 6800,
+    "max_level": 6999
+  },
+  {
+    "id": 4581036,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812036,
+    "m_contribution_reward_group_id": 45813036,
+    "m_enemy_id": 1458101001011,
+    "min_level": 7000,
+    "max_level": 7199
+  },
+  {
+    "id": 4581037,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812037,
+    "m_contribution_reward_group_id": 45813037,
+    "m_enemy_id": 1458101001011,
+    "min_level": 7200,
+    "max_level": 7399
+  },
+  {
+    "id": 4581038,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812038,
+    "m_contribution_reward_group_id": 45813038,
+    "m_enemy_id": 1458101001011,
+    "min_level": 7400,
+    "max_level": 7599
+  },
+  {
+    "id": 4581039,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812039,
+    "m_contribution_reward_group_id": 45813039,
+    "m_enemy_id": 1458101001011,
+    "min_level": 7600,
+    "max_level": 7799
+  },
+  {
+    "id": 4581040,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812040,
+    "m_contribution_reward_group_id": 45813040,
+    "m_enemy_id": 1458101001011,
+    "min_level": 7800,
+    "max_level": 7999
+  },
+  {
+    "id": 4581041,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812041,
+    "m_contribution_reward_group_id": 45813041,
+    "m_enemy_id": 1458101001011,
+    "min_level": 8000,
+    "max_level": 8199
+  },
+  {
+    "id": 4581042,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812042,
+    "m_contribution_reward_group_id": 45813042,
+    "m_enemy_id": 1458101001011,
+    "min_level": 8200,
+    "max_level": 8399
+  },
+  {
+    "id": 4581043,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812043,
+    "m_contribution_reward_group_id": 45813043,
+    "m_enemy_id": 1458101001011,
+    "min_level": 8400,
+    "max_level": 8599
+  },
+  {
+    "id": 4581044,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812044,
+    "m_contribution_reward_group_id": 45813044,
+    "m_enemy_id": 1458101001011,
+    "min_level": 8600,
+    "max_level": 8799
+  },
+  {
+    "id": 4581045,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812045,
+    "m_contribution_reward_group_id": 45813045,
+    "m_enemy_id": 1458101001011,
+    "min_level": 8800,
+    "max_level": 8999
+  },
+  {
+    "id": 4581046,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812046,
+    "m_contribution_reward_group_id": 45813046,
+    "m_enemy_id": 1458101001011,
+    "min_level": 9000,
+    "max_level": 9199
+  },
+  {
+    "id": 4581047,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812047,
+    "m_contribution_reward_group_id": 45813047,
+    "m_enemy_id": 1458101001011,
+    "min_level": 9200,
+    "max_level": 9399
+  },
+  {
+    "id": 4581048,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812048,
+    "m_contribution_reward_group_id": 45813048,
+    "m_enemy_id": 1458101001011,
+    "min_level": 9400,
+    "max_level": 9599
+  },
+  {
+    "id": 4581049,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101001,
+    "m_raid_reward_group_id": 45812049,
+    "m_contribution_reward_group_id": 45813049,
+    "m_enemy_id": 1458101001011,
+    "min_level": 9600,
+    "max_level": 9998
+  },
+  {
+    "id": 4581050,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101002,
+    "m_raid_reward_group_id": 45812050,
+    "m_contribution_reward_group_id": 45813050,
+    "m_enemy_id": 1458101002011,
+    "min_level": 9999,
+    "max_level": 9999
+  },
+  {
+    "id": 4581051,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101003,
+    "m_raid_reward_group_id": 45812051,
+    "m_contribution_reward_group_id": 45813051,
+    "m_enemy_id": 1458101003011,
+    "min_level": 10000,
+    "max_level": 10299
+  },
+  {
+    "id": 4581052,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101003,
+    "m_raid_reward_group_id": 45812052,
+    "m_contribution_reward_group_id": 45813052,
+    "m_enemy_id": 1458101003011,
+    "min_level": 10300,
+    "max_level": 10599
+  },
+  {
+    "id": 4581053,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101003,
+    "m_raid_reward_group_id": 45812053,
+    "m_contribution_reward_group_id": 45813053,
+    "m_enemy_id": 1458101003011,
+    "min_level": 10600,
+    "max_level": 10799
+  },
+  {
+    "id": 4581054,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101003,
+    "m_raid_reward_group_id": 45812054,
+    "m_contribution_reward_group_id": 45813054,
+    "m_enemy_id": 1458101003011,
+    "min_level": 10800,
+    "max_level": 10999
+  },
+  {
+    "id": 4581055,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101003,
+    "m_raid_reward_group_id": 45812055,
+    "m_contribution_reward_group_id": 45813055,
+    "m_enemy_id": 1458101003011,
+    "min_level": 11000,
+    "max_level": 11199
+  },
+  {
+    "id": 4581056,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101003,
+    "m_raid_reward_group_id": 45812056,
+    "m_contribution_reward_group_id": 45813056,
+    "m_enemy_id": 1458101003011,
+    "min_level": 11200,
+    "max_level": 11399
+  },
+  {
+    "id": 4581057,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101004,
+    "m_raid_reward_group_id": 45812057,
+    "m_contribution_reward_group_id": 45813057,
+    "m_enemy_id": 1458101004011,
+    "min_level": 11400,
+    "max_level": 11599
+  },
+  {
+    "id": 4581058,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101004,
+    "m_raid_reward_group_id": 45812058,
+    "m_contribution_reward_group_id": 45813058,
+    "m_enemy_id": 1458101004011,
+    "min_level": 11600,
+    "max_level": 11799
+  },
+  {
+    "id": 4581059,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101004,
+    "m_raid_reward_group_id": 45812059,
+    "m_contribution_reward_group_id": 45813059,
+    "m_enemy_id": 1458101004011,
+    "min_level": 11800,
+    "max_level": 11999
+  },
+  {
+    "id": 4581060,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101004,
+    "m_raid_reward_group_id": 45812060,
+    "m_contribution_reward_group_id": 45813060,
+    "m_enemy_id": 1458101004011,
+    "min_level": 12000,
+    "max_level": 12199
+  },
+  {
+    "id": 4581061,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101004,
+    "m_raid_reward_group_id": 45812061,
+    "m_contribution_reward_group_id": 45813061,
+    "m_enemy_id": 1458101004011,
+    "min_level": 12200,
+    "max_level": 12399
+  },
+  {
+    "id": 4581062,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101004,
+    "m_raid_reward_group_id": 45812062,
+    "m_contribution_reward_group_id": 45813062,
+    "m_enemy_id": 1458101004011,
+    "min_level": 12400,
+    "max_level": 12599
+  },
+  {
+    "id": 4581063,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101004,
+    "m_raid_reward_group_id": 45812063,
+    "m_contribution_reward_group_id": 45813063,
+    "m_enemy_id": 1458101004011,
+    "min_level": 12600,
+    "max_level": 12799
+  },
+  {
+    "id": 4581064,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101005,
+    "m_raid_reward_group_id": 45812064,
+    "m_contribution_reward_group_id": 45813064,
+    "m_enemy_id": 1458101005011,
+    "min_level": 12800,
+    "max_level": 12999
+  },
+  {
+    "id": 4581065,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101005,
+    "m_raid_reward_group_id": 45812065,
+    "m_contribution_reward_group_id": 45813065,
+    "m_enemy_id": 1458101005011,
+    "min_level": 13000,
+    "max_level": 13199
+  },
+  {
+    "id": 4581066,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101005,
+    "m_raid_reward_group_id": 45812066,
+    "m_contribution_reward_group_id": 45813066,
+    "m_enemy_id": 1458101005011,
+    "min_level": 13200,
+    "max_level": 13399
+  },
+  {
+    "id": 4581067,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101005,
+    "m_raid_reward_group_id": 45812067,
+    "m_contribution_reward_group_id": 45813067,
+    "m_enemy_id": 1458101005011,
+    "min_level": 13400,
+    "max_level": 13599
+  },
+  {
+    "id": 4581068,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101005,
+    "m_raid_reward_group_id": 45812068,
+    "m_contribution_reward_group_id": 45813068,
+    "m_enemy_id": 1458101005011,
+    "min_level": 13600,
+    "max_level": 13799
+  },
+  {
+    "id": 4581069,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101005,
+    "m_raid_reward_group_id": 45812069,
+    "m_contribution_reward_group_id": 45813069,
+    "m_enemy_id": 1458101005011,
+    "min_level": 13800,
+    "max_level": 13999
+  },
+  {
+    "id": 4581070,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101006,
+    "m_raid_reward_group_id": 45812070,
+    "m_contribution_reward_group_id": 45813070,
+    "m_enemy_id": 1458101006011,
+    "min_level": 14000,
+    "max_level": 14199
+  },
+  {
+    "id": 4581071,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101006,
+    "m_raid_reward_group_id": 45812071,
+    "m_contribution_reward_group_id": 45813071,
+    "m_enemy_id": 1458101006011,
+    "min_level": 14200,
+    "max_level": 14399
+  },
+  {
+    "id": 4581072,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101006,
+    "m_raid_reward_group_id": 45812072,
+    "m_contribution_reward_group_id": 45813072,
+    "m_enemy_id": 1458101006011,
+    "min_level": 14400,
+    "max_level": 14599
+  },
+  {
+    "id": 4581073,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101006,
+    "m_raid_reward_group_id": 45812073,
+    "m_contribution_reward_group_id": 45813073,
+    "m_enemy_id": 1458101006011,
+    "min_level": 14600,
+    "max_level": 14799
+  },
+  {
+    "id": 4581074,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101006,
+    "m_raid_reward_group_id": 45812074,
+    "m_contribution_reward_group_id": 45813074,
+    "m_enemy_id": 1458101006011,
+    "min_level": 14800,
+    "max_level": 14999
+  },
+  {
+    "id": 4581075,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101006,
+    "m_raid_reward_group_id": 45812075,
+    "m_contribution_reward_group_id": 45813075,
+    "m_enemy_id": 1458101006011,
+    "min_level": 15000,
+    "max_level": 15199
+  },
+  {
+    "id": 4581076,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101007,
+    "m_raid_reward_group_id": 45812076,
+    "m_contribution_reward_group_id": 45813076,
+    "m_enemy_id": 1458101007011,
+    "min_level": 15200,
+    "max_level": 15399
+  },
+  {
+    "id": 4581077,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101007,
+    "m_raid_reward_group_id": 45812077,
+    "m_contribution_reward_group_id": 45813077,
+    "m_enemy_id": 1458101007011,
+    "min_level": 15400,
+    "max_level": 15599
+  },
+  {
+    "id": 4581078,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101007,
+    "m_raid_reward_group_id": 45812078,
+    "m_contribution_reward_group_id": 45813078,
+    "m_enemy_id": 1458101007011,
+    "min_level": 15600,
+    "max_level": 15799
+  },
+  {
+    "id": 4581079,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101007,
+    "m_raid_reward_group_id": 45812079,
+    "m_contribution_reward_group_id": 45813079,
+    "m_enemy_id": 1458101007011,
+    "min_level": 15800,
+    "max_level": 15999
+  },
+  {
+    "id": 4581080,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101007,
+    "m_raid_reward_group_id": 45812080,
+    "m_contribution_reward_group_id": 45813080,
+    "m_enemy_id": 1458101007011,
+    "min_level": 16000,
+    "max_level": 16199
+  },
+  {
+    "id": 4581081,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101007,
+    "m_raid_reward_group_id": 45812081,
+    "m_contribution_reward_group_id": 45813081,
+    "m_enemy_id": 1458101007011,
+    "min_level": 16200,
+    "max_level": 16399
+  },
+  {
+    "id": 4581082,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101008,
+    "m_raid_reward_group_id": 45812082,
+    "m_contribution_reward_group_id": 45813082,
+    "m_enemy_id": 1458101008011,
+    "min_level": 16400,
+    "max_level": 16599
+  },
+  {
+    "id": 4581083,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101008,
+    "m_raid_reward_group_id": 45812083,
+    "m_contribution_reward_group_id": 45813083,
+    "m_enemy_id": 1458101008011,
+    "min_level": 16600,
+    "max_level": 16799
+  },
+  {
+    "id": 4581084,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101008,
+    "m_raid_reward_group_id": 45812084,
+    "m_contribution_reward_group_id": 45813084,
+    "m_enemy_id": 1458101008011,
+    "min_level": 16800,
+    "max_level": 16999
+  },
+  {
+    "id": 4581085,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101008,
+    "m_raid_reward_group_id": 45812085,
+    "m_contribution_reward_group_id": 45813085,
+    "m_enemy_id": 1458101008011,
+    "min_level": 17000,
+    "max_level": 17199
+  },
+  {
+    "id": 4581086,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101008,
+    "m_raid_reward_group_id": 45812086,
+    "m_contribution_reward_group_id": 45813086,
+    "m_enemy_id": 1458101008011,
+    "min_level": 17200,
+    "max_level": 17399
+  },
+  {
+    "id": 4581087,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101008,
+    "m_raid_reward_group_id": 45812087,
+    "m_contribution_reward_group_id": 45813087,
+    "m_enemy_id": 1458101008011,
+    "min_level": 17400,
+    "max_level": 17599
+  },
+  {
+    "id": 4581088,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101009,
+    "m_raid_reward_group_id": 45812088,
+    "m_contribution_reward_group_id": 45813088,
+    "m_enemy_id": 1458101009011,
+    "min_level": 17600,
+    "max_level": 17799
+  },
+  {
+    "id": 4581089,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101009,
+    "m_raid_reward_group_id": 45812089,
+    "m_contribution_reward_group_id": 45813089,
+    "m_enemy_id": 1458101009011,
+    "min_level": 17800,
+    "max_level": 17999
+  },
+  {
+    "id": 4581090,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101009,
+    "m_raid_reward_group_id": 45812090,
+    "m_contribution_reward_group_id": 45813090,
+    "m_enemy_id": 1458101009011,
+    "min_level": 18000,
+    "max_level": 18199
+  },
+  {
+    "id": 4581091,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101009,
+    "m_raid_reward_group_id": 45812091,
+    "m_contribution_reward_group_id": 45813091,
+    "m_enemy_id": 1458101009011,
+    "min_level": 18200,
+    "max_level": 18399
+  },
+  {
+    "id": 4581092,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101009,
+    "m_raid_reward_group_id": 45812092,
+    "m_contribution_reward_group_id": 45813092,
+    "m_enemy_id": 1458101009011,
+    "min_level": 18400,
+    "max_level": 18599
+  },
+  {
+    "id": 4581093,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101009,
+    "m_raid_reward_group_id": 45812093,
+    "m_contribution_reward_group_id": 45813093,
+    "m_enemy_id": 1458101009011,
+    "min_level": 18600,
+    "max_level": 18799
+  },
+  {
+    "id": 4581094,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101010,
+    "m_raid_reward_group_id": 45812094,
+    "m_contribution_reward_group_id": 45813094,
+    "m_enemy_id": 1458101010011,
+    "min_level": 18800,
+    "max_level": 18999
+  },
+  {
+    "id": 4581095,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101010,
+    "m_raid_reward_group_id": 45812095,
+    "m_contribution_reward_group_id": 45813095,
+    "m_enemy_id": 1458101010011,
+    "min_level": 19000,
+    "max_level": 19199
+  },
+  {
+    "id": 4581096,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101010,
+    "m_raid_reward_group_id": 45812096,
+    "m_contribution_reward_group_id": 45813096,
+    "m_enemy_id": 1458101010011,
+    "min_level": 19200,
+    "max_level": 19399
+  },
+  {
+    "id": 4581097,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101010,
+    "m_raid_reward_group_id": 45812097,
+    "m_contribution_reward_group_id": 45813097,
+    "m_enemy_id": 1458101010011,
+    "min_level": 19400,
+    "max_level": 19599
+  },
+  {
+    "id": 4581098,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101010,
+    "m_raid_reward_group_id": 45812098,
+    "m_contribution_reward_group_id": 45813098,
+    "m_enemy_id": 1458101010011,
+    "min_level": 19600,
+    "max_level": 19799
+  },
+  {
+    "id": 4581099,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101010,
+    "m_raid_reward_group_id": 45812099,
+    "m_contribution_reward_group_id": 45813099,
+    "m_enemy_id": 1458101010011,
+    "min_level": 19800,
+    "max_level": 19999
+  },
+  {
+    "id": 4581100,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101011,
+    "m_raid_reward_group_id": 45812100,
+    "m_contribution_reward_group_id": 45813100,
+    "m_enemy_id": 1458101011011,
+    "min_level": 20000,
+    "max_level": 20000
+  },
+  {
+    "id": 4581101,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101011,
+    "m_raid_reward_group_id": 45812101,
+    "m_contribution_reward_group_id": 45813101,
+    "m_enemy_id": 1458101011011,
+    "min_level": 20001,
+    "max_level": 20399
+  },
+  {
+    "id": 4581102,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101011,
+    "m_raid_reward_group_id": 45812102,
+    "m_contribution_reward_group_id": 45813102,
+    "m_enemy_id": 1458101011011,
+    "min_level": 20400,
+    "max_level": 20599
+  },
+  {
+    "id": 4581103,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101011,
+    "m_raid_reward_group_id": 45812103,
+    "m_contribution_reward_group_id": 45813103,
+    "m_enemy_id": 1458101011011,
+    "min_level": 20600,
+    "max_level": 20799
+  },
+  {
+    "id": 4581104,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101011,
+    "m_raid_reward_group_id": 45812104,
+    "m_contribution_reward_group_id": 45813104,
+    "m_enemy_id": 1458101011011,
+    "min_level": 20800,
+    "max_level": 20999
+  },
+  {
+    "id": 4581105,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101011,
+    "m_raid_reward_group_id": 45812105,
+    "m_contribution_reward_group_id": 45813105,
+    "m_enemy_id": 1458101011011,
+    "min_level": 21000,
+    "max_level": 21199
+  },
+  {
+    "id": 4581106,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101012,
+    "m_raid_reward_group_id": 45812106,
+    "m_contribution_reward_group_id": 45813106,
+    "m_enemy_id": 1458101012011,
+    "min_level": 21200,
+    "max_level": 21399
+  },
+  {
+    "id": 4581107,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101012,
+    "m_raid_reward_group_id": 45812107,
+    "m_contribution_reward_group_id": 45813107,
+    "m_enemy_id": 1458101012011,
+    "min_level": 21400,
+    "max_level": 21599
+  },
+  {
+    "id": 4581108,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101012,
+    "m_raid_reward_group_id": 45812108,
+    "m_contribution_reward_group_id": 45813108,
+    "m_enemy_id": 1458101012011,
+    "min_level": 21600,
+    "max_level": 21799
+  },
+  {
+    "id": 4581109,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101012,
+    "m_raid_reward_group_id": 45812109,
+    "m_contribution_reward_group_id": 45813109,
+    "m_enemy_id": 1458101012011,
+    "min_level": 21800,
+    "max_level": 21999
+  },
+  {
+    "id": 4581110,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101012,
+    "m_raid_reward_group_id": 45812110,
+    "m_contribution_reward_group_id": 45813110,
+    "m_enemy_id": 1458101012011,
+    "min_level": 22000,
+    "max_level": 22199
+  },
+  {
+    "id": 4581111,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101012,
+    "m_raid_reward_group_id": 45812111,
+    "m_contribution_reward_group_id": 45813111,
+    "m_enemy_id": 1458101012011,
+    "min_level": 22200,
+    "max_level": 22399
+  },
+  {
+    "id": 4581112,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101013,
+    "m_raid_reward_group_id": 45812112,
+    "m_contribution_reward_group_id": 45813112,
+    "m_enemy_id": 1458101013011,
+    "min_level": 22400,
+    "max_level": 22599
+  },
+  {
+    "id": 4581113,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101013,
+    "m_raid_reward_group_id": 45812113,
+    "m_contribution_reward_group_id": 45813113,
+    "m_enemy_id": 1458101013011,
+    "min_level": 22600,
+    "max_level": 22799
+  },
+  {
+    "id": 4581114,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101013,
+    "m_raid_reward_group_id": 45812114,
+    "m_contribution_reward_group_id": 45813114,
+    "m_enemy_id": 1458101013011,
+    "min_level": 22800,
+    "max_level": 22999
+  },
+  {
+    "id": 4581115,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101013,
+    "m_raid_reward_group_id": 45812115,
+    "m_contribution_reward_group_id": 45813115,
+    "m_enemy_id": 1458101013011,
+    "min_level": 23000,
+    "max_level": 23199
+  },
+  {
+    "id": 4581116,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101013,
+    "m_raid_reward_group_id": 45812116,
+    "m_contribution_reward_group_id": 45813116,
+    "m_enemy_id": 1458101013011,
+    "min_level": 23200,
+    "max_level": 23399
+  },
+  {
+    "id": 4581117,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101013,
+    "m_raid_reward_group_id": 45812117,
+    "m_contribution_reward_group_id": 45813117,
+    "m_enemy_id": 1458101013011,
+    "min_level": 23400,
+    "max_level": 23599
+  },
+  {
+    "id": 4581118,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101014,
+    "m_raid_reward_group_id": 45812118,
+    "m_contribution_reward_group_id": 45813118,
+    "m_enemy_id": 1458101014011,
+    "min_level": 23600,
+    "max_level": 23799
+  },
+  {
+    "id": 4581119,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101014,
+    "m_raid_reward_group_id": 45812119,
+    "m_contribution_reward_group_id": 45813119,
+    "m_enemy_id": 1458101014011,
+    "min_level": 23800,
+    "max_level": 23999
+  },
+  {
+    "id": 4581120,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101014,
+    "m_raid_reward_group_id": 45812120,
+    "m_contribution_reward_group_id": 45813120,
+    "m_enemy_id": 1458101014011,
+    "min_level": 24000,
+    "max_level": 24199
+  },
+  {
+    "id": 4581121,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101014,
+    "m_raid_reward_group_id": 45812121,
+    "m_contribution_reward_group_id": 45813121,
+    "m_enemy_id": 1458101014011,
+    "min_level": 24200,
+    "max_level": 24399
+  },
+  {
+    "id": 4581122,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101014,
+    "m_raid_reward_group_id": 45812122,
+    "m_contribution_reward_group_id": 45813122,
+    "m_enemy_id": 1458101014011,
+    "min_level": 24400,
+    "max_level": 24599
+  },
+  {
+    "id": 4581123,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101014,
+    "m_raid_reward_group_id": 45812123,
+    "m_contribution_reward_group_id": 45813123,
+    "m_enemy_id": 1458101014011,
+    "min_level": 24600,
+    "max_level": 24799
+  },
+  {
+    "id": 4581124,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101015,
+    "m_raid_reward_group_id": 45812124,
+    "m_contribution_reward_group_id": 45813124,
+    "m_enemy_id": 1458101015011,
+    "min_level": 24800,
+    "max_level": 24999
+  },
+  {
+    "id": 4581125,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101015,
+    "m_raid_reward_group_id": 45812125,
+    "m_contribution_reward_group_id": 45813125,
+    "m_enemy_id": 1458101015011,
+    "min_level": 25000,
+    "max_level": 25199
+  },
+  {
+    "id": 4581126,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101015,
+    "m_raid_reward_group_id": 45812126,
+    "m_contribution_reward_group_id": 45813126,
+    "m_enemy_id": 1458101015011,
+    "min_level": 25200,
+    "max_level": 25399
+  },
+  {
+    "id": 4581127,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101015,
+    "m_raid_reward_group_id": 45812127,
+    "m_contribution_reward_group_id": 45813127,
+    "m_enemy_id": 1458101015011,
+    "min_level": 25400,
+    "max_level": 25599
+  },
+  {
+    "id": 4581128,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101015,
+    "m_raid_reward_group_id": 45812128,
+    "m_contribution_reward_group_id": 45813128,
+    "m_enemy_id": 1458101015011,
+    "min_level": 25600,
+    "max_level": 25799
+  },
+  {
+    "id": 4581129,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101015,
+    "m_raid_reward_group_id": 45812129,
+    "m_contribution_reward_group_id": 45813129,
+    "m_enemy_id": 1458101015011,
+    "min_level": 25800,
+    "max_level": 25999
+  },
+  {
+    "id": 4581130,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101016,
+    "m_raid_reward_group_id": 45812130,
+    "m_contribution_reward_group_id": 45813130,
+    "m_enemy_id": 1458101016011,
+    "min_level": 26000,
+    "max_level": 26199
+  },
+  {
+    "id": 4581131,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101016,
+    "m_raid_reward_group_id": 45812131,
+    "m_contribution_reward_group_id": 45813131,
+    "m_enemy_id": 1458101016011,
+    "min_level": 26200,
+    "max_level": 26399
+  },
+  {
+    "id": 4581132,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101016,
+    "m_raid_reward_group_id": 45812132,
+    "m_contribution_reward_group_id": 45813132,
+    "m_enemy_id": 1458101016011,
+    "min_level": 26400,
+    "max_level": 26599
+  },
+  {
+    "id": 4581133,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101016,
+    "m_raid_reward_group_id": 45812133,
+    "m_contribution_reward_group_id": 45813133,
+    "m_enemy_id": 1458101016011,
+    "min_level": 26600,
+    "max_level": 26799
+  },
+  {
+    "id": 4581134,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101016,
+    "m_raid_reward_group_id": 45812134,
+    "m_contribution_reward_group_id": 45813134,
+    "m_enemy_id": 1458101016011,
+    "min_level": 26800,
+    "max_level": 26999
+  },
+  {
+    "id": 4581135,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101016,
+    "m_raid_reward_group_id": 45812135,
+    "m_contribution_reward_group_id": 45813135,
+    "m_enemy_id": 1458101016011,
+    "min_level": 27000,
+    "max_level": 27199
+  },
+  {
+    "id": 4581136,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101017,
+    "m_raid_reward_group_id": 45812136,
+    "m_contribution_reward_group_id": 45813136,
+    "m_enemy_id": 1458101017011,
+    "min_level": 27200,
+    "max_level": 27399
+  },
+  {
+    "id": 4581137,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101017,
+    "m_raid_reward_group_id": 45812137,
+    "m_contribution_reward_group_id": 45813137,
+    "m_enemy_id": 1458101017011,
+    "min_level": 27400,
+    "max_level": 27599
+  },
+  {
+    "id": 4581138,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101017,
+    "m_raid_reward_group_id": 45812138,
+    "m_contribution_reward_group_id": 45813138,
+    "m_enemy_id": 1458101017011,
+    "min_level": 27600,
+    "max_level": 27799
+  },
+  {
+    "id": 4581139,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101017,
+    "m_raid_reward_group_id": 45812139,
+    "m_contribution_reward_group_id": 45813139,
+    "m_enemy_id": 1458101017011,
+    "min_level": 27800,
+    "max_level": 27999
+  },
+  {
+    "id": 4581140,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101017,
+    "m_raid_reward_group_id": 45812140,
+    "m_contribution_reward_group_id": 45813140,
+    "m_enemy_id": 1458101017011,
+    "min_level": 28000,
+    "max_level": 28199
+  },
+  {
+    "id": 4581141,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101017,
+    "m_raid_reward_group_id": 45812141,
+    "m_contribution_reward_group_id": 45813141,
+    "m_enemy_id": 1458101017011,
+    "min_level": 28200,
+    "max_level": 28399
+  },
+  {
+    "id": 4581142,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101018,
+    "m_raid_reward_group_id": 45812142,
+    "m_contribution_reward_group_id": 45813142,
+    "m_enemy_id": 1458101018011,
+    "min_level": 28400,
+    "max_level": 28599
+  },
+  {
+    "id": 4581143,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101018,
+    "m_raid_reward_group_id": 45812143,
+    "m_contribution_reward_group_id": 45813143,
+    "m_enemy_id": 1458101018011,
+    "min_level": 28600,
+    "max_level": 28799
+  },
+  {
+    "id": 4581144,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101018,
+    "m_raid_reward_group_id": 45812144,
+    "m_contribution_reward_group_id": 45813144,
+    "m_enemy_id": 1458101018011,
+    "min_level": 28800,
+    "max_level": 28999
+  },
+  {
+    "id": 4581145,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101018,
+    "m_raid_reward_group_id": 45812145,
+    "m_contribution_reward_group_id": 45813145,
+    "m_enemy_id": 1458101018011,
+    "min_level": 29000,
+    "max_level": 29199
+  },
+  {
+    "id": 4581146,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101018,
+    "m_raid_reward_group_id": 45812146,
+    "m_contribution_reward_group_id": 45813146,
+    "m_enemy_id": 1458101018011,
+    "min_level": 29200,
+    "max_level": 29399
+  },
+  {
+    "id": 4581147,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101018,
+    "m_raid_reward_group_id": 45812147,
+    "m_contribution_reward_group_id": 45813147,
+    "m_enemy_id": 1458101018011,
+    "min_level": 29400,
+    "max_level": 29599
+  },
+  {
+    "id": 4581148,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101019,
+    "m_raid_reward_group_id": 45812148,
+    "m_contribution_reward_group_id": 45813148,
+    "m_enemy_id": 1458101019011,
+    "min_level": 29600,
+    "max_level": 29799
+  },
+  {
+    "id": 4581149,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101019,
+    "m_raid_reward_group_id": 45812149,
+    "m_contribution_reward_group_id": 45813149,
+    "m_enemy_id": 1458101019011,
+    "min_level": 29800,
+    "max_level": 29999
+  },
+  {
+    "id": 4581150,
+    "m_raid_boss_id": 4581,
+    "m_stage_id": 1458101019,
+    "m_raid_reward_group_id": 45812150,
+    "m_contribution_reward_group_id": 45813150,
+    "m_enemy_id": 1458101019011,
+    "min_level": 30000,
+    "max_level": 30000
+  },
+  {
+    "id": 4582001,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822001,
+    "m_contribution_reward_group_id": 45823101,
+    "m_enemy_id": 1458101101011,
+    "min_level": 1,
+    "max_level": 666
+  },
+  {
+    "id": 4582002,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822002,
+    "m_contribution_reward_group_id": 45823102,
+    "m_enemy_id": 1458101101011,
+    "min_level": 667,
+    "max_level": 1332
+  },
+  {
+    "id": 4582003,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822003,
+    "m_contribution_reward_group_id": 45823103,
+    "m_enemy_id": 1458101101011,
+    "min_level": 1333,
+    "max_level": 1998
+  },
+  {
+    "id": 4582004,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822004,
+    "m_contribution_reward_group_id": 45823104,
+    "m_enemy_id": 1458101101011,
+    "min_level": 1999,
+    "max_level": 2664
+  },
+  {
+    "id": 4582005,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822005,
+    "m_contribution_reward_group_id": 45823105,
+    "m_enemy_id": 1458101101011,
+    "min_level": 2665,
+    "max_level": 3330
+  },
+  {
+    "id": 4582006,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822006,
+    "m_contribution_reward_group_id": 45823106,
+    "m_enemy_id": 1458101101011,
+    "min_level": 3331,
+    "max_level": 3999
+  },
+  {
+    "id": 4582007,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822007,
+    "m_contribution_reward_group_id": 45823107,
+    "m_enemy_id": 1458101101011,
+    "min_level": 4000,
+    "max_level": 4662
+  },
+  {
+    "id": 4582008,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822008,
+    "m_contribution_reward_group_id": 45823108,
+    "m_enemy_id": 1458101101011,
+    "min_level": 4663,
+    "max_level": 5328
+  },
+  {
+    "id": 4582009,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822009,
+    "m_contribution_reward_group_id": 45823109,
+    "m_enemy_id": 1458101101011,
+    "min_level": 5329,
+    "max_level": 5999
+  },
+  {
+    "id": 4582010,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822010,
+    "m_contribution_reward_group_id": 45823110,
+    "m_enemy_id": 1458101101011,
+    "min_level": 6000,
+    "max_level": 6660
+  },
+  {
+    "id": 4582011,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822011,
+    "m_contribution_reward_group_id": 45823111,
+    "m_enemy_id": 1458101101011,
+    "min_level": 6661,
+    "max_level": 7326
+  },
+  {
+    "id": 4582012,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822012,
+    "m_contribution_reward_group_id": 45823112,
+    "m_enemy_id": 1458101101011,
+    "min_level": 7327,
+    "max_level": 7992
+  },
+  {
+    "id": 4582013,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822013,
+    "m_contribution_reward_group_id": 45823113,
+    "m_enemy_id": 1458101101011,
+    "min_level": 7993,
+    "max_level": 8658
+  },
+  {
+    "id": 4582014,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101101,
+    "m_raid_reward_group_id": 45822014,
+    "m_contribution_reward_group_id": 45823114,
+    "m_enemy_id": 1458101101011,
+    "min_level": 8659,
+    "max_level": 9998
+  },
+  {
+    "id": 4582015,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101102,
+    "m_raid_reward_group_id": 45822015,
+    "m_contribution_reward_group_id": 45823115,
+    "m_enemy_id": 1458101102011,
+    "min_level": 9999,
+    "max_level": 9999
+  },
+  {
+    "id": 4582016,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101103,
+    "m_raid_reward_group_id": 45822016,
+    "m_contribution_reward_group_id": 45823116,
+    "m_enemy_id": 1458101103011,
+    "min_level": 10000,
+    "max_level": 10499
+  },
+  {
+    "id": 4582017,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101103,
+    "m_raid_reward_group_id": 45822017,
+    "m_contribution_reward_group_id": 45823117,
+    "m_enemy_id": 1458101103011,
+    "min_level": 10500,
+    "max_level": 10999
+  },
+  {
+    "id": 4582018,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101104,
+    "m_raid_reward_group_id": 45822018,
+    "m_contribution_reward_group_id": 45823118,
+    "m_enemy_id": 1458101104011,
+    "min_level": 11000,
+    "max_level": 11749
+  },
+  {
+    "id": 4582019,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101105,
+    "m_raid_reward_group_id": 45822019,
+    "m_contribution_reward_group_id": 45823119,
+    "m_enemy_id": 1458101105011,
+    "min_level": 11750,
+    "max_level": 12499
+  },
+  {
+    "id": 4582020,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101105,
+    "m_raid_reward_group_id": 45822020,
+    "m_contribution_reward_group_id": 45823120,
+    "m_enemy_id": 1458101105011,
+    "min_level": 12500,
+    "max_level": 13249
+  },
+  {
+    "id": 4582021,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101106,
+    "m_raid_reward_group_id": 45822021,
+    "m_contribution_reward_group_id": 45823121,
+    "m_enemy_id": 1458101106011,
+    "min_level": 13250,
+    "max_level": 13999
+  },
+  {
+    "id": 4582022,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101106,
+    "m_raid_reward_group_id": 45822022,
+    "m_contribution_reward_group_id": 45823122,
+    "m_enemy_id": 1458101106011,
+    "min_level": 14000,
+    "max_level": 14749
+  },
+  {
+    "id": 4582023,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101107,
+    "m_raid_reward_group_id": 45822023,
+    "m_contribution_reward_group_id": 45823123,
+    "m_enemy_id": 1458101107011,
+    "min_level": 14750,
+    "max_level": 15499
+  },
+  {
+    "id": 4582024,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101107,
+    "m_raid_reward_group_id": 45822024,
+    "m_contribution_reward_group_id": 45823124,
+    "m_enemy_id": 1458101107011,
+    "min_level": 15500,
+    "max_level": 16249
+  },
+  {
+    "id": 4582025,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101108,
+    "m_raid_reward_group_id": 45822025,
+    "m_contribution_reward_group_id": 45823125,
+    "m_enemy_id": 1458101108011,
+    "min_level": 16250,
+    "max_level": 16999
+  },
+  {
+    "id": 4582026,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101108,
+    "m_raid_reward_group_id": 45822026,
+    "m_contribution_reward_group_id": 45823126,
+    "m_enemy_id": 1458101108011,
+    "min_level": 17000,
+    "max_level": 17749
+  },
+  {
+    "id": 4582027,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101109,
+    "m_raid_reward_group_id": 45822027,
+    "m_contribution_reward_group_id": 45823127,
+    "m_enemy_id": 1458101109011,
+    "min_level": 17750,
+    "max_level": 18499
+  },
+  {
+    "id": 4582028,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101109,
+    "m_raid_reward_group_id": 45822028,
+    "m_contribution_reward_group_id": 45823128,
+    "m_enemy_id": 1458101109011,
+    "min_level": 18500,
+    "max_level": 19249
+  },
+  {
+    "id": 4582029,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101110,
+    "m_raid_reward_group_id": 45822029,
+    "m_contribution_reward_group_id": 45823129,
+    "m_enemy_id": 1458101110011,
+    "min_level": 19250,
+    "max_level": 19999
+  },
+  {
+    "id": 4582030,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101111,
+    "m_raid_reward_group_id": 45822030,
+    "m_contribution_reward_group_id": 45823130,
+    "m_enemy_id": 1458101111011,
+    "min_level": 20000,
+    "max_level": 20000
+  },
+  {
+    "id": 4582031,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101112,
+    "m_raid_reward_group_id": 45822031,
+    "m_contribution_reward_group_id": 45823131,
+    "m_enemy_id": 1458101112011,
+    "min_level": 20001,
+    "max_level": 20499
+  },
+  {
+    "id": 4582032,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101112,
+    "m_raid_reward_group_id": 45822032,
+    "m_contribution_reward_group_id": 45823132,
+    "m_enemy_id": 1458101112011,
+    "min_level": 20500,
+    "max_level": 20999
+  },
+  {
+    "id": 4582033,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101113,
+    "m_raid_reward_group_id": 45822033,
+    "m_contribution_reward_group_id": 45823133,
+    "m_enemy_id": 1458101113011,
+    "min_level": 21000,
+    "max_level": 21749
+  },
+  {
+    "id": 4582034,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101113,
+    "m_raid_reward_group_id": 45822034,
+    "m_contribution_reward_group_id": 45823134,
+    "m_enemy_id": 1458101113011,
+    "min_level": 21750,
+    "max_level": 22499
+  },
+  {
+    "id": 4582035,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101114,
+    "m_raid_reward_group_id": 45822035,
+    "m_contribution_reward_group_id": 45823135,
+    "m_enemy_id": 1458101114011,
+    "min_level": 22500,
+    "max_level": 23249
+  },
+  {
+    "id": 4582036,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101115,
+    "m_raid_reward_group_id": 45822036,
+    "m_contribution_reward_group_id": 45823136,
+    "m_enemy_id": 1458101115011,
+    "min_level": 23250,
+    "max_level": 23999
+  },
+  {
+    "id": 4582037,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101115,
+    "m_raid_reward_group_id": 45822037,
+    "m_contribution_reward_group_id": 45823137,
+    "m_enemy_id": 1458101115011,
+    "min_level": 24000,
+    "max_level": 24749
+  },
+  {
+    "id": 4582038,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101116,
+    "m_raid_reward_group_id": 45822038,
+    "m_contribution_reward_group_id": 45823138,
+    "m_enemy_id": 1458101116011,
+    "min_level": 24750,
+    "max_level": 25499
+  },
+  {
+    "id": 4582039,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101116,
+    "m_raid_reward_group_id": 45822039,
+    "m_contribution_reward_group_id": 45823139,
+    "m_enemy_id": 1458101116011,
+    "min_level": 25500,
+    "max_level": 26249
+  },
+  {
+    "id": 4582040,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101117,
+    "m_raid_reward_group_id": 45822040,
+    "m_contribution_reward_group_id": 45823140,
+    "m_enemy_id": 1458101117011,
+    "min_level": 26250,
+    "max_level": 26999
+  },
+  {
+    "id": 4582041,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101117,
+    "m_raid_reward_group_id": 45822041,
+    "m_contribution_reward_group_id": 45823141,
+    "m_enemy_id": 1458101117011,
+    "min_level": 27000,
+    "max_level": 27749
+  },
+  {
+    "id": 4582042,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101118,
+    "m_raid_reward_group_id": 45822042,
+    "m_contribution_reward_group_id": 45823142,
+    "m_enemy_id": 1458101118011,
+    "min_level": 27750,
+    "max_level": 28499
+  },
+  {
+    "id": 4582043,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101118,
+    "m_raid_reward_group_id": 45822043,
+    "m_contribution_reward_group_id": 45823143,
+    "m_enemy_id": 1458101118011,
+    "min_level": 28500,
+    "max_level": 29249
+  },
+  {
+    "id": 4582044,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101119,
+    "m_raid_reward_group_id": 45822044,
+    "m_contribution_reward_group_id": 45823144,
+    "m_enemy_id": 1458101119011,
+    "min_level": 29250,
+    "max_level": 29999
+  },
+  {
+    "id": 4582045,
+    "m_raid_boss_id": 4582,
+    "m_stage_id": 1458101119,
+    "m_raid_reward_group_id": 45822045,
+    "m_contribution_reward_group_id": 45823145,
+    "m_enemy_id": 1458101119011,
+    "min_level": 30000,
+    "max_level": 30000
   }
 ]
