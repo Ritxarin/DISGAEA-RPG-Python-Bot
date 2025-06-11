@@ -8518,5 +8518,17 @@
     "description": "Nether Star for Awakening 6\u2605 Hundred Knight",
     "max_num": 9999,
     "sell_price": 0
+  },
+    {
+      "id": 5926,
+      "name": "BOSSの鍵",
+      "item_type": 59,
+      "icon_no": 5901,
+      "effect_value": [
+          793
+      ],
+      "description": "悪徳領主とオレ様魔王！～そこにＡＩはあるのか？～でBOSSに挑戦するために必要な鍵",
+      "max_num": 9999,
+      "sell_price": 0
   }
 ]

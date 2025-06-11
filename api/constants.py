@@ -10,7 +10,7 @@ class Constants:
     Current_Raid_Badass_Boss_ID_JP = 4582
     Current_Story_Event_ID_GL = 826
     Current_Story_Event_Area_IDs =  [1826101, 1826102, 1826103, 1826104, 1826105]
-    Current_Story_Event_ID_JP = 455
+    Current_Story_Event_ID_JP = 793
     Current_Story_Event_Area_IDs_JP =  [1455101, 1455102, 1455103, 1455104, 1455105]
     Etna_Defense_Area_ID_GL = 0
     Enta_Defense_Event_ID_GL = 0
@@ -25,8 +25,9 @@ class Constants:
     Current_Bingo_ID = 2
     Current_Sugoroku_Event_ID = 0
     Item_Survey_Deposit_Size = 10
+    Etna_Resort_Item_Deposit_Size = 10
     Shop_Max_Free_Refresh = 5
-    Highest_Tower_Level = 50
+    Highest_Tower_Level = 95
     Alchemy_Alchemize_Cost = 6000
     Alchemy_Realchemize_Cost = 12000
     Unique_Innocent_Character_ID = 0
@@ -44,8 +45,8 @@ class Constants:
     Dispatch_4_Star_Prinny_Prinny_Cost = 216
 
     session_id = ''  # FILL SESSION_ID HERE
-    user_id = ''  # FILL USER_ID HERE
-    ticket = ''  # FILL TICKET FOR STEAM LOGIN
+    user_id ='398150928'
+    ticket = 'PauN8M30Rki9jrtHkjWrHg'
     
 class Raid_ID(IntEnum):
     SUMMER_PRINNY_RAID_ID = 135
@@ -121,7 +122,8 @@ class Innocent_ID(IntEnum):
     HL = 8
     WM = 9
     SkillMastery = 10
-
+    Drop_rate = 61
+    
 class EquipmentType(IntEnum):
     WEAPON = 1
     ARMOR = 2
@@ -148,6 +150,15 @@ class Items(IntEnum):
     Super_Awakening_Prinny = 5001
     Abyss_Key = 5301
     Prinny_1star_blue = 4000001
+    
+class Item_Types(IntEnum):
+    AP_Restore = 3
+    Bribes = 4
+    Gate_Keys = 14
+    Event_Points = 20
+    Character_Crystal = 27
+    Prinny = 40
+    Event_Stage_Key = 59
 
 class Item_World_Mode(IntEnum):
     Run_Weapons_Only = 1
@@ -253,3 +264,26 @@ class JP_ErrorMessages:
     Armor_Full_Error = '防具の所持数がいっぱいです\n所持枠を拡張するか売却などをしてください'
     Innocent_Full_Error = '不正なリクエストです'
     Raid_Battle_Finished = 'The raid Boss is already conquered'
+      
+class Agenda_Type(IntEnum):
+    Shop_Rank = 2
+    Unlock_Carnage = 3
+    Background = 4
+    BGM = 5
+    EXP_HL_Bonus = 7
+    Increase_AP_Cap = 8 
+    Party_Slot = 9
+    Auto_Reincarnation = 10
+    Fishing_Fleet_Upgrade = 12
+    Party_Slot_Extra = 14
+    
+class Event_Type(IntEnum):
+    Story_Event = 1
+    Character_Gate = 2
+    Story_Event_Special_Mission = 3
+    Conquest_Battle = 4
+    Story_Event_Special_Gate = 5
+    Raid_Event = 6
+    Etna_Defense = 10
+    Sugoroku = 13
+    Story_Event_New = 15

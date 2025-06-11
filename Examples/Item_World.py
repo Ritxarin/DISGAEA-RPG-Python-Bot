@@ -23,7 +23,7 @@ max_item_rarity_to_donate = 60  # do not donate items above this rarity
 max_item_rank_to_donate = 40  # do not donate items above this rank
 min_item_rank_to_run = 40  # do not run IW for items below this rank
 a.options.min_item_rank = 40 # lowest item rank to run
-a.options.min_item_rarity = 0 # lowest item rarity to run
+a.options.min_drop_item_rarity = 0 # lowest item rarity drop
 
 # select if you want to run only weapons, equipments or all items (default option)
 # Item_World_Mode.Run_Weapons_Only Item_World_Mode.Run_Equipment_Only Item_World_Mode.Run_All_Items

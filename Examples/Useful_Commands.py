@@ -76,3 +76,18 @@ finish_mode = Battle_Finish_Mode.Tower_Finish
 
 a.doQuest(m_stage_id=m_stage_id, team_num=team_to_use, help_t_player_id=help_t_player_id,
           send_friend_request=send_friend_request, finish_mode=finish_mode)
+
+##########################################################################
+# Prism Ranger Stage farm
+###########################################################################
+
+
+indigo_ranger_stage_id = 106509
+orange_ranger_stage_id = 105514
+white_ranger_stage_id = 201509
+blue_ranger_stage_id = 101509
+purple_ranger_stage_id = 104509
+green_ranger_stage_id = 103511
+black_ranger_stage_id = 202509
+pink_ranger_stage_id = 107509
+yellow_ranger_stage_id = 102509

@@ -433,7 +433,8 @@ class Client:
         return self.__rpc('battle/skip_parties', {})
 
     def battle_start(self, m_stage_id, help_t_player_id=None, help_t_character_id=0, act=0, help_t_character_lv=0,
-                     deck_no=1, reincarnation_character_ids=[], raid_status_id=0, character_ids=None, memory_ids=[]):
+                     deck_no=1, reincarnation_character_ids=[], raid_status_id=0, character_ids=None, memory_ids=[],
+                     use_item_id:int = 0, use_item_num:id=0):
         if help_t_player_id is None:
             help_t_player_id = []
 
@@ -445,15 +446,19 @@ class Client:
             "act": act,
             "help_t_character_id": help_t_character_id,
             "help_t_character_lv": help_t_character_lv,
+            "use_item_id":use_item_id,
+            "use_item_num":use_item_num
         }
 
         if len(memory_ids) >= 1:
             while len(memory_ids) < 5:
                 memory_ids.append(0)
             prms['t_memory_ids'] = memory_ids
-
+        else:
+            prms['t_memory_ids'] = memory_ids
+            
         if character_ids is not None:
-            prms["t_character_ids"] = character_ids
+            prms["t_character_ids"] = []
 
         return self.__rpc('battle/start', prms)
 
@@ -1206,7 +1211,7 @@ class Client:
         data = self.__rpc('hospital/roulette', {})
         if 'api_error' in data:
             return
-        Logger.info(f"Hospital Roulettte - Recovered {data['result']['recovery_num']} AP")
+        Logger.info(f"Hospital Roulettte span - Current AP: {data['result']['after_t_status']['act']}")
         return data
 
     def hospital_claim_reward(self, reward_id):
@@ -1234,12 +1239,19 @@ class Client:
     def story_event_daily_missions(self):
         m_event_id = Constants.Current_Story_Event_ID_GL if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
         return self.__rpc('event/mission_dailies', {"m_event_id":m_event_id})
+    
+    def story_event_mission_repetitions(self):
+        m_event_id = Constants.Current_Story_Event_ID_GL if self.o.region == 2 else Constants.Current_Story_Event_ID_JP
+        return self.__rpc('event/mission_repetitions', {"m_event_id":m_event_id})
         
     def story_event_claim_daily_missions(self, mission_ids: list[int] = []):
         return self.__rpc('event/receive_mission_daily', {"ids":mission_ids})
 
     def story_event_claim_missions(self, mission_ids: list[int] = []):
         return self.__rpc('event/receive_mission', {"ids":mission_ids})
+    
+    def story_event_claim_mission_repetitions(self, mission_ids: list[int] = []):
+        return self.__rpc('event/receive_mission_repetitions', {"ids":mission_ids})
 
     ##########################
     # PvP endpoints
@@ -1305,7 +1317,7 @@ class Client:
 
     def decrypt(self, content, iv, region):
         res = self.c.decrypt(content,iv, region)
-        if 'fuji_key' in res:
+        if res != None and 'fuji_key' in res:
             if sys.version_info >= (3, 0):
                 self.c.key = bytes(res['fuji_key'], encoding='utf8')
             else:

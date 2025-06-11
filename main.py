@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
 import random
+import time
 
 from api.CustomExceptions import NoAPLeftException
 from api.constants import Item_World_Mode
@@ -225,7 +226,8 @@ class API(BaseAPI):
     def doQuest(self, m_stage_id=101102, team_num=None, auto_rebirth: bool = None,
                 help_t_player_id: int = 0, send_friend_request: bool = False,
                 finish_mode: Battle_Finish_Mode = Battle_Finish_Mode.Random_Finish,
-                randomize_helper:bool=False):
+                randomize_helper:bool=False,
+                use_item_id:int=0, use_item_num:int=0):
         if auto_rebirth is None:
             auto_rebirth = self.o.auto_rebirth
 
@@ -239,24 +241,17 @@ class API(BaseAPI):
 
         if stage['act'] > self.current_ap:
             if self.o.use_potions:
-                self.log('not enough ap. using potion')
-                item_id = ItemsC.AP_Pot
-                ap_pot = self.pd.get_item_by_m_item_id(ItemsC.AP_Pot)
-                if ap_pot is None or ap_pot['num_total'] == 0:
-                    self.log('No AP potions left')
-                    item_id = ItemsC.AP_Pot_50
-                    ap_pot = self.pd.get_item_by_m_item_id(ItemsC.AP_Pot_50)
-                    if ap_pot is None or ap_pot['num_total'] == 0:
-                        self.log('No 50% AP potions left. Trying to claim AP from mail')
-                        self.present_receive_ap()
+                self.log('Not enough AP. Restoring...')
+                self.present_receive_ap()
+                if self.o.current_ap < stage['act']:
+                    self.log('No AP left on mail. Using AP Pot.')
+                    self.use_potion(item_id=ItemsC.AP_Pot)
+                    if self.o.current_ap < stage['act']:
+                        self.log('No AP pots left. Using 50% AP Pot.')
+                        self.use_potion(item_id=ItemsC.AP_Pot_50)
                         if self.o.current_ap < stage['act']:
-                            self.log('No AP left on mail. Exiting....')
-                            raise NoAPLeftException
-                        return
-                rr = self.client.item_use(use_item_id=item_id, use_item_num=1)
-                if 'api_error' in rr and rr['api_error']['code'] == 12009:
-                    self.log_err('unable to use potion')
-                    raise NoAPLeftException
+                            self.log('No 50% AP pots left. Exiting....')
+                            raise NoAPLeftException   
             else:
                 self.log('not enough ap')
                 raise NoAPLeftException
@@ -285,6 +280,7 @@ class API(BaseAPI):
             help_t_character_id=help_player['t_character']['id'], act=stage['act'],
             help_t_character_lv=help_player['t_character']['lv'],
             deck_no=team_num, reincarnation_character_ids=auto_rebirth_character_ids,
+            use_item_id=use_item_id, use_item_num=use_item_num
         )
 
         if 'result' not in start:
@@ -467,7 +463,7 @@ class API(BaseAPI):
         if i_filter is None:
             i_filter = {
                 'min_item_rank': self.o.min_item_rank,
-                'min_item_rarity': self.o.min_item_rarity,
+                'min_item_rarity': self.o.min_rarity,
                 'min_item_level': self.o.min_item_level,
                 'lv_max': False,
             }
@@ -511,6 +507,7 @@ class API(BaseAPI):
                 equipment_type=start['result']['equipment_type'],
                 equipment_id=start['result']['equipment_id'],
             )
+            time.sleep(2)
             start, result = self.__start_item_world(equipment_id, equipment_type)
 
         # End the battle and keep the equipment
@@ -605,7 +602,7 @@ class API(BaseAPI):
         return ss
 
     ################################################################
-    ##############      IW METHODS    ##############################
+    ##############      OTHER METHODS    ##############################
     ################################################################
     
     def useCodes(self, codes):
@@ -643,34 +640,6 @@ class API(BaseAPI):
         self.pd.dump_to_file(file_path, {
             "app_constants": self.client.app_constants()['result'],
         })
-
-    def vote_dark_assembly_agenda(self, agenda_id=138, use_bribes=False):
-        agendas = self.client.agenda_index()
-        agenda = next((x for x in agendas['result']['t_agendas'] if x['m_agenda_id'] == agenda_id), None)
-        if agenda is None:
-            self.log(f"Agenda with id {agenda_id} is not found")
-            return
-
-        if agenda['status'] != 0:
-            self.log(f"Agenda has already been passed.")
-            return
-        r1 = self.client.agenda_start(agenda_id)
-        if 'api_error' in r1:
-            return
-        
-        bribe_data = []
-        #[{"lowmaker_id":26776096,"item_id":402,"num":1},{"lowmaker_id":26776096,"item_id":401,"num":1}]
-        if use_bribes:
-            senators_to_bribe = [x for x in r1['result']['t_lowmakers'] if x['power'] >= 9]
-            for senator in senators_to_bribe:
-                if senator['fav_rate'] >=6:
-                    continue
-                bribe_data.append(
-                    {"lowmaker_id":senator['id'],"item_id":401,"num":6-senator['fav_rate']}
-                )
-        r2 = self.client.agenda_vote(agenda_id, bribe_data)
-        self.log(r2['result']['result_message'])
-        self.client.agenda_get_campaign()
 
     def is_carnage_unlocked(self):
         agendas = self.client.agenda_index()
@@ -730,7 +699,18 @@ class API(BaseAPI):
         self.client.player_update_deck(deck_data)
         self.player_decks(refresh=True)
 
-
+    def use_potion(self, item_id:int):
+        item_gd = self.gd.get_item(item_id)
+        item = self.pd.get_item_by_m_item_id(item_id)
+        if item is None or item['num_total'] == 0:
+            self.log(f"No {item_gd['name']} left ")            
+            return
+        rr = self.client.item_use(use_item_id=item_id, use_item_num=1)
+        if 'api_error' in rr and rr['api_error']['code'] == 12009:
+            self.log(f"Unable to use {item_gd['name']}")  
+        t = self.client.player_index()
+        self.o.current_ap = t['result']['status']['act']
+            
     ################################################################
     ###########     FRIEND METHODS   ###############################
     ################################################################

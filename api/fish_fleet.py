@@ -13,14 +13,14 @@ class FishFleet(Player, metaclass=ABCMeta):
 
     def survey_complete_all_expeditions_and_start_again(self, use_bribes, hours):
         time_delta = -4 if self.o.region == 2 else 9
-        server_date_time = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)
+        server_date_time = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=time_delta)
         fish_fleet_data = self.client.survey_index()
         for fish_fleet in fish_fleet_data['result']['t_surveys']:
             fleet_name = self.survey_get_fleet_name(fish_fleet['m_survey_id'])
             end_time_string = fish_fleet['end_at']
             # fleet has been sent
             if fish_fleet['end_at'] != '':
-                end_time_date_time = parser.parse(end_time_string)
+                end_time_date_time = parser.parse(end_time_string).replace(tzinfo=datetime.timezone.utc)
                 if server_date_time > end_time_date_time:
                     # Complete expedition and print rewards
                     self.survey_complete_expedition(fish_fleet['m_survey_id'])
@@ -82,12 +82,15 @@ class FishFleet(Player, metaclass=ABCMeta):
 
     def survey_get_return_time(self):
         fish_fleet_data = self.client.survey_index()
-        closest_fleet_end_time = datetime.datetime.max
+        closest_fleet_end_time = datetime.datetime.max.replace(tzinfo=datetime.timezone.utc)
         for fish_fleet in fish_fleet_data['result']['t_surveys']:
             end_time_string = fish_fleet['end_at']
             # fleet has been sent
             if fish_fleet['end_at'] != '':
                 end_time_date_time = parser.parse(end_time_string)
+                # Ensure parsed datetime is timezone-aware
+                if end_time_date_time.tzinfo is None:
+                    end_time_date_time = end_time_date_time.replace(tzinfo=datetime.timezone.utc)
                 if end_time_date_time < closest_fleet_end_time:
                     closest_fleet_end_time = end_time_date_time
 

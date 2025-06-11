@@ -30,11 +30,11 @@ class Options:
         self.set_device(device)
 
         self.deck_index: int = 0
-        self.min_rarity: int = 0
+        self.min_rarity: int = 0 # This changes the minimum rarity of equipments found in the item-world. 1 = common, 40 = rare, 70 = Legendary
         self.min_rank: int = 0
         self.min_item_level: int = 0
         self.min_item_rank: int = 0
-        self.min_item_rarity: int = 0
+        self.min_drop_item_rarity: int = 0
         self.auto_rebirth: bool = False
         self.auto_rebirth_character_ids: list[int] = []
         self.use_potions: bool = False

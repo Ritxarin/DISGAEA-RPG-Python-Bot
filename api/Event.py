@@ -21,6 +21,22 @@ class Event(Player, metaclass=ABCMeta):
             self.log(f"Claimed {len(mission_ids)} daily missions")
         if len(incomplete_mission_ids) > 0:
             self.log(f"Daily missions to be completed: {len(incomplete_mission_ids)}")
+            
+    def event_claim_mission_repetitions(self):
+        r = self.client.story_event_mission_repetitions()
+        mission_ids = []
+        incomplete_mission_ids = []
+        
+        for mission in r['result']['missions']:
+            if mission['status'] == Mission_Status.Cleared:
+                mission_ids.append(mission['id'])
+            if mission['status'] == Mission_Status.Not_Completed:
+                incomplete_mission_ids.append(mission['id'])
+        if len(mission_ids) > 0:
+            self.client.story_event_claim_mission_repetitions(mission_ids)
+            self.log(f"Claimed {len(mission_ids)} event repeatable missions")
+        if len(incomplete_mission_ids) > 0:
+            self.log(f"Repeatable missions to be completed: {len(incomplete_mission_ids)}")
 
     def event_claim_story_missions(self):
         r = self.client.story_event_missions()

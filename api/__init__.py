@@ -16,7 +16,8 @@ from api.item_survey import ItemSurvey
 from api.Event import Event
 from api.PvP import PvP
 from api.sugoroku import Sugoroku
+from api.dark_assembly import Dark_Assembly
 
-class BaseAPI(Bingo, Raid, AxelContest, SparSpace, FishFleet, Gatcha, Battle, EtnaResort, ItemSurvey, Event, PvP, Sugoroku, ABC):
+class BaseAPI(Bingo, Raid, AxelContest, SparSpace, FishFleet, Gatcha, Battle, EtnaResort, ItemSurvey, Event, PvP, Sugoroku, Dark_Assembly, ABC):
     def __init__(self):
         super().__init__()

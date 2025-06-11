@@ -24,7 +24,7 @@ class ItemSurvey(Shop, metaclass=ABCMeta):
     
     def item_survey_complete_and_start_again(self, min_item_rank_to_deposit=40, auto_donate=True):
         time_delta = -4 if self.o.region == 2 else 9
-        server_date_time = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)
+        server_date_time = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=time_delta)
         weapons_finished = []
         equipments_finished = []
         iw_survey_data = self.client.item_world_survey_index()
@@ -65,9 +65,9 @@ class ItemSurvey(Shop, metaclass=ABCMeta):
         # If available slots
         if (len(iw_survey_data['result']['t_equipments']) + len(
                 iw_survey_data['result']['t_weapons']) < Constants.Item_Survey_Deposit_Size):
-            return datetime.datetime.min
+            return datetime.datetime.min.replace(tzinfo=datetime.timezone.utc)
 
-        closest_survey_end_time = datetime.datetime.max
+        closest_survey_end_time = datetime.datetime.max.replace(tzinfo=datetime.timezone.utc)
         for item in iw_survey_data['result']['t_weapons']:
             item_survey_end_time = self.item_world_survey_get_item_return_time(item)
             if item_survey_end_time < closest_survey_end_time:
@@ -78,14 +78,19 @@ class ItemSurvey(Shop, metaclass=ABCMeta):
             if item_survey_end_time < closest_survey_end_time:
                 closest_survey_end_time = item_survey_end_time
 
+        # Ensure parsed datetime is timezone-aware
+        if closest_survey_end_time.tzinfo is None:
+            closest_survey_end_time = closest_survey_end_time.replace(tzinfo=datetime.timezone.utc)
         return closest_survey_end_time
 
     def item_world_survey_get_item_return_time(self, item):
         end_time_string = item['item_world_survey_end_at']
         if end_time_string != '':
             end_time_datetime = parser.parse(end_time_string)
-            return end_time_datetime
-        return datetime.datetime.min
+            if end_time_datetime.tzinfo is None:
+                end_time_datetime = end_time_datetime
+            return end_time_datetime.replace(tzinfo=datetime.timezone.utc)
+        return datetime.datetime.min.replace(tzinfo=datetime.timezone.utc)
 
     # Will first try to fill the depository with items with rare innocents (any rank)
     # Rest of spots will be filled with any item of specified rank (r40 by default)

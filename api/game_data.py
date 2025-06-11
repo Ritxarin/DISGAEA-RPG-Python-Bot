@@ -10,6 +10,8 @@ class GameData:
         self.innocent_types = gamedata['innocent_types']
         self.equipment_effect_type = gamedata['equipment_effect_type']
         self.innocent_recipes = gamedata['innocent_recipes']
+        self.agendas = gamedata['agenda']
+        self.events = gamedata['event']
         self.innocent_recipe_map = self.__create_recipe_map()
 
     def __create_recipe_map(self):
@@ -43,9 +45,9 @@ class GameData:
             if i == s['id']:
                 return s
 
-    def get_item(self, i):
+    def get_item(self, item_id):
         for s in self.items:
-            if i == s['id']:
+            if s['id'] == item_id:
                 return s
 
     def get_character(self, i):
@@ -130,3 +132,6 @@ class GameData:
 
     def get_characters_by_forte(self, weapon_forte:int):
         return [x for x in self.characters if x['best_weapon_type'] == weapon_forte]
+    
+    def get_agendas_by_type(self, agenda_type:int):
+        return [x for x in self.agendas if x['agenda_type'] == agenda_type]

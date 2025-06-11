@@ -113,9 +113,12 @@ class Battle(Player, metaclass=ABCMeta):
 
     def parse_start(self, start):
         if 'result' in start and 'reward_id' in start['result']:
-            reward_id = start['result']['reward_id'][10]
-            reward_type = start['result']['reward_type'][10]
-            reward_rarity = start['result']['reward_rarity'][10]
+            # reward_id = start['result']['reward_id'][10]
+            # reward_type = start['result']['reward_type'][10]
+            # reward_rarity = start['result']['reward_rarity'][10]
+            reward_id = start['result']['reward_id'][0]
+            reward_type = start['result']['reward_type'][0]
+            reward_rarity = start['result']['reward_rarity'][0]
 
             # stage with no drops or ensure_drops is false, continue
             if start['result']['stage'] % 10 != 0 or not self.options.item_world_ensure_drops:
@@ -134,7 +137,7 @@ class Battle(Player, metaclass=ABCMeta):
                 return 1
 
             # drop, rarity less than min_rarity, retry
-            if reward_rarity < self.o.min_rarity:
+            if reward_rarity < self.o.min_drop_item_rarity:
                 return 5
 
             # equipment drop, but farming only weapons, retry

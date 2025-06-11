@@ -25,14 +25,14 @@ class Gatcha(Player):
 
     def get_gacha_pull_count(self, m_gacha_id = 100001):
         gacha_data = self.client.gacha_sums()
-        premium_banner = next((x for x in gacha_data['result']['_items'] if x['m_gacha_id'] == m_gacha_id),None)
+        premium_banner = next((x for x in gacha_data['result']['gacha_sums'] if x['m_gacha_id'] == m_gacha_id),None)
         if premium_banner is not None:
             return premium_banner['total_draw_count']
         return 0
 
     def is_free_10pull_available(self, m_gacha_id, max_draws):
         banner_data = self.client.gacha_sums()
-        banner = next((x for x in banner_data['result']['_items'] if x['m_gacha_id'] == m_gacha_id),None)
+        banner = next((x for x in banner_data['result']['gacha_sums'] if x['m_gacha_id'] == m_gacha_id),None)
         if banner is  None:
             return True
         last_pull_at_string = banner['last_draw_at']
