@@ -13362,6 +13362,23 @@
         "displable_home": 0
     },
     {
+        "id": 800,
+        "resource_name": "16",
+        "event_type": 12,
+        "sort": 100,
+        "m_episode_id": 18001,
+        "another_m_episode_id": 0,
+        "m_item_shop_id": 0,
+        "m_item_shop_id2": 0,
+        "m_event_gacha_id": 0,
+        "prologue_story_id": 0,
+        "opening_story_id": 0,
+        "ending_story_id": 0,
+        "ending_story_end_at": "",
+        "challenge_max": 0,
+        "displable_home": 0
+    },
+    {
         "id": 99998,
         "resource_name": "shop_event_3",
         "event_type": 9,

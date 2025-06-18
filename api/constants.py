@@ -17,6 +17,7 @@ class Constants:
     Etna_Defense_Area_ID_JP = 1451101
     Enta_Defense_Event_ID_JP = 451
     Etna_Defense_Daily_Run_Limit = 10
+    Etna_Resort_Item_Deposit_Size = 11
     UDT_Training_Area_ID_GL = 0
     UDT_Training_Event_ID_GL = 0
     UDT_Training_Area_ID_JP = 0
@@ -25,7 +26,6 @@ class Constants:
     Current_Bingo_ID = 2
     Current_Sugoroku_Event_ID = 0
     Item_Survey_Deposit_Size = 10
-    Etna_Resort_Item_Deposit_Size = 10
     Shop_Max_Free_Refresh = 5
     Highest_Tower_Level = 95
     Alchemy_Alchemize_Cost = 6000
@@ -287,3 +287,8 @@ class Event_Type(IntEnum):
     Etna_Defense = 10
     Sugoroku = 13
     Story_Event_New = 15
+    Netherworld_Tour = 16
+    
+class Battle_Type(IntEnum):
+    Story_Event = 1
+    Regular_Gate = 3

@@ -467,7 +467,8 @@ class Client:
                    raid_status_id: int = 0, raid_battle_result: str = '',
                    skip_party_update_flg: bool = True, common_battle_result=None,
                    division_battle_result: str = None,
-                   current_iv=None
+                   innocent_dead_flg: int = 0,
+                   travel_battle_result=''
                    ):
 
         if common_battle_result is None:
@@ -498,7 +499,7 @@ class Client:
                 "m_tower_no": m_tower_no,
                 "equipment_id": equipment_id, 
                 "equipment_type": equipment_type,
-                "innocent_dead_flg": 0,
+                "innocent_dead_flg": innocent_dead_flg,
                 "t_raid_status_id": 0, 
                 "raid_battle_result": raid_battle_result, 
                 "m_character_id": 0,
@@ -509,14 +510,20 @@ class Client:
                 "common_battle_result": common_battle_result,                        
                 "skip_party_update_flg": skip_party_update_flg,
                 "m_event_id":0,
-                "board_battle_result":""               
+                "board_battle_result":"",
+                "tournament_score":0,
+                "tournament_battle_result":"",
+                "travel_battle_result" : travel_battle_result             
             }
 
         if division_battle_result is not None:
             prms['division_battle_result'] = division_battle_result
 
-        return self.__rpc('battle/end', prms, current_iv=current_iv)
+        return self.__rpc('battle/end', prms)
 
+    def battle_end_netherworld_travel(self, parameters):
+        return self.__rpc('battle/end', parameters)
+    
     def battle_story(self, m_stage_id):
         return self.__rpc('battle/story', {"m_stage_id": m_stage_id})
 
@@ -543,7 +550,8 @@ class Client:
             "board_battle_result":""
         })
 
-    def battle_skip(self, m_stage_id, deck_no: int, skip_number: int, helper_player, reincarnation_character_ids=[]):
+    def battle_skip(self, m_stage_id, deck_no: int, skip_number: int, helper_player,  ap_cost:int,
+                    reincarnation_character_ids=[], battle_type:int=3):
 
         stage = self.gd.get_stage(m_stage_id)
         return self.__rpc('battle/skip', {
@@ -555,10 +563,12 @@ class Client:
             "m_guest_character_id": 0,
             "t_character_ids": [],
             "skip_num": skip_number,
-            "battle_type": 3,  # needs to be tested. It was an exp gate
-            "act": stage['act'] * skip_number,
+            "battle_type": battle_type,
+            "act": ap_cost,
             "auto_rebirth_t_character_ids": reincarnation_character_ids,
-            "t_memery_ids": []  # pass parameters?
+            "t_memery_ids": [],
+            "use_item_id":0,
+            "use_item_num":0
         })
 
     def battle_skip_stages(self, m_stage_ids, deck_no: int, skip_number: int, helper_player, reincarnation_character_ids=[]):
@@ -1077,12 +1087,15 @@ class Client:
     def adjust_add(self, event_id: int):
         return self.__rpc('adjust/add', {"event_id": event_id})
 
-    def event_index(self, event_ids=None):
+    def event_index(self, event_ids:list[int]=None):
         if event_ids is None:
             return self.__rpc('event/index', {})
         else:
             return self.__rpc('event/index', {"m_event_ids": event_ids})
-
+    
+    def event_update_read_flg(self, event_id:int, flag_type:str):
+        return self.__rpc('event/update_read_flg', {"m_event_id":event_id,"type":flag_type})
+    
     def stage_boost_index(self):
         return self.__rpc('stage_boost/index', {})
 
@@ -1277,8 +1290,7 @@ class Client:
 
     def pvp_receive_rewards(self):
         return self.__rpc('arena/receive', {})
-
-
+    
     ##########################
     # Sugoroku endpoints
     #########################
@@ -1311,9 +1323,27 @@ class Client:
         })
 
     ##########################
+    # Netherworld Travel Endpoint
+    #########################
+    
+    def netherworld_travel_index(self):
+        return self.__rpc('travel/current', {})
+    
+    def netherworld_travel_start(self, m_travel_id:int, t_character_ids:List[int]):
+        return self.__rpc('travel/travel_start', {"m_travel_id":m_travel_id,"t_character_ids":t_character_ids,"t_memory_ids":[0,0,0,0,0],"appear_event_area_flg":True})
+    
+    def netherworld_travel_battle_start(self):
+        return self.__rpc('travel/battle_start', {})
+    
+    def netherworld_travel_receive_reward(self, m_travel_benefit_id:int):
+        return self.__rpc('travel/select_benefit', {'m_travel_benefit_id':m_travel_benefit_id})
+    
+    def netherworld_travel_select_negative_effect(self, t_character_id:int, effect_id:int):
+        return self.__rpc('travel/select_negative_effect', {"t_character_id":t_character_id,"m_travel_negative_effect_id":effect_id})
+
+    ##########################
     # --------
     #########################
-
 
     def decrypt(self, content, iv, region):
         res = self.c.decrypt(content,iv, region)

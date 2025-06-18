@@ -47,7 +47,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
 
         depository_data = self.client.breeding_center_list()
         items_in_depository = depository_data['result']['t_weapons'] + depository_data['result']['t_equipments']
-        deposit_free_slots = 11 - len(items_in_depository)
+        deposit_free_slots = Constants.Etna_Resort_Item_Deposit_Size - len(items_in_depository)
         if deposit_free_slots > 0:
             self.log(f"Finished retrieving equipment - {deposit_free_slots} slots available in repository")
             self.etna_resort_fill_depository(deposit_free_slots, max_innocent_rank, min_item_rank_to_deposit)
@@ -143,7 +143,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
         if deposit_free_slots == 0:
             depository_data = self.client.breeding_center_list()
             items_in_depository = depository_data['result']['t_weapons'] + depository_data['result']['t_equipments']
-            deposit_free_slots = 11 - len(items_in_depository)
+            deposit_free_slots = Constants.Etna_Resort_Item_Deposit_Size - len(items_in_depository)
 
         if deposit_free_slots > 0:
             self.log(f"Filling depository with {deposit_free_slots} items...")
@@ -154,7 +154,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
             # if slots available, fill with any item of specified rank
             depository_data = self.client.breeding_center_list()
             items_in_depository = depository_data['result']['t_weapons'] + depository_data['result']['t_equipments']
-            deposit_free_slots = 11 - len(items_in_depository)
+            deposit_free_slots = Constants.Etna_Resort_Item_Deposit_Size - len(items_in_depository)
             if deposit_free_slots > 0:
                 self.etna_resort_find_items_for_depository(deposit_free_slots, 0, min_item_rank_to_deposit)
 
@@ -164,7 +164,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
         if deposit_free_slots == 0:
             depository_data = self.client.breeding_center_list()
             items_in_depository = depository_data['result']['t_weapons'] + depository_data['result']['t_equipments']
-            deposit_free_slots = 11 - len(items_in_depository)
+            deposit_free_slots = Constants.Etna_Resort_Item_Deposit_Size - len(items_in_depository)
 
         if deposit_free_slots > 0:
             self.player_weapons(True)
@@ -199,6 +199,8 @@ class EtnaResort(Items, metaclass=ABCMeta):
 
             for item in all_items:
                 if self.pd.is_item_in_equipment_preset(item['id']):
+                    continue
+                if self.pd.is_item_in_arena_defense(item['id']):
                     continue
                 # If looking for rare innocents
                 item_innocents = self.pd.get_item_innocents(item['id'])
@@ -279,7 +281,8 @@ class EtnaResort(Items, metaclass=ABCMeta):
             for item in items:
                 if self.pd.is_item_in_equipment_preset(item['id']):
                     continue
-                
+                if self.pd.is_item_in_arena_defense(item['id']):
+                    continue
                 equip_type = self.pd.get_equip_type(item)
                 if remove_innocents:
                     self.remove_innocents(item)

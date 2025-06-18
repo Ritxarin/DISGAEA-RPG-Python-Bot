@@ -507,7 +507,7 @@ class API(BaseAPI):
                 equipment_type=start['result']['equipment_type'],
                 equipment_id=start['result']['equipment_id'],
             )
-            time.sleep(2)
+            time.sleep(1)
             start, result = self.__start_item_world(equipment_id, equipment_type)
 
         # End the battle and keep the equipment
@@ -710,6 +710,25 @@ class API(BaseAPI):
             self.log(f"Unable to use {item_gd['name']}")  
         t = self.client.player_index()
         self.o.current_ap = t['result']['status']['act']
+        
+    def get_player_id(self):
+        return self.client.player_index()['result']['profile']['id']
+    
+    def get_arena_defense_team_gear(self):
+        if len(self.pd.arena_gear_ids) == 0:        
+            player_id = self.get_player_id()
+            arena_data = self.client.pvp_enemy_player_detail(t_player_id=player_id)
+            gear_ids = []
+            for character in arena_data['result']['enemy_player']['characters']:
+                if 'weapons' in character:
+                    for weapon in character['weapons']:
+                        gear_ids.append(weapon['id'])
+                if 'equipments' in character:
+                    for equipment in character['equipments']:
+                        gear_ids.append(equipment['id'])
+            self.pd.arena_gear_ids = gear_ids
+        return self.pd.arena_gear_ids
+            
             
     ################################################################
     ###########     FRIEND METHODS   ###############################
@@ -755,7 +774,8 @@ class API(BaseAPI):
             return
         res = self.client.super_reincarnate(t_character_id=character_id, magic_element_num=next_sr['magic_element'])
         char = self.gd.get_character(unit['m_character_id'])
-        self.log(
+        if char is not None:
+            self.log(
             f"Super Reincarnated {char['name']}. SR Count: {next_sr['super_rebirth_num']} - Karma Gained: {next_sr['karma']}")
 
     def clear_character_gates(self):
@@ -766,6 +786,14 @@ class API(BaseAPI):
             event_id = event['m_event_id']
             if event_id in gate_id_list:
                 self.clear_character_gate(event_id)
+                if event['is_prologue_read'] == False:
+                    self.client.event_update_read_flg(event_id=event_id, flag_type='prologue')
+                if event['is_tutorial_read'] == False:
+                    self.client.event_update_read_flg(event_id=event_id, flag_type='tutorial')
+                if event['is_opening_read'] == False:
+                    self.client.event_update_read_flg(event_id=event_id, flag_type='opening')
+                if event['is_ending_read'] == False:
+                    self.client.event_update_read_flg(event_id=event_id, flag_type='ending')
 
     def clear_character_gate(self, character_gate: Character_Gate):
         run_count = 0

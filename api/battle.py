@@ -3,6 +3,7 @@ import time
 from abc import ABCMeta
 
 from api.constants import Item_World_Drop_Mode
+from api.constants import Items as ItemsC
 
 from api.constants import Battle_Finish_Type
 from api.player import Player
@@ -21,21 +22,45 @@ class Battle(Player, metaclass=ABCMeta):
             # time.sleep(1)
         return friend
 
-    def battle_skip(self, m_stage_id:int, skip_number:int, help_t_player_id: int = 0):
+    def battle_skip(self, m_stage_id:int, skip_number:int, help_t_player_id: int = 0, battle_type:int=3):
 
         if help_t_player_id == 0:
             helper_player = self.client.battle_help_list()['result']['help_players'][0]
         else:
             helper_player = self.battle_help_get_friend_by_id(help_t_player_id)
 
+        # auto reincarnation characters
         reincarnation_character_ids = []
         if self.o.auto_rebirth:            
             if len(self.o.auto_rebirth_character_ids) > 0:
                  reincarnation_character_ids = self.o.auto_rebirth_character_ids
             else:
                 reincarnation_character_ids = self.pd.deck(self.o.team_num)
-        return self.client.battle_skip(m_stage_id=m_stage_id, deck_no=self.o.team_num, skip_number=skip_number,
-                                       helper_player=helper_player, reincarnation_character_ids=reincarnation_character_ids)
+        
+        stage = self.gd.get_stage(m_stage_id)
+        if stage is None:
+            self.log('Stage %s with id %s not found:' % (stage['name'], stage['id']))
+            return
+        ap_cost = stage['act'] * skip_number
+        if ap_cost > self.current_ap:
+            if self.o.use_potions:
+                self.log('Not enough AP. Restoring...')
+                self.present_receive_ap()
+                if self.o.current_ap < stage['act']:
+                    self.log('No AP left on mail. Using AP Pot.')
+                    self.use_potion(item_id=ItemsC.AP_Pot)
+                    if self.o.current_ap < stage['act']:
+                        self.log('No AP pots left. Using 50% AP Pot.')
+                        self.use_potion(item_id=ItemsC.AP_Pot_50)
+                        if self.o.current_ap < stage['act']:
+                            self.log('No 50% AP pots left. Exiting....')
+                            return
+         
+        self.log('[+] Skipping stage: %s %s times' % (m_stage_id, skip_number))
+        res = self.client.battle_skip(m_stage_id=m_stage_id, deck_no=self.o.team_num, skip_number=skip_number, ap_cost=ap_cost,
+                                       helper_player=helper_player, reincarnation_character_ids=reincarnation_character_ids,
+                                       battle_type=battle_type)
+        self.check_resp(res)
 
     # m_stage_ids [5010711,5010712,5010713,5010714,5010715] for monster reincarnation
     def battle_skip_stages(self, m_stage_ids:list[int], help_t_player_id:int=0, skip_number:int=3):
@@ -145,11 +170,6 @@ class Battle(Player, metaclass=ABCMeta):
                 return 5
 
             item = self.gd.get_weapon(reward_id) if reward_type == 3 else self.gd.get_equipment(reward_id)
-
-            # drop, rank less than min_rank, retry
-            # FIXME: should check to see if the rank can even be found from the item
-            if self.o.min_rank > 0 and reward_rank < self.o.min_rank:
-                return 5
 
             if item is None:
                 item = {'name': ''}

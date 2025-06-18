@@ -1,5 +1,5 @@
 import json
-from typing import Iterable
+from typing import Iterable, List
 
 from api.constants import EquipmentType
 from api.game_data import GameData
@@ -24,6 +24,7 @@ class PlayerData:
         self.clear_stages: [dict[Iterable]] = []
         self.stage_missions: [dict[Iterable]] = []
         self.equipment_presets: [dict[Iterable]] = []
+        self.arena_gear_ids: List[int] = []
 
     def dump_to_file(self, file_path: str, extra_data=None):
         data = {
@@ -397,3 +398,5 @@ class PlayerData:
     def is_item_in_equipment_gearset(self, item_id, gear_set):
         return gear_set['t_weapon_id'] == item_id or gear_set['t_equipment_id1'] == item_id or gear_set['t_equipment_id2'] == item_id or gear_set['t_equipment_id3'] == item_id
 
+    def is_item_in_arena_defense(self, item_id):
+        return item_id in self.arena_gear_ids
