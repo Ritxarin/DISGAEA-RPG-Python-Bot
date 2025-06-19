@@ -74,7 +74,7 @@ class API(BaseAPI):
         self.client.login()
         self.client.app_constants()
         self.client.player_tutorial()
-        self.client.battle_status()
+        self.check_ongoing_battle_data()
         # player/profile
         # player/sync
         self.player_characters(True)
@@ -117,6 +117,7 @@ class API(BaseAPI):
         # boltrend/subscriptions
         self.client.login_update()
         self.player_get_equipment_presets()
+        self.player_get_arena_defense()
         if self.o.region==1:
             self.client.auth_providers()
             code=self.client.inherit_get_code()['result']
@@ -144,6 +145,19 @@ class API(BaseAPI):
         self.player_decks()
         self.player_get_equipment_presets()
         self.player_stone_sum()
+        self.player_get_arena_defense()
+        self.check_ongoing_battle_data()
+        
+    def check_ongoing_battle_data(self):
+        bs = self.client.battle_status()
+        if 'result' in bs and bs['result']['status'] == 1:
+            self.log("Detected ongoing battle. Giving up...")
+            reset = self.client.battle_end(
+                            m_stage_id=0,
+                            result=5,
+                            battle_type=bs['result']['battle_type'],
+                            equipment_type=0,
+                            equipment_id=0)
 
     ################################################################
     ###########      MAIL METHODS   ################################
@@ -710,24 +724,6 @@ class API(BaseAPI):
             self.log(f"Unable to use {item_gd['name']}")  
         t = self.client.player_index()
         self.o.current_ap = t['result']['status']['act']
-        
-    def get_player_id(self):
-        return self.client.player_index()['result']['profile']['id']
-    
-    def get_arena_defense_team_gear(self):
-        if len(self.pd.arena_gear_ids) == 0:        
-            player_id = self.get_player_id()
-            arena_data = self.client.pvp_enemy_player_detail(t_player_id=player_id)
-            gear_ids = []
-            for character in arena_data['result']['enemy_player']['characters']:
-                if 'weapons' in character:
-                    for weapon in character['weapons']:
-                        gear_ids.append(weapon['id'])
-                if 'equipments' in character:
-                    for equipment in character['equipments']:
-                        gear_ids.append(equipment['id'])
-            self.pd.arena_gear_ids = gear_ids
-        return self.pd.arena_gear_ids
             
             
     ################################################################

@@ -3,7 +3,7 @@ import json
 import random
 from typing import List
 from api.player import Player
-from api.constants import Event_Type, Mission_Status, Constants, Event_Types
+from api.constants import Event_Type, Mission_Status, Constants, Event_Type
 
 class Event(Player, metaclass=ABCMeta):
     def __init__(self):
@@ -89,13 +89,13 @@ class Event(Player, metaclass=ABCMeta):
             self.client.shop_buy_item(itemid=ap_id, quantity=5)
 
     ## Set event type. Constants need to be up to date
-    def clear_event(self, event_type:Event_Types, team_to_use:int=1):        
+    def clear_event(self, event_type:Event_Type, team_to_use:int=1):        
         
-        if event_type == Event_Types.UDT_Training: 
+        if event_type == Event_Type.UDT_Training: 
             event_area_id = Constants.UDT_Training_Area_ID_GL if self.o.region == 2 else Constants.UDT_Training_Area_ID_JP  
             event_id = Constants.UDT_Training_Event_ID_GL if self.o.region == 2 else Constants.UDT_Training_Event_ID_JP  
             daily_run_limit = Constants.UDT_Training_Daily_Run_Limit         
-        if event_type == Event_Types.Etna_Defense:
+        if event_type == Event_Type.Etna_Defense:
             event_area_id = Constants.Etna_Defense_Area_ID_GL if self.o.region == 2 else Constants.Etna_Defense_Area_ID_JP
             event_id = Constants.Enta_Defense_Event_ID_GL if self.o.region == 2 else Constants.Enta_Defense_Event_ID_JP  
             daily_run_limit = Constants.Etna_Defense_Daily_Run_Limit
@@ -169,10 +169,44 @@ class Event(Player, metaclass=ABCMeta):
                 except ValueError:
                     event_type = 'unknown event type'
                 self.log('Event with id %s - Name: %s - Type: %s' % (event_id, event_data['resource_name'], event_type))
-                
-    def do_netherworld_travel(self):
+       
+    def complete_netherworld_travel(self):
         
-        data = self.client.netherworld_travel_index()
+        data = self.client.netherworld_travel_index() 
+        # Calculate how many travels have been completed already
+        cleared_travel_ids = data['result']['t_travel'].get('cleared_m_travel_ids', [])
+        current_travel_id = len(cleared_travel_ids) + 1
+
+        # If there's an ongoing or waiting-for-negative-effect travel, complete it first
+        status = data['result']['t_travel']['status']
+        if status in (1, 3):
+            current_travel_id = data['result']['t_travel_status']['m_travel_id']
+            self.log(f"Resuming current travel (ID {current_travel_id})")
+            self.do_single_netherworld_travel(force_travel_id=current_travel_id)
+            current_travel_id += 1  # Finished one, move to the next
+
+        # Continue until we reach travel 10
+        while current_travel_id <= 10:
+            self.log(f"Starting travel {current_travel_id} of 10")
+            self.do_single_netherworld_travel(force_travel_id=current_travel_id)
+            current_travel_id += 1
+
+        self.log("All 10 Netherworld Travels completed!")
+        
+        if data['result']['t_travel']['shura_played'] == False:
+            self.log("Clearing Carnage Netherworld travel!")
+        
+    def do_single_netherworld_travel(self, force_travel_id: int = None):
+        
+        if force_travel_id > 10 and force_travel_id != 21:
+            self.log(f"Travel id cannot exceed 10. Returning...")
+            return
+        
+        data = self.client.netherworld_travel_index()        
+        if force_travel_id == 21 and data['result']['t_travel']['shura_played'] == True:
+            self.log(f"Carnage Netherworld Travel already cleared today. Returning...")
+            return
+        
         status, travel_id, cleared_areas, t_character_ids, remaining_stages, remaining_areas = self.get_netherworld_travel_status(data)
 
         # ongoing travel
@@ -186,20 +220,28 @@ class Event(Player, metaclass=ABCMeta):
             data = self.client.netherworld_travel_index()
             status, travel_id, cleared_areas, t_character_ids, remaining_stages, remaining_areas = self.get_netherworld_travel_status(data)
             self.log(f'Continuing Netherworld Travel {travel_id} - {remaining_areas} Areas remaining')  
-        else:
+        else:          
+            remaining_stages = 3
+            cleared_areas = 0
+            
+            # either the travel id passed as param or the highest available
+            if force_travel_id != 21:
+                travel_id = min(force_travel_id or len(data['result']['t_travel'].get('cleared_m_travel_ids', [])) + 1, 10)
+            else:
+                travel_id = force_travel_id
+                
+            required_characters = self.get_netherworld_travel_required_characters(travel_id)
             used_character_ids = data['result']['t_travel']['used_t_character_ids']
-            # Find up to 2 unused characters
+            # Take the required available characters
             available_chars = [
                 char for char in self.pd.characters
                 if char['id'] not in used_character_ids
-            ][:2]  # Take the first 2
-            if len(available_chars) < 2:
-                raise ValueError("Not enough unused characters available (need at least 2)")
+            ][:required_characters]  # Take the first however many characters needed for the travel
+            if len(available_chars) < required_characters:
+                raise ValueError(f'Not enough unused characters available (need at least {required_characters})')
             # Fill the t_character_ids array: 2 valid IDs + 3 zeros
             t_character_ids = [char['id'] for char in available_chars] + [0] * (5 - len(available_chars))
-            remaining_stages = 3
-            cleared_areas = 0 
-            travel_id = len(data['result']['t_travel']['cleared_m_travel_ids']) + 1 
+            
             travel_start = self.client.netherworld_travel_start(
                 m_travel_id=travel_id,
                 t_character_ids=t_character_ids
@@ -224,7 +266,7 @@ class Event(Player, metaclass=ABCMeta):
                 
                 battle_type = battle_start['result']['battle_type']                
                 end_prms = self.get_netherworld_travel_battle_end_data(t_character_ids)
-                end = self.client.battle_end_netherworld_travel(end_prms)
+                end = self.client.battle_end_end_with_payload(end_prms)
                 
                 # Select the benefit
                 rewards = end['result']['after_t_travel_status']['lotteried_m_travel_benefit_ids']
@@ -256,21 +298,47 @@ class Event(Player, metaclass=ABCMeta):
         if cleared_areas == 0:
             return {"character_id": character_ids[0], "effect_id": 1}
         if cleared_areas <= 3:
-            return {"character_id": character_ids[1], "effect_id": 2}
+            return {"character_id": character_ids[0], "effect_id": 2}
         if cleared_areas == 4:
+            return {"character_id": character_ids[0], "effect_id": 3}
+        if cleared_areas == 5:
             return {"character_id": character_ids[1], "effect_id": 1}
-        return {"character_id": character_ids[0], "effect_id": 2}        
+        if cleared_areas <= 8:
+            return {"character_id": character_ids[1], "effect_id": 2}
+        if cleared_areas == 9:
+            return {"character_id": character_ids[1], "effect_id": 3}  
+        if cleared_areas == 10:
+            return {"character_id": character_ids[2], "effect_id": 1} 
+        if cleared_areas <= 13:
+            return {"character_id": character_ids[2], "effect_id": 2} 
+        if cleared_areas == 14: 
+            return {"character_id": character_ids[2], "effect_id": 3}
+        if cleared_areas == 15:
+            return {"character_id": character_ids[3], "effect_id": 1} 
+        if cleared_areas <= 18:
+            return {"character_id": character_ids[3], "effect_id": 2} 
+        if cleared_areas == 19: 
+            return {"character_id": character_ids[3], "effect_id": 3} 
+        if cleared_areas == 20: 
+            return {"character_id": character_ids[4], "effect_id": 3}
+        if cleared_areas == 21:
+            return {"character_id": character_ids[4], "effect_id": 1} 
+        if cleared_areas <= 24:
+            return {"character_id": character_ids[4], "effect_id": 2} 
+        if cleared_areas == 25: 
+            return {"character_id": character_ids[4], "effect_id": 3} 
+                
         
-    def get_netherworld_travel_battle_exp_data(self, start, unitID):
-        res = []
-        for d in start['result']['enemy_list']:
-            for r in d:
-                res.append({
-                    "finish_member_ids": unitID,
-                    "finish_type": 1,
-                    "m_enemy_id": d[r]
-                })
-        return res
+    def get_netherworld_travel_required_characters(self, travel_id):
+        if travel_id <= 4:
+            return 1
+        if travel_id <= 6:
+            return 2
+        if travel_id <= 8:
+            return 3
+        if travel_id == 9:
+            return 4
+        return 5
     
     def get_netherworld_travel_battle_exp_data_(self, unitID):
         res = [{"m_enemy_id":1,"finish_type":2,"finish_member_ids":[unitID]},{"m_enemy_id":2,"finish_type":2,"finish_member_ids":[unitID]},{"m_enemy_id":3,"finish_type":2,"finish_member_ids":[unitID]},{"m_enemy_id":4,"finish_type":2,"finish_member_ids":[unitID]},{"m_enemy_id":5,"finish_type":2,"finish_member_ids":[unitID]}]

@@ -2,7 +2,7 @@ import datetime
 
 from dateutil import parser
 
-from api.constants import Constants, Event_Types
+from api.constants import Constants, Event_Type
 from main import API
 
 a = API()
@@ -46,8 +46,8 @@ a.clear_character_gates()
 a.vote_dark_assembly_agenda(agenda_id=110016, use_bribes=False)
 
 ## Clear UDT or Etna Defense stages (if they are open)
-a.clear_event(event_type=Event_Types.Etna_Defense)
-a.clear_event(event_type=Event_Types.UDT_Training)
+a.clear_event(event_type=Event_Type.Etna_Defense)
+a.clear_event(event_type=Event_Type.UDT_Training)
 
 ## Do event daily 500% stages, buy AP and claim quests
 a.event_buy_daily_AP(542001)

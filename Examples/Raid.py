@@ -16,9 +16,6 @@ a.quick_login()
 # Make sure the raid constants have the correct value on the constants file
 # The following values need to be updated for every raid
 # Current_Raid_ID = 165
-# Current_Raid_Event_Point_Gacha = 61
-# Current_Raid_Innocent_Regular_Roulette = 62
-# Current_Raid_Innocent_Special_Roulette = 63
 
 # claims rewards for all boss battles
 a.raid_claim_all_boss_rewards()

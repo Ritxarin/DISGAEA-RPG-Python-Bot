@@ -1,7 +1,7 @@
 import random
 from abc import ABCMeta
 
-from api.constants import Constants, Mission_Status, ErrorMessages, Raid_Gacha_Type, JP_ErrorMessages
+from api.constants import Battle_Finish_Type, Constants, Mission_Status, ErrorMessages, Raid_Gacha_Type, JP_ErrorMessages
 from api.player import Player
 from data import data as gamedata
 
@@ -221,7 +221,7 @@ class Raid(Player, metaclass=ABCMeta):
     def raid_get_gacha_id(self, gacha_type:Raid_Gacha_Type):
         raid_ID = self.raid_get_raid_id()
         raid_gacha_data = gamedata['event_gacha']
-        raid_gacha = next((x for x in raid_gacha_data if x['m_event_id'] == raid_ID and x['gacha_type'] ==gacha_type),None)
+        raid_gacha = next((x for x in raid_gacha_data if x['m_event_id'] == raid_ID and x['gacha_type'] == gacha_type),None)
         if gacha_type is None:
             self.log("Raid data not found. Please make sure constants are up to date")
             return
@@ -258,3 +258,73 @@ class Raid(Player, metaclass=ABCMeta):
     def raid_battle_finish_lvl100_boss(self, stage_id, raid_status_id, enemy_id):
         data = self.client.raid_battle_finish_lvl100_boss(stage_id, raid_status_id, enemy_id)
         return data  
+    
+    def raid_clear_special_stage(self, team_num:int):
+        stage_id = self.raid_get_special_stage_id()
+        start = self.client.raid_start_special_stage(stage_id, team_num)
+        battle_exp_data = self.get_raid_special_stage_battle_exp_data(start, self.pd.deck(team_num)[0])
+        end_prms = self.get_raid_special_stage_end_data(battle_exp_data)
+        end = self.client.battle_end_end_with_payload(end_prms)
+        self.raid_share_own_boss()
+    
+    def get_raid_special_stage_end_data(self, battle_exp_data):      
+        payload = {
+            "m_stage_id":0,
+            "m_tower_no":0,
+            "equipment_id":0,
+            "equipment_type":0,
+            "innocent_dead_flg":0,
+            "t_raid_status_id":0,
+            "raid_battle_result":"",
+            "m_character_id":0,
+            "division_battle_result":"",
+            "arena_battle_result":"",
+            "battle_type":15,
+            "result":1,
+            "battle_exp_data":battle_exp_data,
+            "common_battle_result":"eyJhbGciOiJIUzI1NiJ9.eyJoZmJtNzg0a2hrMjYzOXBmIjoiIiwieXBiMjgydXR0eno3NjJ3eCI6ODIyNjA1OTk0Mzc0NSwiZHBwY2JldzltejhjdXd3biI6MCwiemFjc3Y2amV2NGl3emp6bSI6MCwia3lxeW5pM25ubTNpMmFxYSI6MCwiZWNobTZ0aHR6Y2o0eXR5dCI6MCwiZWt1c3ZhcGdwcGlrMzVqaiI6MCwieGE1ZTMyMm1nZWo0ZjR5cSI6Mn0.pZqqUqyZ7fsMqrELoxWWGIOTs7pVOOOGKaW5JXnzHs4",
+            "skip_party_update_flg":True,
+            "m_event_id":0,
+            "board_battle_result":"",
+            "tournament_score":0,
+            "tournament_battle_result":"",
+            "travel_battle_result":{"character_results":[]}
+            }
+        return payload 
+    
+    def get_raid_special_stage_battle_exp_data(self, start, character_id:int):
+        res = []
+        for d in start['result']['enemy_list']:
+            for r in d:
+                if d[r] != 0:
+                    res.append({
+                        "finish_member_ids": [character_id],
+                        "finish_type": 2,
+                        "m_enemy_id": d[r]
+                    })
+        return res
+    
+    def raid_get_special_stage_id(self) -> int:
+        event = self.client.event_index([Constants.Current_Raid_ID_JP])
+        points = event['result']['events'][0]['total_point']
+        thresholds = [
+            {"id": 1, "need_point": 0},
+            {"id": 2, "need_point": 1500},
+            {"id": 3, "need_point": 5000},
+            {"id": 4, "need_point": 10000},
+            {"id": 5, "need_point": 15000},
+            {"id": 6, "need_point": 25000},
+            {"id": 7, "need_point": 35000},
+            {"id": 8, "need_point": 50000},
+            {"id": 9, "need_point": 65000},
+            {"id": 10, "need_point": 100000},
+        ]
+
+        selected_id = 1  # fallback to the first stage
+        for stage in thresholds:
+            if points >= stage["need_point"]:
+                selected_id = stage["id"]
+            else:
+                break
+
+        return selected_id

@@ -521,7 +521,7 @@ class Client:
 
         return self.__rpc('battle/end', prms)
 
-    def battle_end_netherworld_travel(self, parameters):
+    def battle_end_end_with_payload(self, parameters):
         return self.__rpc('battle/end', parameters)
     
     def battle_story(self, m_stage_id):
@@ -674,6 +674,9 @@ class Client:
         if raid_ID == 0:
             raid_ID = Constants.Current_Raid_ID_GL if self.o.region == 2 else Constants.Current_Raid_ID_JP
         return self.__rpc('event/missions', {"m_event_id":raid_ID})
+    
+    def raid_start_special_stage(self, raid_dtage_id:int, team_number:int):
+        return self.__rpc('raid/start_special_stage', {"m_raid_special_stage_id":raid_dtage_id,"t_deck_no":team_number})
 
     #################
     # Gacha Endpoints

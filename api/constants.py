@@ -3,11 +3,11 @@ from enum import IntEnum
 
 class Constants:
     Current_Raid_ID_GL = 0
-    Current_Raid_ID_JP = 458
+    Current_Raid_ID_JP = 801
     Current_Raid_Normal_Boss_ID_GL = 0
     Current_Raid_Badass_Boss_ID_GL = 0
-    Current_Raid_Normal_Boss_ID_JP = 4581
-    Current_Raid_Badass_Boss_ID_JP = 4582
+    Current_Raid_Normal_Boss_ID_JP = 8011
+    Current_Raid_Badass_Boss_ID_JP = 8012
     Current_Story_Event_ID_GL = 826
     Current_Story_Event_Area_IDs =  [1826101, 1826102, 1826103, 1826104, 1826105]
     Current_Story_Event_ID_JP = 793
@@ -228,17 +228,7 @@ class Battle_Finish_Mode(IntEnum):
 
 class PVP_Battle_Result(IntEnum):
     Defeat = 0
-    Victory = 1 
-
-class Event_Types(IntEnum):
-    Story_Event = 1
-    character_Gate = 2
-    Story_Event_Special_Mission = 3
-    Conquest_Battle = 4
-    UDT_Training = 5 
-    Raid = 6
-    Etna_Defense = 10
-    Sugoroku = 13
+    Victory = 1
 
 class Raid_Gacha_Type(IntEnum):
     Raid_Point_Gacha = 1
@@ -292,3 +282,5 @@ class Event_Type(IntEnum):
 class Battle_Type(IntEnum):
     Story_Event = 1
     Regular_Gate = 3
+    Netherworld_Travel = 14
+    Raid_Event_Special_Stage = 15

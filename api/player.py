@@ -231,3 +231,21 @@ class Player(Base):
             return self.pd.equipment_presets
         self.pd.equipment_presets = self.client.player_equipment_decks()['result']['_items']
         return self.pd.equipment_presets
+    
+    def player_get_arena_defense(self):
+        if len(self.pd.arena_gear_ids) == 0:        
+            player_id = self.get_player_id()
+            arena_data = self.client.pvp_enemy_player_detail(t_player_id=player_id)
+            gear_ids = []
+            for character in arena_data['result']['enemy_player']['characters']:
+                if 'weapons' in character:
+                    for weapon in character['weapons']:
+                        gear_ids.append(weapon['id'])
+                if 'equipments' in character:
+                    for equipment in character['equipments']:
+                        gear_ids.append(equipment['id'])
+            self.pd.arena_gear_ids = gear_ids
+        return self.pd.arena_gear_ids
+    
+    def get_player_id(self):
+        return self.client.player_index()['result']['profile']['id'] 
