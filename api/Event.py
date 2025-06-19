@@ -230,17 +230,10 @@ class Event(Player, metaclass=ABCMeta):
             else:
                 travel_id = force_travel_id
                 
-            required_characters = self.get_netherworld_travel_required_characters(travel_id)
+            required_character_count = self.get_netherworld_travel_required_characters(travel_id)
             used_character_ids = data['result']['t_travel']['used_t_character_ids']
-            # Take the required available characters
-            available_chars = [
-                char for char in self.pd.characters
-                if char['id'] not in used_character_ids
-            ][:required_characters]  # Take the first however many characters needed for the travel
-            if len(available_chars) < required_characters:
-                raise ValueError(f'Not enough unused characters available (need at least {required_characters})')
-            # Fill the t_character_ids array: 2 valid IDs + 3 zeros
-            t_character_ids = [char['id'] for char in available_chars] + [0] * (5 - len(available_chars))
+            available_characters = self.netherworld_travel_get_team(required_character_count, used_character_ids)
+            t_character_ids = [char['id'] for char in available_characters] + [0] * (5 - len(available_characters))
             
             travel_start = self.client.netherworld_travel_start(
                 m_travel_id=travel_id,
@@ -327,8 +320,7 @@ class Event(Player, metaclass=ABCMeta):
             return {"character_id": character_ids[4], "effect_id": 2} 
         if cleared_areas == 25: 
             return {"character_id": character_ids[4], "effect_id": 3} 
-                
-        
+                      
     def get_netherworld_travel_required_characters(self, travel_id):
         if travel_id <= 4:
             return 1
@@ -418,3 +410,23 @@ class Event(Player, metaclass=ABCMeta):
         remaining_stages = 3 - cleared_stages  # 3 stages per area fixed
         remaining_areas = total_areas - cleared_areas
         return status, travel_id, cleared_areas, t_character_ids, remaining_stages, remaining_areas
+    
+    def netherworld_travel_get_team(self, required_characters: int, used_character_ids: list[int]) -> list[dict]:
+        seen_m_ids = set()
+        unique_chars = []
+        
+        for char in self.pd.characters:
+            if char['id'] in used_character_ids:
+                continue
+            m_id = char['m_character_id']
+            if m_id in seen_m_ids:
+                continue
+            unique_chars.append(char)
+            seen_m_ids.add(m_id)
+            if len(unique_chars) == required_characters:
+                break
+
+        if len(unique_chars) < required_characters:
+            raise ValueError(f'Not enough unused and unique characters available (need at least {required_characters})')
+
+        return unique_chars

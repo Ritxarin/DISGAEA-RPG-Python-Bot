@@ -259,8 +259,9 @@ class Raid(Player, metaclass=ABCMeta):
         data = self.client.raid_battle_finish_lvl100_boss(stage_id, raid_status_id, enemy_id)
         return data  
     
-    def raid_clear_special_stage(self, team_num:int):
-        stage_id = self.raid_get_special_stage_id()
+    def raid_clear_special_stage(self, team_num:int, stage_id:int=1):
+        highest_stage_id = self.raid_get_special_stage_id()
+        stage_id = min(stage_id, highest_stage_id)
         start = self.client.raid_start_special_stage(stage_id, team_num)
         battle_exp_data = self.get_raid_special_stage_battle_exp_data(start, self.pd.deck(team_num)[0])
         end_prms = self.get_raid_special_stage_end_data(battle_exp_data)
