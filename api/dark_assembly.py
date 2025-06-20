@@ -58,8 +58,9 @@ class Dark_Assembly(Base, metaclass=ABCMeta):
                 retry = True
                 while retry:
                     agenda_points = player_status['result']['status']['agenda_point']
-                    if agenda_points > agenda_data['point']:
+                    if agenda_points >= agenda_data['point']:
                         self.vote_dark_assembly_agenda(agenda_id=agenda_data['id'], use_bribes=False)
+                        player_status = self.client.player_index()
                         if self.has_agenda_been_passed(agenda_id=agenda_data['id']) == False:
                             retry = True
                         else:
