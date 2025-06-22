@@ -1,3 +1,5 @@
+import datetime
+from dateutil import parser
 from api.base import Base
 
 
@@ -217,7 +219,8 @@ class Player(Base):
                     e = self.gd.get_equipment(equipment['m_equipment_id'])
                 else:
                     e = self.gd.get_weapon(equipment['m_weapon_id'])
-                print(
+                if e is not None:
+                    print(
                     f"\t{e['name']} - Rarity: {equipment['rarity_value']} - Remake Count: {equipment['remake_count']} - ID: {equipment['id']}")
 
     def friend_print_full_list(self):
@@ -249,3 +252,14 @@ class Player(Base):
     
     def get_player_id(self):
         return self.client.player_index()['result']['profile']['id'] 
+    
+    def is_ap_full(self):
+        player_data = self.client.player_index()
+        current_ap = player_data['result']['status']['act']
+        max_ap = player_data['result']['status']['act_max'] 
+        act_at_string = player_data['result']['status']['act_at']
+        act_at_time = parser.parse(act_at_string).replace(tzinfo=datetime.timezone.utc)
+        ap_filled_date = act_at_time + datetime.timedelta(minutes=(max_ap-current_ap)*2)
+        timedelta = 9 if self.o.region == 1 else -4
+        serverTime = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=timedelta)
+        return serverTime > ap_filled_date or current_ap >= max_ap

@@ -148,6 +148,12 @@ class API(BaseAPI):
         self.player_get_arena_defense()
         self.check_ongoing_battle_data()
         
+    def loginfromcache_fast(self):
+        self.client.login_from_cache()
+        self.client.app_constants()
+        self.player_stone_sum()
+        self.check_ongoing_battle_data()
+        
     def check_ongoing_battle_data(self):
         bs = self.client.battle_status()
         if 'result' in bs and bs['result']['status'] == 1:

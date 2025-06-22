@@ -51,7 +51,10 @@ class Dark_Assembly(Base, metaclass=ABCMeta):
     def pass_agendas_of_type(self, agenda_type):
         all_agendas = self.client.agenda_index()['result']['t_agendas']
         all_available_agendas = [a for a in all_agendas if a['status'] == 0]
+        no_points_left = False
         for agenda in all_available_agendas:
+            if no_points_left == True:
+                break
             agenda_data = next((x for x in self.gd.agendas if x['id'] == agenda['m_agenda_id']),None)
             if agenda_data is not None and agenda_data['agenda_type']== agenda_type: 
                 player_status = self.client.player_index()
@@ -67,5 +70,4 @@ class Dark_Assembly(Base, metaclass=ABCMeta):
                             retry = False
                     else:
                         retry = False
-            else:
-                retry = False
+                        no_points_left = True

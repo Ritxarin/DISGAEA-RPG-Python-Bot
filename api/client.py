@@ -59,13 +59,26 @@ class Client:
                         
         self._set_headers(url, current_iv)
         if data is None:
-            r = self.s.get(self.o.main_url + url)
+            retry = True
+            while retry:
+                try:
+                    r = self.s.get(self.o.main_url + url)
+                    retry = False
+                except:
+                    Logger.info('Exception sending request Retrying...')                    
         else:
             if data != '':
                 cdata = self.c.encrypt(data, current_iv, self.o.region)
             else:
                 cdata = data
-            r = self.s.post(self.o.main_url + url, data=cdata)
+            retry = True
+            while retry:
+                try:
+                    r = self.s.post(self.o.main_url + url, data=cdata)
+                    retry = False
+                except:
+                    Logger.info('Exception sending request Retrying...')     
+            
         if 'X-Crypt-Iv' not in r.headers:
             r_method = data['rpc']['method'] if 'rpc' in data else url
             Logger.error('request: "%s" was missing iv!' % r_method)
@@ -1344,6 +1357,9 @@ class Client:
     def netherworld_travel_select_negative_effect(self, t_character_id:int, effect_id:int):
         return self.__rpc('travel/select_negative_effect', {"t_character_id":t_character_id,"m_travel_negative_effect_id":effect_id})
 
+    def netherworld_travel_abandon(self):
+        return self.__rpc('travel/decide_go_next', {'go_next':False})
+    
     ##########################
     # --------
     #########################
