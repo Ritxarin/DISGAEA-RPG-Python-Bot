@@ -175,6 +175,8 @@ class EtnaResort(Items, metaclass=ABCMeta):
 
             equipments_to_deposit = self.generate_array_for_deposit(equips_lvl1, deposit_free_slots, max_innocent_rank,
                                                                     min_item_rank_to_deposit)
+            if len(equipments_to_deposit) > 0:
+                self.client.breeding_center_entrust([], equipments_to_deposit)
 
             # If deposit cannot be filled with only equipment, find weapons to finish filling
             if len(equipments_to_deposit) < deposit_free_slots:
@@ -182,8 +184,8 @@ class EtnaResort(Items, metaclass=ABCMeta):
                 weapons_to_deposit = self.generate_array_for_deposit(weapons_lvl1, deposit_free_slots,
                                                                      max_innocent_rank, min_item_rank_to_deposit)
 
-            if len(weapons_to_deposit) > 0 or len(equipments_to_deposit) > 0:
-                self.client.breeding_center_entrust(weapons_to_deposit, equipments_to_deposit)
+                if len(weapons_to_deposit) > 0:
+                    self.client.breeding_center_entrust(weapons_to_deposit, [])
 
     def generate_array_for_deposit(self, all_items, deposit_free_slots, max_innocent_rank, min_item_rank_to_deposit=40,
                                    max_rarity_to_deposit=40):
@@ -192,7 +194,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
         filled = False
         innocent_count = 0
 
-        while not filled:
+        while not filled and innocent_count < 2:
             # Looking for rare, iterate only once
             if max_innocent_rank > 0:
                 filled = True
@@ -201,6 +203,8 @@ class EtnaResort(Items, metaclass=ABCMeta):
                 if self.pd.is_item_in_equipment_preset(item['id']):
                     continue
                 if self.pd.is_item_in_arena_defense(item['id']):
+                    continue
+                if item['id'] in items_to_deposit:
                     continue
                 # If looking for rare innocents
                 item_innocents = self.pd.get_item_innocents(item['id'])
