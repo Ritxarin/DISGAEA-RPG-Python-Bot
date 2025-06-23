@@ -112,6 +112,15 @@ class Client:
             self.o.password = res['password']
             self.o.uuid = res['uuid']
             Logger.info('found password:%s uuid:%s' % (self.o.password, self.o.uuid))
+            if os.path.exists('logindata.json'):
+                with open('logindata.json', "r") as f:
+                    try:
+                        login_data = json.load(f)
+                    except json.JSONDecodeError:
+                        login_data = []
+            else:
+                login_data = []
+
         if 'result' in res and 'newest_resource_version' in res['result']:
             self.o.newest_resource_version = res['result']['newest_resource_version']
             Logger.info('found resouce:%s' % self.o.newest_resource_version)
@@ -584,14 +593,9 @@ class Client:
             "use_item_num":0
         })
 
-    def battle_skip_stages(self, m_stage_ids, deck_no: int, skip_number: int, helper_player, reincarnation_character_ids=[]):
+    def battle_skip_stages(self, m_stage_ids:List[int], deck_no: int, act: int, helper_player, reincarnation_character_ids:List[int]=[]):
 
         # calculate ap usage. Every stage is skipped 3 times
-        act = 0
-        for m_stage_id in m_stage_ids:
-            stage = self.gd.get_stage(m_stage_id)
-            act = act + (stage['act'] * skip_number)
-
         return self.__rpc('battle/skip_stages', {
             "m_stage_id": 0,
             "help_t_player_id": helper_player['t_player_id'],

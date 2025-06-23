@@ -46,13 +46,13 @@ class Battle(Player, metaclass=ABCMeta):
             if self.o.use_potions:
                 self.log('Not enough AP. Restoring...')
                 self.present_receive_ap()
-                if self.o.current_ap < stage['act']:
+                if self.o.current_ap < ap_cost:
                     self.log('No AP left on mail. Using AP Pot.')
                     self.use_potion(item_id=ItemsC.AP_Pot)
-                    if self.o.current_ap < stage['act']:
+                    if self.o.current_ap < ap_cost:
                         self.log('No AP pots left. Using 50% AP Pot.')
                         self.use_potion(item_id=ItemsC.AP_Pot_50)
-                        if self.o.current_ap < stage['act']:
+                        if self.o.current_ap < ap_cost:
                             self.log('No 50% AP pots left. Exiting....')
                             return
          

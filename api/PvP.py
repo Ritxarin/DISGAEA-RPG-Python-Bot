@@ -11,7 +11,7 @@ class PvP(Base, metaclass=ABCMeta):
     def __init__(self):
         super().__init__()
 
-    def pvp_do_battle(self, pvp_team:int=1):
+    def pvp_do_battle(self, pvp_team:int=1, battle_num:int=0):
         pvp_data = self.client.pvp_info()
 
         if not pvp_data['result']['t_arena']['is_previous_reward_received'] or not pvp_data['result']['t_arena']['is_half_reward_received']:
@@ -27,14 +27,25 @@ class PvP(Base, metaclass=ABCMeta):
             self.log("No PvP orbs remaining.")
             return
 
-        while current_orbs > 0:
-            oponent = self.pvp_select_opponent()
-            oponent_details = self.client.pvp_enemy_player_detail(t_player_id=oponent['t_player_id'])
-            self.log(f"Battling player {oponent['user_name']} - Ranking {oponent['ranking']}. Orbs remaining: {current_orbs}")
-            self.client.pvp_start_battle(pvp_team, oponent['t_player_id'])
-            self.client.pvp_battle_give_up()
-            self.client.pvp_info()
-            current_orbs -=1
+        if battle_num == 0:
+            while current_orbs > 0:
+                oponent = self.pvp_select_opponent()
+                oponent_details = self.client.pvp_enemy_player_detail(t_player_id=oponent['t_player_id'])
+                self.log(f"Battling player {oponent['user_name']} - Ranking {oponent['ranking']}. Orbs remaining: {current_orbs}")
+                self.client.pvp_start_battle(pvp_team, oponent['t_player_id'])
+                self.client.pvp_battle_give_up()
+                self.client.pvp_info()
+                current_orbs -=1
+        else:
+            while battle_num > 0 and current_orbs > 0:
+                oponent = self.pvp_select_opponent()
+                oponent_details = self.client.pvp_enemy_player_detail(t_player_id=oponent['t_player_id'])
+                self.log(f"Battling player {oponent['user_name']} - Ranking {oponent['ranking']}. Orbs remaining: {current_orbs}")
+                self.client.pvp_start_battle(pvp_team, oponent['t_player_id'])
+                self.client.pvp_battle_give_up()
+                self.client.pvp_info()
+                battle_num -=1
+                current_orbs -=1
 
     def pvp_select_opponent(self):
         opponent_data = self.client.pvp_enemy_player_list()

@@ -88,20 +88,6 @@ class Event(Player, metaclass=ABCMeta):
         if ap_pot is not None and ap_pot['buy_num'] == 0:
             self.client.shop_buy_item(itemid=ap_id, quantity=5)
 
-    ## Set event type. Constants need to be up to date
-    def clear_event(self, event_type:Event_Type, team_to_use:int=1):        
-        
-        if event_type == Event_Type.UDT_Training: 
-            event_area_id = Constants.UDT_Training_Area_ID_GL if self.o.region == 2 else Constants.UDT_Training_Area_ID_JP  
-            event_id = Constants.UDT_Training_Event_ID_GL if self.o.region == 2 else Constants.UDT_Training_Event_ID_JP  
-            daily_run_limit = Constants.UDT_Training_Daily_Run_Limit         
-        if event_type == Event_Type.Etna_Defense:
-            event_area_id = Constants.Etna_Defense_Area_ID_GL if self.o.region == 2 else Constants.Etna_Defense_Area_ID_JP
-            event_id = Constants.Enta_Defense_Event_ID_GL if self.o.region == 2 else Constants.Enta_Defense_Event_ID_JP  
-            daily_run_limit = Constants.Etna_Defense_Daily_Run_Limit
-            
-        self.clear_etna_or_udt_event(team_to_use=team_to_use, event_area_id=event_area_id, daily_run_limit=daily_run_limit, event_id=event_id)
-
     def clear_etna_or_udt_event(self, team_to_use:int=1, event_area_id:int=0, daily_run_limit:int = 0, event_id:int=0):    
 
         events = self.client.event_index()   

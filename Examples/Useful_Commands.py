@@ -41,6 +41,9 @@ a.add_friend_by_name('usename')
 # Super reincarnate unit by character id (use print_team_info to get the id)
 a.super_reincarnate(character_id=207410913)
 
+# use to check if AP is full
+a.is_ap_full()
+
 #################################################################################################################################
 ## Present box methods
 #################################################################################################################################
