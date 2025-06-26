@@ -101,7 +101,6 @@ class Event(Player, metaclass=ABCMeta):
             return
         stages = self.gd.stages
         event_stages = [x for x in stages if x["m_area_id"] == event_area_id]
-        event_stages.sort(key=lambda x: x['sort'], reverse=True)
         
         # initial run, 3 star event first
         for event_stage in event_stages:
@@ -114,7 +113,7 @@ class Event(Player, metaclass=ABCMeta):
 
         # If there are runs left, do them on the highest stagge
         while number_of_runs < daily_run_limit:
-            self.doQuest(m_stage_id=event_stages[0]['id'], team_num=team_to_use)
+            self.doQuest(m_stage_id=event_stage['id'], team_num=team_to_use)
             number_of_runs +=1
 
     def clear_story_event(self, team_to_use:int=1):        

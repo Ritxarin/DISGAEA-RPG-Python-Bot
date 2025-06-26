@@ -9,14 +9,7 @@ class Constants:
     Current_Raid_Normal_Boss_ID_JP = 8011
     Current_Raid_Badass_Boss_ID_JP = 8012
     Current_Story_Event_ID_GL = 826
-    Current_Story_Event_Area_IDs =  [1826101, 1826102, 1826103, 1826104, 1826105]
     Current_Story_Event_ID_JP = 793
-    Current_Story_Event_Area_IDs_JP =  [1455101, 1455102, 1455103, 1455104, 1455105]
-    Etna_Defense_Area_ID_GL = 0
-    Enta_Defense_Event_ID_GL = 0
-    Etna_Defense_Area_ID_JP = 1451101
-    Enta_Defense_Event_ID_JP = 451
-    Etna_Defense_Daily_Run_Limit = 10
     Etna_Resort_Item_Deposit_Size = 11
     UDT_Training_Area_ID_GL = 0
     UDT_Training_Event_ID_GL = 0
@@ -275,12 +268,17 @@ class Event_Type(IntEnum):
     Story_Event_Special_Gate = 5
     Raid_Event = 6
     Etna_Defense = 10
+    Trial = 12
     Sugoroku = 13
     Story_Event_New = 15
-    Netherworld_Tour = 16
     
 class Battle_Type(IntEnum):
     Story_Event = 1
     Regular_Gate = 3
     Netherworld_Travel = 14
     Raid_Event_Special_Stage = 15
+    
+class Innocent_Rank(IntEnum):
+    Common = 1
+    Rare = 6
+    Legendary = 9

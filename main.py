@@ -325,6 +325,66 @@ class API(BaseAPI):
 
         return res
 
+    def skip_stages(self, m_stage_id:int, team_num:int=0, skip_count:int=0,
+                help_t_player_id: int = 0, send_friend_request: bool = False,
+                randomize_helper:bool=False):
+        
+        stage = self.gd.get_stage(m_stage_id)
+        if stage is None:
+            self.log(f"No stage with id {m_stage_id} found")
+            return
+        
+        self.log('Skipping Quest %s times: %s [%s]' % (skip_count, stage['name'], m_stage_id))
+        
+        ap_cost = stage['act'] * skip_count
+
+        if ap_cost > self.current_ap:
+            if self.o.use_potions:
+                self.log('Not enough AP. Restoring...')
+                self.present_receive_ap()
+                if self.o.current_ap < ap_cost:
+                    self.log('No AP left on mail. Using AP Pot.')
+                    self.use_potion(item_id=ItemsC.AP_Pot)
+                    if self.o.current_ap < ap_cost:
+                        self.log('No AP pots left. Using 50% AP Pot.')
+                        self.use_potion(item_id=ItemsC.AP_Pot_50)
+                        if self.o.current_ap < ap_cost:
+                            self.log('No 50% AP pots left. Exiting....')
+                            raise NoAPLeftException   
+            else:
+                self.log('not enough ap')
+                raise NoAPLeftException
+
+        if team_num == 0:
+            team_num = self.o.team_num
+
+        if help_t_player_id != 0:
+            help_player = self.battle_help_get_friend_by_id(help_t_player_id)
+        else:
+            helper_data = self.client.battle_help_list()['result']['help_players']   
+            if randomize_helper:                         
+                help_player = helper_data[random.randint(0, len(helper_data)-1)]
+            else:
+                help_player = helper_data[0]
+
+        res = self.client.battle_skip_stages(
+            m_stage_ids = [m_stage_id], 
+            deck_no=team_num,
+            act = ap_cost,
+            helper_player=help_player
+        )
+
+        if 'result' not in res:
+            return
+
+        self.check_resp(res)
+
+        if send_friend_request and not self.is_helper_in_friend_list(help_player['t_player_id']):
+            self.log(f"Send friend request to {help_player['name']} - Rank {help_player['rank']}")
+            self.client.friend_send_request(help_player['t_player_id'])
+
+        return res
+
     def do_conquest_battle(self, m_stage_id=101102, t_character_ids=[]):
         stage = self.gd.get_stage(m_stage_id)
         self.log('doing conquest battle:%s [%s]' % (stage['name'], m_stage_id))
@@ -345,7 +405,7 @@ class API(BaseAPI):
         return res
 
     def Is_Area_Event_Remembrance(self, area_id):
-        return area_id >=  2001101 and area_id <= 2054106
+        return area_id >=  2001101 and area_id <= 2132106
     
     def Is_Area_AnecdoteStory(self, area_id):
         return area_id >= 200000 and area_id <= 200315
