@@ -26,12 +26,21 @@ class codedbots(object):
         return os.urandom(16).encode('hex')
 
     def randomiv(self):
-        return self.s.get(self.mainurl + '/iv', verify=False).content
+        iv = os.urandom(16)
+        return base64.b64encode(iv)
 
     def encrypt(self, data, iv, region):
         body = {'data': base64.b64encode(json.dumps(data).encode()), 'iv': iv, 'license': self.license,
                 'fuji_key': self.key, 'region': region}
-        r = self.s.post(self.mainurl + '/encrypt', data=body, verify=False)
+        retry = True
+        while retry:
+            try:
+                r = self.s.post(self.mainurl + '/encrypt', data=body, verify=False)
+                if r.status_code == 200:
+                    retry = False
+            except:
+                print('request timed out, retrying')
+                time.sleep(10)
         if r.status_code == 200:
             return base64.b64decode(r.content)
         else:
@@ -41,7 +50,16 @@ class codedbots(object):
 
     def decrypt(self, data, iv, region):
         body = {'data': data, 'iv': iv, 'fuji_key': self.key, 'license': self.license, 'region': region}
-        r = self.s.post(self.mainurl + '/decrypt', data=body, verify=False)
+        retry = True
+        while retry:
+            try:
+                r = self.s.post(self.mainurl + '/decrypt', data=body, verify=False)
+                if r.status_code == 200:
+                    retry = False
+            except:
+                print('request timed out, retrying')
+                time.sleep(10) 
+                
         if r.status_code == 200:
             return json.loads(base64.b64decode(r.content))
         else:
