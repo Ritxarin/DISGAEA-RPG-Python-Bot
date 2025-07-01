@@ -339,6 +339,8 @@ class API(BaseAPI):
         ap_cost = stage['act'] * skip_count
 
         if ap_cost > self.current_ap:
+            if self.o.use_potions == False:
+               raise NoAPLeftException   
             if self.o.use_potions:
                 self.log('Not enough AP. Restoring...')
                 self.present_receive_ap()
@@ -598,6 +600,7 @@ class API(BaseAPI):
             battle_type=start['result']['battle_type'],
             equipment_type=start['result']['equipment_type'],
             equipment_id=start['result']['equipment_id'],
+            common_battle_result=self.o.common_battle_result_iw
         )
 
         res = self.get_weapon_diff(end)

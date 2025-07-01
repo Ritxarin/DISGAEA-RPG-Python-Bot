@@ -75,7 +75,8 @@ class Client:
             while retry:
                 try:
                     r = self.s.post(self.o.main_url + url, data=cdata)
-                    retry = False
+                    if r.status_code != 502:
+                        retry = False
                 except:
                     Logger.info('Exception sending request Retrying...')     
             

@@ -25,6 +25,9 @@ class Options:
                                          "JhcWEiOjAsImVjaG02dGh0emNqNHl0eXQiOjAsImVrdXN2YXBncHBpazM" \
                                          "1amoiOjAsInhhNWUzMjJtZ2VqNGY0eXEiOjJ9.4kuAV7qO3Rp5Bq1ikSH" \
                                          "bn5nPxhvjsg5POnnlFNDlEu0"
+        
+        self.common_battle_result_iw:str = "eyJhbGciOiJIUzI1NiJ9.eyJoZmJtNzg0a2hrMjYzOXBmIjoiIiwieXBiMjgydXR0eno3NjJ3eCI6MTA5NTkyOTY1MTg1OTIwLCJkcHBjYmV3OW16OGN1d3duIjowLCJ6YWNzdjZqZXY0aXd6anptIjowLCJreXF5bmkzbm5tM2kyYXFhIjowLCJlY2htNnRodHpjajR5dHl0IjowLCJla3VzdmFwZ3BwaWszNWpqIjoxODkwLCJ4YTVlMzIybWdlajRmNHlxIjoyMX0.JutnUBw7xPoWfB6DzJL_cv52pnzMlqFqTLy-bAGwTgI"
+
 
         self.set_region(region)
         self.set_device(device)

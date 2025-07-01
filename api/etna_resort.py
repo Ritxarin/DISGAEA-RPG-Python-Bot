@@ -523,7 +523,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
 
         prism_count = self.pd.get_item_by_m_item_id(ItemsC.PriPrism.value)['num']
         current_hl = self.pd.get_item_by_m_item_id(ItemsC.HL.value)['num']
-        self.log(f"{item_id} - Re-rolling item - Priprism count: {prism_count} - Current HL: {current_hl}")
+        self.log(f"{item_id} - Rolling item - Priprism count: {prism_count} - Current HL: {current_hl}")
 
         while effect_value < effect_target and prism_count > 0 and current_hl > Constants.Alchemy_Alchemize_Cost:
             res = self.client.etna_resort_add_alchemy_effects(item_type, item_id)

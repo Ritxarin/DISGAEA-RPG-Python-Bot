@@ -58,20 +58,17 @@ class PvP(Base, metaclass=ABCMeta):
         current_orbs = pvp_data['result']['t_arena']['act']
         time_delta = -4 if self.o.region == 2 else 9
 
-        if current_orbs == 0:
-            # When 10 orbs are remaining it displays act=0. Calculate based on last recovery time
-            pvp_recover_date_string = pvp_data['result']['t_arena']['act_at']
-            pvp_recover_date = parser.parse(pvp_recover_date_string)        
-            server_time = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)
-            orb_recovery_time = 50  # Orbs recover every 50 minutes
-            total_orbs = 10         # Total number of orbs
-            # Calculate how many orbs have recovered since the last full recovery
-            time_difference = (server_time - pvp_recover_date).total_seconds() / 60  # Time difference in minutes
-            # Calculate how many orbs have recovered
-            recovered_orbs = min(total_orbs, int(time_difference // orb_recovery_time))
-            pvp_arena_fully_recovered_time = pvp_recover_date + datetime.timedelta(minutes=500)
-            if server_time > pvp_arena_fully_recovered_time:
-                return 10
-            return recovered_orbs
-        else:
-            return current_orbs
+        # When 10 orbs are remaining it displays act=0. Calculate based on last recovery time
+        pvp_recover_date_string = pvp_data['result']['t_arena']['act_at']
+        pvp_recover_date = parser.parse(pvp_recover_date_string)        
+        server_time = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)
+        orb_recovery_time = 50  # Orbs recover every 50 minutes
+        total_orbs = 10         # Total number of orbs
+        # Calculate how many orbs have recovered since the last full recovery
+        time_difference = (server_time - pvp_recover_date).total_seconds() / 60  # Time difference in minutes
+        # Calculate how many orbs have recovered
+        recovered_orbs = min(total_orbs, int(time_difference // orb_recovery_time))
+        pvp_arena_fully_recovered_time = pvp_recover_date + datetime.timedelta(minutes=500)
+        if server_time > pvp_arena_fully_recovered_time:
+            return 10
+        return recovered_orbs
