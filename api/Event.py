@@ -1,9 +1,10 @@
 from abc import ABCMeta
-import json
+import datetime
+from dateutil import parser
 import random
 from typing import List
 from api.player import Player
-from api.constants import Event_Type, Mission_Status, Constants, Event_Type
+from api.constants import Battle_Type, Event_Type, Item_Types, Mission_Status, Constants, Event_Type
 
 class Event(Player, metaclass=ABCMeta):
     def __init__(self):
@@ -115,31 +116,7 @@ class Event(Player, metaclass=ABCMeta):
         while number_of_runs < daily_run_limit:
             self.doQuest(m_stage_id=event_stage['id'], team_num=team_to_use)
             number_of_runs +=1
-
-    def clear_story_event(self, team_to_use:int=1):        
-        event_area_IDs =  Constants.Current_Story_Event_Area_IDs if self.o.region == 2 else Constants.Current_Story_Event_Area_IDs_JP
-        self.player_stage_missions(True)
-        stages = self.gd.stages
-        rank = [1,2,3]
-        for k in rank:
-            for i in event_area_IDs:
-                stage_for_area_and_rank = [x for x in stages if x["m_area_id"]==i and x["rank"]==k]
-                for stage in stage_for_area_and_rank:
-                    if self.is_stage_3starred(stage['id']):
-                        continue
-                    self.doQuest(m_stage_id=stage['id'], team_num=team_to_use)
-
-    def story_event_daiy_500Bonus(self, team_to_use:int=1):        
-        event_area_IDs =  Constants.Current_Story_Event_Area_IDs if self.o.region == 2 else Constants.Current_Story_Event_Area_IDs_JP
-        from data import data as gamedata
-        stages = self.gd.stages
-        rank = [1,2,3]
-        for k in rank:
-            for area_id in event_area_IDs:
-                bonus_stage = [x for x in stages if x["m_area_id"]==area_id and x["rank"]==k and x["no"] == 5]
-                self.doQuest(m_stage_id=bonus_stage[0]['id'], team_num=team_to_use)
-                self.raid_share_own_boss(party_to_use=team_to_use)
-    
+ 
     def print_event_info(self):            
         events = self.client.event_index()
         for event in events['result']['events']:
@@ -415,3 +392,62 @@ class Event(Player, metaclass=ABCMeta):
             raise ValueError(f'Not enough unused and unique characters available (need at least {required_characters})')
 
         return unique_chars
+    
+    def farm_story_event(self, story_event_id:int):
+        server_time = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=9) 
+        server_date = server_time.date()
+        event_data = self.client.event_index([story_event_id])
+        for challenge_stage in event_data['result']['t_event_stage_challenges']:
+            stage_id = challenge_stage['m_stage_id']
+            last_play_at_string = challenge_stage['last_play_at']
+            last_play_at_date = parser.parse(last_play_at_string).replace(tzinfo=datetime.timezone.utc)
+            challenges = challenge_stage['challenge_num']
+            # If not challenged today, set remaining attempts to max
+            if  last_play_at_date.date() < server_date:
+                challenges = 0
+            if challenges < 3:
+                chalenges_left = 3 - challenges
+                self.battle_skip(m_stage_id=stage_id, skip_number = chalenges_left, battle_type = Battle_Type.Story_Event)
+            
+    def clear_story_event(self, story_event_data):
+        cleared_stages = self.get_cleared_stages()
+        story_event_id = story_event_data["id"]
+        items = self.gd.items
+        key =  next((x for x in items if x['item_type'] == Item_Types.Event_Stage_Key and x['effect_value'] == [story_event_id]),None)
+        areas = [x for x in self.gd.areas if x['m_episode_id'] == story_event_data['m_episode_id']]
+        for area in areas:
+            self.clear_story_event_area(area['id'], key)
+            
+        another_areas = areas = [x for x in self.gd.areas if x['m_episode_id'] == story_event_data['another_m_episode_id']]
+        if another_areas is not None:
+            for area in another_areas:
+                self.clear_story_event_area(area['id'], key)
+                
+    def get_story_event_boss_stage_key_cost(self, defense_point:int):
+        if defense_point < 4200:
+            return 5
+        if defense_point < 11400:
+            return 15
+        if defense_point < 23000:
+            return 30
+        return 50
+
+    def clear_story_event_area(self, area_id:int, key):
+        area_stages = [x for x in self.gd.stages if x['m_area_id'] == area_id]
+        for stage in area_stages:
+            if self.is_stage_3starred(stage['id']):
+                self.log('Stage already 3 starred - area: %s stage: %s rank: %s name: %s' % (
+                            stage['m_area_id'], stage['id'], stage['rank'], stage['name']))      
+            else:
+                if(stage['defense_point'] != 0):
+                    use_item_id = key['id']
+                    use_item_num = self.get_story_event_boss_stage_key_cost(stage['defense_point'])
+                    self.player_items(refresh=True)
+                    key_pd = self.pd.get_item_by_m_item_id(key['id'])
+                    if key is None or key_pd['num_total']< use_item_num:
+                        self.log(f"Not enough Boss Keys left. Exiting...")            
+                        break
+                else:
+                    use_item_id = 0
+                    use_item_num = 0
+                self.doQuest(stage['id'], team_num=1, send_friend_request=False, use_item_id=use_item_id, use_item_num=use_item_num)

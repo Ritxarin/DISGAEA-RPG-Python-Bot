@@ -74,6 +74,8 @@ for event in events['result']['events']:
     if event_data is None:
         continue
     if event_data['event_type'] == Event_Type.Story_Event or event_data['event_type'] == Event_Type.Story_Event_New:
+        a.farm_story_event(event_id)
+        a.clear_story_event(event_data)
         story_event_id = event_id
         story_event_data = event_data
     elif event_data['event_type'] == Event_Type.Story_Event_Special_Gate:
@@ -89,10 +91,10 @@ for event in events['result']['events']:
 
 a.do_single_netherworld_travel(force_travel_id=21)
 
-i = 0    
-while i < 40:
-    a.do_single_netherworld_travel(force_travel_id=10)
-    i += 1
+# i = 0    
+# while i < 40:
+#     a.do_single_netherworld_travel(force_travel_id=10)
+#     i += 1
 
 
 #farm story event stages
