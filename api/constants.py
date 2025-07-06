@@ -9,7 +9,7 @@ class Constants:
     Current_Raid_Normal_Boss_ID_JP = 8011
     Current_Raid_Badass_Boss_ID_JP = 8012
     Current_Story_Event_ID_GL = 826
-    Current_Story_Event_ID_JP = 793
+    Current_Story_Event_ID_JP = 805
     Etna_Resort_Item_Deposit_Size = 11
     UDT_Training_Area_ID_GL = 0
     UDT_Training_Event_ID_GL = 0

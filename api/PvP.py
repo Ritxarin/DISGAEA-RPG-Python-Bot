@@ -64,11 +64,12 @@ class PvP(Base, metaclass=ABCMeta):
         server_time = datetime.datetime.utcnow() + datetime.timedelta(hours=time_delta)
         orb_recovery_time = 50  # Orbs recover every 50 minutes
         total_orbs = 10         # Total number of orbs
+        remaining_orbs = total_orbs - current_orbs
         # Calculate how many orbs have recovered since the last full recovery
         time_difference = (server_time - pvp_recover_date).total_seconds() / 60  # Time difference in minutes
         # Calculate how many orbs have recovered
         recovered_orbs = min(total_orbs, int(time_difference // orb_recovery_time))
-        pvp_arena_fully_recovered_time = pvp_recover_date + datetime.timedelta(minutes=500)
+        pvp_arena_fully_recovered_time = pvp_recover_date + datetime.timedelta(minutes=50*remaining_orbs)
         if server_time > pvp_arena_fully_recovered_time:
             return 10
-        return recovered_orbs
+        return current_orbs + recovered_orbs
