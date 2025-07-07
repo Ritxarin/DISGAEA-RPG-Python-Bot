@@ -1285,7 +1285,7 @@ class Client:
         return self.__rpc('event/receive_mission', {"ids":mission_ids})
     
     def story_event_claim_mission_repetitions(self, mission_ids: list[int] = []):
-        return self.__rpc('event/receive_mission_repetitions', {"ids":mission_ids})
+        return self.__rpc('event/receive_mission_repetition', {"ids":mission_ids})
 
     ##########################
     # PvP endpoints

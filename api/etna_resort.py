@@ -22,9 +22,9 @@ class EtnaResort(Items, metaclass=ABCMeta):
 
     # Donate innocents
     def kingdom_innocent_entry(self, innocent_ids=[]):
-        data = self.client.kingdom_innocent_entry(innocent_ids)
-        self.player_innocents(True)
-        return data
+        res = self.client.kingdom_innocent_entry(innocent_ids)
+        #self.player_innocents(True)
+        return res
 
     def etna_resort_is_item_in_depository(self, item_id:int):
         depository_data = self.client.breeding_center_list()
@@ -253,7 +253,10 @@ class EtnaResort(Items, metaclass=ABCMeta):
         self.log('donating %s, skipping %s innocents' % (len(innos), skipping))
         if len(innos) > 0:
             for batch in (innos[i:i + 20] for i in range(0, len(innos), 20)):
-                self.kingdom_innocent_entry(innocent_ids=batch)
+                res = self.kingdom_innocent_entry(innocent_ids=batch)
+                if 'error' not in res:
+                    for i in batch:
+                        self.pd.innocents.remove(self.get_innocent_by_id(i))
 
     def etna_resort_donate_items(self, max_innocent_rank: int = 10, max_innocent_type: int = Innocent_ID.HL,
                                  max_item_rank: int = 100, max_item_rarity: int = 40, remove_innocents: bool = False):
