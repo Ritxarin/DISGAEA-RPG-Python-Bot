@@ -17,7 +17,8 @@ from api.Event import Event
 from api.PvP import PvP
 from api.sugoroku import Sugoroku
 from api.dark_assembly import Dark_Assembly
+from api.final_boss_lab import FinalBossLab
 
-class BaseAPI(Bingo, Raid, AxelContest, SparSpace, FishFleet, Gatcha, Battle, EtnaResort, ItemSurvey, Event, PvP, Sugoroku, Dark_Assembly, ABC):
+class BaseAPI(Bingo, Raid, AxelContest, SparSpace, FishFleet, Gatcha, Battle, EtnaResort, ItemSurvey, Event, PvP, Sugoroku, Dark_Assembly, FinalBossLab, ABC):
     def __init__(self):
         super().__init__()
