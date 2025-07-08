@@ -491,7 +491,7 @@ class Client:
                    skip_party_update_flg: bool = True, common_battle_result=None,
                    division_battle_result: str = None,
                    innocent_dead_flg: int = 0,
-                   travel_battle_result=''
+                   travel_battle_result= ''
                    ):
 
         if common_battle_result is None:
@@ -1344,7 +1344,7 @@ class Client:
         })
 
     ##########################
-    # Netherworld Travel Endpoint
+    # Makai Tours Endpoint
     #########################
     
     def netherworld_travel_index(self):
@@ -1364,6 +1364,40 @@ class Client:
 
     def netherworld_travel_abandon(self):
         return self.__rpc('travel/decide_go_next', {'go_next':False})
+    
+    ##########################
+    # Fonal Boss Lab Endpoint
+    #########################
+    
+    def custombattle_current(self):
+        return self.__rpc('custom_battle/current', {})
+    
+    def custombattle_missions(self):
+        return self.__rpc('custom_battle/missions', {})
+    
+    def custombattle_dailies(self):
+        return self.__rpc('custom_battle/mission_dailies', {})
+    
+    def custombattle_monthlies(self):
+        return self.__rpc('custom_battle/mission_monthlies', {})
+    
+    def custombattle_missions_receive(self, mission_ids:List[int]=[]):
+        return self.__rpc('custom_battle/receive_mission', {'ids':mission_ids})
+    
+    def custombattle_dailies_receive(self, mission_ids:List[int]=[]):
+        return self.__rpc('custom_battle/receive_mission_daily', {'ids':mission_ids})
+    
+    def custombattle_monthlies_receive(self, mission_ids:List[int]=[]):
+        return self.__rpc('custom_battle/receive_mission_monthly', {'ids':mission_ids})
+    
+    def custombattle_battle_start(self, deck_no:int, enemy_t_player_id):
+        return self.__rpc('custom_battle/start', {'deck_no':deck_no, "enemy_t_player_id":enemy_t_player_id})
+    
+    def custombattle_player_ranking(self, t_player_id:int):
+        return self.__rpc('custom_battle/ranking_player', {'t_player_id':t_player_id})
+
+    def custombattle_search_player(self):
+        return self.__rpc('custom_battle/players', {"search_option":2})
     
     ##########################
     # --------

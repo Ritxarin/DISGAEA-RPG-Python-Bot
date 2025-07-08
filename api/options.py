@@ -27,7 +27,7 @@ class Options:
                                          "bn5nPxhvjsg5POnnlFNDlEu0"
         
         self.common_battle_result_iw:str = "eyJhbGciOiJIUzI1NiJ9.eyJoZmJtNzg0a2hrMjYzOXBmIjoiIiwieXBiMjgydXR0eno3NjJ3eCI6MTA5NTkyOTY1MTg1OTIwLCJkcHBjYmV3OW16OGN1d3duIjowLCJ6YWNzdjZqZXY0aXd6anptIjowLCJreXF5bmkzbm5tM2kyYXFhIjowLCJlY2htNnRodHpjajR5dHl0IjowLCJla3VzdmFwZ3BwaWszNWpqIjoxODkwLCJ4YTVlMzIybWdlajRmNHlxIjoyMX0.JutnUBw7xPoWfB6DzJL_cv52pnzMlqFqTLy-bAGwTgI"
-
+        self.common_battle_result_custombattle:str = "eyJhbGciOiJIUzI1NiJ9.eyJoZmJtNzg0a2hrMjYzOXBmIjoiIiwieXBiMjgydXR0eno3NjJ3eCI6MTEwNTUwNjYzNjMsImRwcGNiZXc5bXo4Y3V3d24iOjAsInphY3N2NmpldjRpd3pqem0iOjAsImt5cXluaTNubm0zaTJhcWEiOjAsImVjaG02dGh0emNqNHl0eXQiOjAsImVrdXN2YXBncHBpazM1amoiOjAsInhhNWUzMjJtZ2VqNGY0eXEiOjF9.l8kCPjmBvKzkJExRe0ZHwM7vkYQZCjrOD1n2_xyBWOY"
 
         self.set_region(region)
         self.set_device(device)

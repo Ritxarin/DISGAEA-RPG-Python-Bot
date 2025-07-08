@@ -28,8 +28,6 @@ a.loginfromcache()
 
 #a.print_team_info(5)
 
-# boss stage - 18052016
-
 a.print_event_info()
 
 a.o.use_potions = True
@@ -60,6 +58,12 @@ for event in events['result']['events']:
         event_area =  next((x for x in a.gd.areas if x['m_episode_id'] == event_data['m_episode_id']),None)
         a.clear_etna_or_udt_event(team_to_use=2, event_area_id=event_area['id'], daily_run_limit=max_challenges, event_id=event['m_event_id'])
 
+a.doQuest(m_stage_id=18052016, use_item_id=5927, use_item_num=50)
+a.event_claim_daily_missions()
+a.event_claim_character_missions()
+a.event_claim_story_missions()
+a.event_claim_mission_repetitions()
+
 #a.complete_netherworld_travel()
 a.do_single_netherworld_travel(force_travel_id=21)
 
@@ -68,7 +72,3 @@ while i < 40:
     a.do_single_netherworld_travel(force_travel_id=10)
     i += 1
 
-a.event_claim_daily_missions()
-a.event_claim_character_missions()
-a.event_claim_story_missions()
-a.event_claim_mission_repetitions()
