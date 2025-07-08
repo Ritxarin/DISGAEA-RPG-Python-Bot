@@ -444,7 +444,7 @@ class Event(Player, metaclass=ABCMeta):
                     use_item_num = self.get_story_event_boss_stage_key_cost(stage['defense_point'])
                     self.player_items(refresh=True)
                     key_pd = self.pd.get_item_by_m_item_id(key['id'])
-                    if key is None or key_pd['num_total']< use_item_num:
+                    if key is None or key_pd['num']< use_item_num:
                         self.log(f"Not enough Boss Keys left. Exiting...")            
                         break
                 else:

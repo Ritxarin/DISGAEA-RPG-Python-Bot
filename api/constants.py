@@ -152,6 +152,7 @@ class Item_Types(IntEnum):
     Character_Crystal = 27
     Prinny = 40
     Event_Stage_Key = 59
+    Final_Boss_Material = 60
 
 class Item_World_Mode(IntEnum):
     Run_Weapons_Only = 1
@@ -269,7 +270,7 @@ class Event_Type(IntEnum):
     Raid_Event = 6
     Etna_Defense = 10
     Trial = 12
-    Sugoroku = 13
+    Sugoroku = 13 # also final boss battle
     Story_Event_New = 15
     
 class Battle_Type(IntEnum):

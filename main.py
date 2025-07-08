@@ -475,11 +475,7 @@ class API(BaseAPI):
                     # self.reincarnation_farm(team_number=team_to_use, stage_id=s, repeat_count=1)
                     cleared_stages.add(s)                    
                     if raid_team is not None:
-                        self.raid_share_own_boss(raid_team)
                         self.raid_farm_shared_bosses(raid_team)
-                    # own_boss = self.client.raid_current()['result']['current_t_raid_status']
-                    # if own_boss is not None:       
-                    #     self.raid_defeat_own_boss(party_to_use=5)
                 except KeyboardInterrupt:
                     return False
                 except NoAPLeftException:

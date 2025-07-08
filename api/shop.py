@@ -110,8 +110,10 @@ class Shop(Player, metaclass=ABCMeta):
         wc = 0
         ec = 0
 
-        self.player_equipment(True)
-        self.player_weapons(True)
+        if sell_equipment == True:
+            self.player_equipment(True)
+        if sell_weapons == True:
+            self.player_weapons(True)
         self.player_innocents(True)
 
         items, skipping = self.pd.filter_items(

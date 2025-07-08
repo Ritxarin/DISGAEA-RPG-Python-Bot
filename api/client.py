@@ -1399,6 +1399,9 @@ class Client:
     def custombattle_search_player(self):
         return self.__rpc('custom_battle/players', {"search_option":2})
     
+    def custombattle_use_parts(self, m_custom_parts_ids:List[int], use_nums:List[int], m_custom_boss_effect_ids:List[int]):
+        return self.__rpc('custom_battle/use_parts', {"m_custom_parts_ids":m_custom_parts_ids, "use_nums":use_nums, "m_custom_boss_effect_ids" : m_custom_boss_effect_ids})
+    
     ##########################
     # --------
     #########################

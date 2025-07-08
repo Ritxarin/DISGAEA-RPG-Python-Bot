@@ -12,23 +12,13 @@ a.config(
     region=1,
     device=3
 )
-try:
-    with open('transfercode.txt') as f:
-        lines = f.readlines()
-    if lines is not None:
-        code = lines[0] 
-except FileNotFoundError:
-    print("transfercode.txt does not exist")
-    code = 'TRANSFER CODE GOES HERE THE FIRST TIME YOU USE THE BOT'
-
-
 
 a.loginfromcache()
 #a.loginfromcache_fast()
 
-#a.print_team_info(5)
-
 a.print_event_info()
+
+a.final_boss_daily_tasks()
 
 a.o.use_potions = True
 
