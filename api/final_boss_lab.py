@@ -102,14 +102,8 @@ class FinalBossLab(Player, metaclass=ABCMeta):
         area_id = self.__get_highest_area_id(points)
         self.clear_custom_lab_stages(area_id, 3)
 
-        # Battle own boss
-        if challenge_num == 0:
-            self.log(f"\tBattling own boss...")
-            self.final_boss_lab_clear_battle(deck_no=1, enemy_t_player_id=player_id)
-            
         items = self.gd.items
-        materials =  [x for x in items if x['item_type'] == Item_Types.Final_Boss_Material]
-       
+        materials =  [x for x in items if x['item_type'] == Item_Types.Final_Boss_Material]    
         # Use custom boss parts
         self.log(f"\tUsing Final Boss parts...")
         self.player_items(True)
@@ -125,7 +119,12 @@ class FinalBossLab(Player, metaclass=ABCMeta):
                     self.log(f"\t\tUsing {material_pd['num']} {material['name']}")
             i += 1
         self.client.custombattle_use_parts(m_custom_parts_ids=m_custom_parts_ids, use_nums=use_nums, m_custom_boss_effect_ids=[0,0,0,0,0])
-            
+
+        # Battle own boss
+        while challenge_num < 5:
+            self.log(f"\tBattling own boss...")
+            self.final_boss_lab_clear_battle(deck_no=1, enemy_t_player_id=player_id)
+            challenge_num += 1
             
         # Battle one oponent
         find_players = self.client.custombattle_search_player()

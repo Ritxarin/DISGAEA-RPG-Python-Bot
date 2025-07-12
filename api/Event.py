@@ -234,21 +234,28 @@ class Event(Player, metaclass=ABCMeta):
                     self.client.netherworld_travel_select_negative_effect(t_character_id=negative_effect_selection['character_id'], 
                             effect_id=negative_effect_selection['effect_id'])
             
-    def get_netherworld_travel_benefit_id(self, possible_rewards:List[int]):
-        skip_min = 202751
-        skip_max = 202875
+    def get_netherworld_travel_benefit_id(self, possible_rewards: List[int]) -> int:
+        skip_ranges = [
+            (203001, 203125),  # axe statue
+            (200501, 201250),  # statues
+            (200001, 200250),
+            (100001, 100165),  # restore
+            (202755, 202875),  # grazing ticket
+            (201626, 201750),
+        ]
 
-        # Filter out numbers in the skip range
-        filtered_array = [x for x in possible_rewards if not (skip_min <= x <= skip_max)]
+        def is_not_skipped(x):
+            return all(not (start <= x <= end) for start, end in skip_ranges)
 
-        # If filtered list is not empty, pick from it; else fallback to full list
+        # Filter out skipped ranges
+        filtered_array = [x for x in possible_rewards if is_not_skipped(x)]
+
+        # Choose from filtered or fallback to original if nothing remains
         if filtered_array:
-            benefit = random.choice(filtered_array)
+            return random.choice(filtered_array)
         else:
-            benefit = random.choice(possible_rewards)  # fallback
-        benefit = random.choice(possible_rewards)
-        return benefit
-    
+            return random.choice(possible_rewards)
+
     def get_netherworld_travel_negative_effect(self, character_ids:List[int], cleared_areas:int):
         if cleared_areas == 0:
             return {"character_id": character_ids[0], "effect_id": 1}
