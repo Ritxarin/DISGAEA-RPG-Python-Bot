@@ -101,7 +101,6 @@ class FinalBossLab(Player, metaclass=ABCMeta):
         # Do Daily stage runs
         area_id = self.__get_highest_area_id(points)
         self.clear_custom_lab_stages(area_id, 3)
-
         items = self.gd.items
         materials =  [x for x in items if x['item_type'] == Item_Types.Final_Boss_Material]    
         # Use custom boss parts
