@@ -65,7 +65,8 @@ class Client:
                     r = self.s.get(self.o.main_url + url)
                     retry = False
                 except:
-                    Logger.info('Exception sending request Retrying...')                    
+                    Logger.info('Exception sending request Retrying...')  
+                    time.sleep(10)                  
         else:
             if data != '':
                 cdata = self.c.encrypt(data, current_iv, self.o.region)
@@ -78,7 +79,8 @@ class Client:
                     if r.status_code != 502:
                         retry = False
                 except:
-                    Logger.info('Exception sending request Retrying...')     
+                    Logger.info('Exception sending request Retrying...') 
+                    time.sleep(10)                      
             
         if 'X-Crypt-Iv' not in r.headers:
             r_method = data['rpc']['method'] if 'rpc' in data else url

@@ -19,6 +19,13 @@ class Dark_Assembly(Base, metaclass=ABCMeta):
         if agenda['status'] != 0:
             self.log(f"Agenda has already been passed.")
             return
+        player_status = self.client.player_index()
+        agenda_points = player_status['result']['status']['agenda_point']
+        agenda_data = next((x for x in self.gd.agendas if x['id'] == agenda['m_agenda_id']),None)
+        if agenda_points < agenda_data['point']:
+            self.log(f"Not enough Dark Assembly points to pass the bill. Current points: {agenda_points} - Required Points: {agenda_data['point']}")
+            return
+        
         r1 = self.client.agenda_start(agenda_id)
         if 'api_error' in r1:
             return

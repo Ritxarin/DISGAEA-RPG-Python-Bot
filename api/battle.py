@@ -22,12 +22,15 @@ class Battle(Player, metaclass=ABCMeta):
             # time.sleep(1)
         return friend
 
-    def battle_skip(self, m_stage_id:int, skip_number:int, help_t_player_id: int = 0, battle_type:int=3):
+    def battle_skip(self, m_stage_id:int, skip_number:int, help_t_player_id: int = 0, battle_type:int=3, team_to_use:int=None):
 
         if help_t_player_id == 0:
             helper_player = self.client.battle_help_list()['result']['help_players'][0]
         else:
             helper_player = self.battle_help_get_friend_by_id(help_t_player_id)
+
+        if team_to_use is None:
+            team_to_use = self.o.team_num
 
         # auto reincarnation characters
         reincarnation_character_ids = []
@@ -57,17 +60,21 @@ class Battle(Player, metaclass=ABCMeta):
                             return
          
         self.log('[+] Skipping stage: %s %s times' % (m_stage_id, skip_number))
-        res = self.client.battle_skip(m_stage_id=m_stage_id, deck_no=self.o.team_num, skip_number=skip_number, ap_cost=ap_cost,
+        res = self.client.battle_skip(m_stage_id=m_stage_id, deck_no=team_to_use, skip_number=skip_number, ap_cost=ap_cost,
                                        helper_player=helper_player, reincarnation_character_ids=reincarnation_character_ids,
                                        battle_type=battle_type)
         self.check_resp(res)
 
     # m_stage_ids [5010711,5010712,5010713,5010714,5010715] for monster reincarnation
-    def battle_skip_stages(self, m_stage_ids:list[int], help_t_player_id:int=0, skip_number:int=3):
+    def battle_skip_stages(self, m_stage_ids:list[int], help_t_player_id:int=0, skip_number:int=3, team_to_use:int=None):
         if help_t_player_id == 0:
             helper_player = self.client.battle_help_list()['result']['help_players'][0]
         else:
             helper_player = self.battle_help_get_friend_by_id(help_t_player_id)
+
+        if team_to_use is None:
+            team_to_use = self.o.team_num
+
         reincarnation_character_ids = []
         if self.o.auto_rebirth:            
             if len(self.o.auto_rebirth_character_ids) > 0:
@@ -76,7 +83,7 @@ class Battle(Player, metaclass=ABCMeta):
                 reincarnation_character_ids = self.pd.deck(self.o.team_num)
         return self.client.battle_skip_stages(
             m_stage_ids=m_stage_ids, helper_player=helper_player,
-            deck_no=self.o.team_num, reincarnation_character_ids=reincarnation_character_ids, skip_number=skip_number)
+            deck_no=team_to_use, reincarnation_character_ids=reincarnation_character_ids, skip_number=skip_number)
 
     ## Finish battle, kills will be distributed randomly
     def get_battle_exp_data(self, start):

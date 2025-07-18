@@ -174,7 +174,13 @@ class Event(Player, metaclass=ABCMeta):
         # ongoing travel
         if status == 1:  # ongoing travel
             self.log(f'Continuing Netherworld Travel {travel_id} - {remaining_areas} Areas remaining')
-        # Need to select negative effect to complete area
+        if status == 2:  # ongoing travel - pending benefit selection
+            self.log(f'Continuing Netherworld Travel {travel_id} - {remaining_areas} Areas remaining')
+            # Select the benefit
+            rewards = data['result']['t_travel_status']['lotteried_m_travel_benefit_ids']
+            benefit = self.get_netherworld_travel_benefit_id(rewards)            
+            self.client.netherworld_travel_receive_reward(benefit)
+        # Need to select negative  to complete area
         elif data['result']['t_travel']['status'] == 3:            
             effect_selection = self. get_netherworld_travel_negative_effect(t_character_ids, cleared_areas-1)
             self.client.netherworld_travel_select_negative_effect(t_character_id=effect_selection['character_id'], 
@@ -400,7 +406,7 @@ class Event(Player, metaclass=ABCMeta):
 
         return unique_chars
     
-    def farm_story_event(self, story_event_id:int):
+    def farm_story_event(self, story_event_id:int, team_to_use:int=1):
         server_time = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=9) 
         server_date = server_time.date()
         event_data = self.client.event_index([story_event_id])
@@ -414,21 +420,21 @@ class Event(Player, metaclass=ABCMeta):
                 challenges = 0
             if challenges < 3:
                 chalenges_left = 3 - challenges
-                self.battle_skip(m_stage_id=stage_id, skip_number = chalenges_left, battle_type = Battle_Type.Story_Event)
+                self.battle_skip(m_stage_id=stage_id, skip_number = chalenges_left, battle_type = Battle_Type.Story_Event, team_to_use=team_to_use)
             
-    def clear_story_event(self, story_event_data):
+    def clear_story_event(self, story_event_data, team_to_use:int=1):
         cleared_stages = self.get_cleared_stages()
         story_event_id = story_event_data["id"]
         items = self.gd.items
         key =  next((x for x in items if x['item_type'] == Item_Types.Event_Stage_Key and x['effect_value'] == [story_event_id]),None)
         areas = [x for x in self.gd.areas if x['m_episode_id'] == story_event_data['m_episode_id']]
         for area in areas:
-            self.clear_story_event_area(area['id'], key)
+            self.clear_story_event_area(area['id'], team_to_use, key)
             
         another_areas = areas = [x for x in self.gd.areas if x['m_episode_id'] == story_event_data['another_m_episode_id']]
         if another_areas is not None:
             for area in another_areas:
-                self.clear_story_event_area(area['id'], key)
+                self.clear_story_event_area(area['id'], team_to_use, key)
                 
     def get_story_event_boss_stage_key_cost(self, defense_point:int):
         if defense_point < 4200:
@@ -439,7 +445,7 @@ class Event(Player, metaclass=ABCMeta):
             return 30
         return 50
 
-    def clear_story_event_area(self, area_id:int, key):
+    def clear_story_event_area(self, area_id:int, key, team_to_use:int=1):
         area_stages = [x for x in self.gd.stages if x['m_area_id'] == area_id]
         for stage in area_stages:
             if self.is_stage_3starred(stage['id']):
@@ -457,4 +463,4 @@ class Event(Player, metaclass=ABCMeta):
                 else:
                     use_item_id = 0
                     use_item_num = 0
-                self.doQuest(stage['id'], team_num=1, send_friend_request=False, use_item_id=use_item_id, use_item_num=use_item_num)
+                self.doQuest(stage['id'], team_num=team_to_use, send_friend_request=False, use_item_id=use_item_id, use_item_num=use_item_num)

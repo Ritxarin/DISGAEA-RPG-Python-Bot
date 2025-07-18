@@ -266,7 +266,7 @@ class Raid(Player, metaclass=ABCMeta):
         battle_exp_data = self.get_raid_special_stage_battle_exp_data(start, self.pd.deck(team_num)[0])
         end_prms = self.get_raid_special_stage_end_data(battle_exp_data)
         end = self.client.battle_end_end_with_payload(end_prms)
-        self.raid_share_own_boss()
+        self.raid_share_own_boss(party_to_use=team_num)
     
     def get_raid_special_stage_end_data(self, battle_exp_data):      
         payload = {

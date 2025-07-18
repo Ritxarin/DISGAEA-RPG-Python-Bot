@@ -24390,5 +24390,101 @@
     "description": "A demon that can turn a tanned amazon into awakening state of 6★",
     "max_num": 9999,
     "sell_price": 0
+  },
+  {
+    "id": 1941,
+    "name": "Swimsuit gathering fess part 1 ticket",
+    "item_type": 19,
+    "icon_no": 1941,
+    "effect_value": [
+      201109
+    ],
+    "description": "Tickets for the Scary Swimsuit Gathering Festival - Part 1 -",
+    "max_num": 999,
+    "sell_price": 0
+  },
+  {
+    "id": 1942,
+    "name": "Swimsuit gathering festoon part chucket",
+    "item_type": 19,
+    "icon_no": 1942,
+    "effect_value": [
+      201113
+    ],
+    "description": "Tickets for one time for the Scary Swimsuit Gathering Festival - Part 2",
+    "max_num": 999,
+    "sell_price": 0
+  },
+  {
+    "id": 340220,
+    "name": "Gathering festival exchange ticket",
+    "item_type": 34,
+    "icon_no": 340092,
+    "effect_value": [
+      816
+    ],
+    "description": "Available at the Gathering Festival Exchange",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 4620105,
+    "name": "Swimsuit Future Usaria's Demon Star",
+    "item_type": 46,
+    "icon_no": 4601,
+    "effect_value": [
+      20105
+    ],
+    "description": "A demon that can make the swimsuit future Usaria awakened to a 6-size state",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 1943,
+    "name": "Swimsuit gathering festo Part 2 ticket",
+    "item_type": 19,
+    "icon_no": 1943,
+    "effect_value": [
+      201116
+    ],
+    "description": "Tickets for the Scary Swimsuit Gathering Festival - Part 2 -",
+    "max_num": 999,
+    "sell_price": 0
+  },
+  {
+    "id": 201027,
+    "name": "Event PT",
+    "item_type": 20,
+    "icon_no": 201027,
+    "effect_value": [
+      820
+    ],
+    "description": "Swimsuit Asagi Raid PT",
+    "max_num": 99999999,
+    "sell_price": 0
+  },
+  {
+    "id": 340221,
+    "name": "Gathering festival exchange ticket",
+    "item_type": 34,
+    "icon_no": 340093,
+    "effect_value": [
+      817
+    ],
+    "description": "Available at the Gathering Festival Exchange",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2700352,
+    "name": "Swimsuit Asagi Crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "Crystal that can magically modify swimsuit asagi",
+    "max_num": 9999,
+    "sell_price": 0
   }
 ]
