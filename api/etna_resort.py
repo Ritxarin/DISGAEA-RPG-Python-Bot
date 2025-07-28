@@ -648,7 +648,8 @@ class EtnaResort(Items, metaclass=ABCMeta):
     def etna_resort_reroll_effect(self, item_id: int,
                                   alchemy_effect_id: int,
                                   place_no: int,
-                                  effect_target: int = 0):
+                                  effect_target: int = 0,
+                                  unique_innocent: bool = False):
 
         # verify value can be rolled
         if effect_target != 0:
@@ -716,8 +717,12 @@ class EtnaResort(Items, metaclass=ABCMeta):
             # if effect is maxed finish rolling and overwrite
             # if effect target is manually specified
             if is_max_effect or (effect_target != 0 and effect['effect_value'] >= effect_target and is_correct_effect):
-                r = self.client.etna_resort_update_alchemy_effect(True)
-                roll = False
+                # If looking for unique innocent ignore value unless the effect contains a unique inno
+                if unique_innocent and Constants.Unique_Innocent_Character_ID not in effect['m_character_ids']:
+                    r = self.client.etna_resort_update_alchemy_effect(False)
+                else:
+                    r = self.client.etna_resort_update_alchemy_effect(True)
+                    roll = False
             else:
                 r = self.client.etna_resort_update_alchemy_effect(False)
 
