@@ -73,10 +73,10 @@ class FishFleet(Player, metaclass=ABCMeta):
             return "WM EXP Fleet"
 
     def survey_get_result_type(self, result_type):
-        if result_type == Fish_Fleet_Result_type.HARVEST_1:
-            return "???"
-        if result_type == Fish_Fleet_Result_type.NORMAL_HARVEST:
-            return "Normal Harvest"
+        if result_type == Fish_Fleet_Result_type.NORMAL:
+            return "Normal"
+        if result_type == Fish_Fleet_Result_type.HARVEST:
+            return "Harvest"
         if result_type == Fish_Fleet_Result_type.SUPER_HARVEST:
             return "Super Harvest"
 

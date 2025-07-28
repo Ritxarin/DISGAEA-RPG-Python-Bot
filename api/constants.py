@@ -68,8 +68,8 @@ class Fish_Fleet_Index(IntEnum):
 
 
 class Fish_Fleet_Result_type(IntEnum):
-    HARVEST_1 = 1
-    NORMAL_HARVEST = 2
+    NORMAL = 1
+    HARVEST = 2
     SUPER_HARVEST = 3
 
 
@@ -244,6 +244,7 @@ class JP_ErrorMessages:
     Armor_Full_Error = '防具の所持数がいっぱいです\n所持枠を拡張するか売却などをしてください'
     Innocent_Full_Error = '不正なリクエストです'
     Raid_Battle_Finished = 'The raid Boss is already conquered'
+    Not_Enough_Items = 'アイテムが足りません'
       
 class Agenda_Type(IntEnum):
     Shop_Rank = 2
