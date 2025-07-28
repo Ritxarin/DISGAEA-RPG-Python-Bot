@@ -115,14 +115,20 @@ class Client:
             self.o.password = res['password']
             self.o.uuid = res['uuid']
             Logger.info('found password:%s uuid:%s' % (self.o.password, self.o.uuid))
-            if os.path.exists('logindata.json'):
-                with open('logindata.json', "r") as f:
+            login_data = {}
+            # Try to read existing data
+            if os.path.exists("logindata.json"):
+                with open("logindata.json", "r") as f:
                     try:
-                        login_data = json.load(f)
+                        ld = json.load(f)
+                        login_data = ld[0]
                     except json.JSONDecodeError:
-                        login_data = []
-            else:
-                login_data = []
+                        pass  # File exists but is empty or corrupted
+                login_data['password'] = res['password']
+                login_data['uuid'] = res['uuid']
+                # Write back to file
+                with open("logindata.json", "w") as f:
+                    f.write(json.dumps([login_data], indent=2, sort_keys=True))
 
         if 'result' in res and 'newest_resource_version' in res['result']:
             self.o.newest_resource_version = res['result']['newest_resource_version']
@@ -136,14 +142,18 @@ class Client:
             Logger.info('found fuji_key:%s' % self.c.key)
             
             ## Cache login data
-            login_data =  []
-            login_data.append({
-                'fuji_key': res['fuji_key'],
-                "session_id": res['session_id']
-                })
-            f = open("logindata.json", "w")
-            f.write(json.dumps(login_data, indent=2, sort_keys=True))
-            f.close()
+            if os.path.exists("logindata.json"):
+                with open("logindata.json", "r") as f:
+                    try:
+                        ld = json.load(f)
+                        login_data = ld[0]
+                    except json.JSONDecodeError:
+                        pass  # File exists but is empty or corrupted
+                login_data['fuji_key'] = res['fuji_key']
+                login_data['session_id'] = res['session_id']
+                # Write back to file
+                with open("logindata.json", "w") as f:
+                    f.write(json.dumps([login_data], indent=2, sort_keys=True))            
 
         if 'result' in res and 't_player_id' in res['result']:
             if 'player_rank' in res['result']:
@@ -164,13 +174,14 @@ class Client:
                     status = self.item_world_persuasion()
                     Logger.info('status:%s' % status)
                     status = status['result']['after_t_innocent']['status']
+
         return res
 
     def _set_headers(self, url: str, iv: str):
         i = head[url] if url in head else None
         self.s.headers.clear()
 
-        if i == 0:
+        if i == 0: # version check
             if self.o.region == 2:
                 self.s.headers.update({
                     'X-Unity-Version': '2018.4.3f1',
@@ -220,7 +231,7 @@ class Client:
                     'x-jvhpdr5cvhahu5zp':'Sj3guMhsn6TRzhmg',
                     'accept':'*/*',
                     'accept-encoding':'gzip, deflate, br'})
-        elif i == 1:
+        elif i == 1: # login signup
             if self.o.region == 2:
                 self.s.headers.update({
                     'X-Unity-Version': '2018.4.3f1',
@@ -234,7 +245,7 @@ class Client:
                 })
             else:
                 self.s.headers.update({
-                    'X-Unity-Version':'2019.4.29f1',
+                    'X-Unity-Version':'2021.3.35f1',
                     'X-Crypt-Iv':iv,
                     'Accept-Language':'en-us',
                     'Content-Type':'application/x-haut-hoiski',
@@ -243,7 +254,7 @@ class Client:
                     'x-jvhpdr5cvhahu5zp':'Sj3guMhsn6TRzhmg',
                     'accept':'*/*',
                     'accept-encoding':'gzip, deflate, br'})
-        elif i == 2:
+        elif i == 2: # rpc
             if self.o.region==2:
                 self.s.headers.update({
                     'X-Unity-Version':'2018.4.3f1',
@@ -257,7 +268,7 @@ class Client:
                     })
             else:
                 self.s.headers.update({
-                    'X-Unity-Version':'2019.4.29f1',
+                    'X-Unity-Version':'2021.3.35f1',
                     'X-Crypt-Iv':iv,
                     'Accept-Language':'en-us',
                     'Content-Type':'application/x-haut-hoiski',

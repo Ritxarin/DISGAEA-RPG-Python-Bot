@@ -17,10 +17,12 @@ class API(BaseAPI):
     def __init__(self):
         super().__init__()
 
-    def config(self, sess: str, uin: str, wait: int = 0, region: int = 1, device: int = 1):
+    def config(self, sess: str, uin: str, wait: int = 0, region: int = 1, device: int = 1, password:str='', uuid:str = ''):
         self.o.sess = sess
         self.o.uin = uin
         self.o.wait = wait
+        self.o.password = password
+        self.o.uuid = uuid
         self.o.set_region(region)
         self.o.set_device(device)
         self.gd.__init__(self.o.region)
@@ -57,15 +59,15 @@ class API(BaseAPI):
 
     # Use for JP
     def dologin(self,public_id=None,inherit_code=None):
-        self.client.version_check()
+        r = self.client.version_check()
         if public_id and inherit_code:
             public_id=str(public_id)
             inherit_code=str(inherit_code)
             self.client.signup()
             self.client.login()
-            self.client.player_add(tracking_authorize=2)
-            self.client.inherit_check()
-            self.client.auth_providers()
+            r = self.client.player_add(tracking_authorize=2)
+            r = self.client.inherit_check()
+            r = self.client.auth_providers()
             if not self.client.inherit_conf_inherit(public_id=public_id,inherit_code=inherit_code):
                 self.log('wrong password or public_id')
                 exit(1)
