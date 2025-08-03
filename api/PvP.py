@@ -30,6 +30,8 @@ class PvP(Base, metaclass=ABCMeta):
         if battle_num == 0:
             while current_orbs > 0:
                 oponent = self.pvp_select_opponent()
+                if oponent is None:
+                    return
                 oponent_details = self.client.pvp_enemy_player_detail(t_player_id=oponent['t_player_id'])
                 self.log(f"Battling player {oponent['user_name']} - Ranking {oponent['ranking']}. Orbs remaining: {current_orbs}")
                 self.client.pvp_start_battle(pvp_team, oponent['t_player_id'])
@@ -39,6 +41,8 @@ class PvP(Base, metaclass=ABCMeta):
         else:
             while battle_num > 0 and current_orbs > 0:
                 oponent = self.pvp_select_opponent()
+                if oponent is None:
+                    return
                 oponent_details = self.client.pvp_enemy_player_detail(t_player_id=oponent['t_player_id'])
                 self.log(f"Battling player {oponent['user_name']} - Ranking {oponent['ranking']}. Orbs remaining: {current_orbs}")
                 self.client.pvp_start_battle(pvp_team, oponent['t_player_id'])
@@ -49,6 +53,8 @@ class PvP(Base, metaclass=ABCMeta):
 
     def pvp_select_opponent(self):
         opponent_data = self.client.pvp_enemy_player_list()
+        if len(opponent_data['result']['enemy_players']) == 0:
+            return None
         pos = random.randint(0, len(opponent_data['result']['enemy_players'])-1)	
         random_oponent = opponent_data['result']['enemy_players'][pos]
         return random_oponent
