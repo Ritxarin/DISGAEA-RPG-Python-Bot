@@ -14,7 +14,16 @@ class Shop(Player, metaclass=ABCMeta):
             ids = []
             for i in innos:
                 ids.append(i['id'])
-            data = self.client.innocent_remove_all(ids, 0)
+
+            retry = True
+            # execute once - repeat if there was an exception retrieving equipment
+            while retry:
+                retry = False
+                data = self.client.innocent_remove_all(ids, 0)
+                if 'error' in data and data['error'] == ErrorMessages.Innocent_Full_Error or data['error'] == JP_ErrorMessages.Innocent_Full_Error:                    
+                    self.etna_donate_innocents(max_innocent_rank=5, max_innocent_type = Innocent_ID.RES)
+                    self.player_innocents(True)
+                    retry = True
             self.check_resp(data)
             if data['result']['after_t_data']:
                 self.player_update_equip_detail(e)
@@ -119,7 +128,7 @@ class Shop(Player, metaclass=ABCMeta):
         items, skipping = self.pd.filter_items(
             max_item_rank=40, max_rarity=39, max_item_level=1,
             skip_equipped=True, skip_locked=True,
-            max_innocent_rank=4, max_innocent_type=Innocent_ID.RES
+            max_innocent_rank=6, max_innocent_type=Innocent_ID.SPD
         )
 
         for item in items:
@@ -128,7 +137,7 @@ class Shop(Player, metaclass=ABCMeta):
             if equip_type == EquipmentType.ARMOR and sell_equipment:
                 ec += 1
                 selling.append(item)
-            elif sell_weapons:
+            if equip_type == EquipmentType.WEAPON and sell_weapons:
                 wc += 1
                 selling.append(item)
 
