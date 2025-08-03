@@ -89,6 +89,14 @@ class FinalBossLab(Player, metaclass=ABCMeta):
         end_prms = self.__get_custombattle_battle_end_data(character_ids)
         end = self.client.battle_end_end_with_payload(end_prms)
 
+
+    def final_boss_lab_battle_player(self):
+        find_players = self.client.custombattle_search_player()
+        players = find_players['result']['players']
+        sorted_data = sorted(players, key=lambda x: x['score'], reverse=True)
+        self.log(f"\tBattling player: {sorted_data[0]['user_name']} - Score: {sorted_data[0]['score']}")
+        self.final_boss_lab_clear_battle(deck_no=1, enemy_t_player_id=sorted_data[0]['t_player_id']) 
+
     def final_boss_daily_tasks(self):
         
         self.log(f"Completing Final Boss Lab daily missions...")
@@ -99,17 +107,32 @@ class FinalBossLab(Player, metaclass=ABCMeta):
         points = data['result']['t_custom_boss']['max_score']
         
         # Do Daily stage runs
-        area_id = self.__get_highest_area_id(points)
-        self.clear_custom_lab_stages(area_id, 3)
+        #area_id = self.__get_highest_area_id(points)
+        self.clear_custom_lab_stages(1001, 3)
         items = self.gd.items
         materials =  [x for x in items if x['item_type'] == Item_Types.Final_Boss_Material]    
         # Use custom boss parts
         self.log(f"\tUsing Final Boss parts...")
         self.player_items(True)
-        m_custom_parts_ids = [1001,1002,1003,1004,1005]
+        self.__final_boss_lab_use_custom_parts(m_custom_parts_ids = [1001,1002,1003,1004,1005], effect_id=0, materials=materials)
+        # m_custom_parts_ids = [1001,1002,1003,1004,1005]
+        # use_nums = [0,0,0,0,0]      
+        # i = 0
+        # for part in m_custom_parts_ids:
+        #     material = next((x for x in materials if x['effect_value'] == [part]),None)
+        #     if material is not None:
+        #         material_pd = self.pd.get_item_by_m_item_id(material['id'])
+        #         if material_pd is not None:
+        #             use_nums[i] = material_pd['num']
+        #             self.log(f"\t\tUsing {material_pd['num']} {material['name']}")
+        #     i += 1
+        # if use_nums != [0,0,0,0,0]:
+        #     self.client.custombattle_use_parts(m_custom_parts_ids=m_custom_parts_ids, use_nums=use_nums, m_custom_boss_effect_ids=[0,0,0,0,0])
+
+        red_geo_mats = [2001,2002,2003,2004,2005]
         use_nums = [0,0,0,0,0]      
         i = 0
-        for part in m_custom_parts_ids:
+        for part in red_geo_mats:
             material = next((x for x in materials if x['effect_value'] == [part]),None)
             if material is not None:
                 material_pd = self.pd.get_item_by_m_item_id(material['id'])
@@ -117,7 +140,22 @@ class FinalBossLab(Player, metaclass=ABCMeta):
                     use_nums[i] = material_pd['num']
                     self.log(f"\t\tUsing {material_pd['num']} {material['name']}")
             i += 1
-        self.client.custombattle_use_parts(m_custom_parts_ids=m_custom_parts_ids, use_nums=use_nums, m_custom_boss_effect_ids=[0,0,0,0,0])
+        if use_nums != [0,0,0,0,0]:
+            self.client.custombattle_use_parts(m_custom_parts_ids=m_custom_parts_ids, use_nums=use_nums, m_custom_boss_effect_ids=[1,1,1,1,1])
+
+        green_geo_mats = [5001,5002,5003,5004,5005]
+        use_nums = [0,0,0,0,0]      
+        i = 0
+        for part in red_geo_mats:
+            material = next((x for x in materials if x['effect_value'] == [part]),None)
+            if material is not None:
+                material_pd = self.pd.get_item_by_m_item_id(material['id'])
+                if material_pd is not None:
+                    use_nums[i] = material_pd['num']
+                    self.log(f"\t\tUsing {material_pd['num']} {material['name']}")
+            i += 1
+        if use_nums != [0,0,0,0,0]:
+            self.client.custombattle_use_parts(m_custom_parts_ids=m_custom_parts_ids, use_nums=use_nums, m_custom_boss_effect_ids=[4,4,4,4,4])            
 
         # Battle own boss
         while challenge_num < 5:
@@ -126,11 +164,7 @@ class FinalBossLab(Player, metaclass=ABCMeta):
             challenge_num += 1
             
         # Battle one oponent
-        find_players = self.client.custombattle_search_player()
-        players = find_players['result']['players']
-        sorted_data = sorted(players, key=lambda x: x['score'], reverse=True)
-        self.log(f"\tBattling player: {sorted_data[0]['user_name']} - Score: {sorted_data[0]['score']}")
-        self.final_boss_lab_clear_battle(deck_no=1, enemy_t_player_id=sorted_data[0]['t_player_id'])  
+        self.final_boss_lab_battle_player()  
         
         self.log(f"\tClaiming missions...")
         self.final_boss_lab_claim_daily_missions()
@@ -189,3 +223,24 @@ class FinalBossLab(Player, metaclass=ABCMeta):
             }
         }
         return payload
+    
+    def __final_boss_lab_use_custom_parts(self, m_custom_parts_ids: list[int], effect_id: int, materials: list[dict]):
+        use_nums = []
+        filtered_part_ids = []
+
+        for part_id in m_custom_parts_ids:
+            material = next((x for x in materials if x['effect_value'] == [part_id]), None)
+            if material is not None:
+                material_pd = self.pd.get_item_by_m_item_id(material['id'])
+                if material_pd is not None and material_pd['num'] > 0:
+                    filtered_part_ids.append(part_id)
+                    use_nums.append(material_pd['num'])
+                    self.log(f"\t\tUsing {material_pd['num']} {material['name']}")
+
+        if filtered_part_ids:
+            effect_ids = [effect_id] * len(filtered_part_ids)
+            self.client.custombattle_use_parts(
+                m_custom_parts_ids=filtered_part_ids,
+                use_nums=use_nums,
+                m_custom_boss_effect_ids=effect_ids
+            )

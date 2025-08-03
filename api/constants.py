@@ -16,7 +16,7 @@ class Constants:
     Current_Sugoroku_Event_ID = 0
     Item_Survey_Deposit_Size = 10
     Shop_Max_Free_Refresh = 5
-    Highest_Tower_Level = 95
+    Highest_Tower_Level = 100
     Alchemy_Alchemize_Cost = 6000
     Alchemy_Realchemize_Cost = 12000
     Unique_Innocent_Character_ID = 0
@@ -242,7 +242,7 @@ class ErrorMessages:
 class JP_ErrorMessages:
     Weapon_Full_Error = '武器の所持数がいっぱいです\n所持枠を拡張するか売却などをしてください'
     Armor_Full_Error = '防具の所持数がいっぱいです\n所持枠を拡張するか売却などをしてください'
-    Innocent_Full_Error = '不正なリクエストです'
+    Innocent_Full_Error = 'イノセントの所持数が最大です。'
     Raid_Battle_Finished = 'The raid Boss is already conquered'
     Not_Enough_Items = 'アイテムが足りません'
       
