@@ -767,4 +767,45 @@ class EtnaResort(Items, metaclass=ABCMeta):
             # If the innocent is not of the same type, graze
             if innocent['m_character_id'] not in innocent_boost_effect['m_character_ids'] and innocent[
                 'm_character_id'] != 0:
-                self.etna_resort_graze(innocent=innocent['id'], target_character_id=boost_innocent_type)
+                self.etna_resort_graze(innocent=innocent['id'], 
+                                       target_character_id=boost_innocent_type)
+
+    def etna_resort_max_train_innocent(self, innocent, min_initial_value:int=0):        
+        
+        starting_value = innocent['effect_values'][0]
+        print(f"Training innocent. Starting value: {starting_value}")
+
+        if starting_value  < min_initial_value:
+            print(f"Starting value below minimum threshold. Skipping...")  
+            return 
+
+        inno_data = next((x for x in self.gd.innocent_types if x['id'] == innocent['m_innocent_id']),None)
+        
+        max_value = self.__get_innocent_max_effect(inno_data['effect_type'])
+        if starting_value >= max_value:
+             print(f"\tInnocent is already maxed")
+             return
+        
+        attempts = 0   
+        current_value = starting_value     
+        while current_value < max_value:
+            res = self.client.innocent_training(innocent['id'])
+            if 'api_error' in res and 'message' in res['api_error'] and (res['api_error']['message'] == 'Insufficient Items' or res['api_error']['message'] == 'データが見つかりません'):
+                print("No caretaker tickets left")
+                break
+            current_value = res['result']['after_t_data']['innocents'][0]['effect_values'][0]
+            print(
+                f"\tTrained innocent with result {self.innocent_get_training_result(res['result']['training_result'])} - Current value: {res['result']['after_t_data']['innocents'][0]['effect_values'][0]}")
+            attempts += 1
+        print(f"\tUpgraded innocent to Max Value. Total attempts: {attempts}")
+
+    def __get_innocent_max_effect(self, innocent_type:int):
+       type_max_values = {
+            1: 6, # regular inno
+            2: 2, # HL/EXP
+            3: 1, # SPEED
+            9 : 9, #Ancients
+            48 : 0.1 # drop
+       }
+
+       return type_max_values[innocent_type]
