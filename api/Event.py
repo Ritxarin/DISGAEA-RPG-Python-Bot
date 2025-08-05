@@ -423,18 +423,18 @@ class Event(Player, metaclass=ABCMeta):
                 self.battle_skip(m_stage_id=stage_id, skip_number = chalenges_left, battle_type = Battle_Type.Story_Event, team_to_use=team_to_use)
             
     def clear_story_event(self, story_event_data, team_to_use:int=1):
-        cleared_stages = self.get_cleared_stages()
+        #cleared_stages = self.get_cleared_stages()
         story_event_id = story_event_data["id"]
         items = self.gd.items
         key =  next((x for x in items if x['item_type'] == Item_Types.Event_Stage_Key and x['effect_value'] == [story_event_id]),None)
         areas = [x for x in self.gd.areas if x['m_episode_id'] == story_event_data['m_episode_id']]
         for area in areas:
-            self.clear_story_event_area(area['id'], team_to_use, key)
+            self.clear_story_event_area(area_id=area['id'], key= key, team_to_use=team_to_use)
             
         another_areas = areas = [x for x in self.gd.areas if x['m_episode_id'] == story_event_data['another_m_episode_id']]
         if another_areas is not None:
             for area in another_areas:
-                self.clear_story_event_area(area['id'], team_to_use, key)
+                self.clear_story_event_area(area_id=area['id'], key= key, team_to_use=team_to_use)
                 
     def get_story_event_boss_stage_key_cost(self, defense_point:int):
         if defense_point < 4200:
@@ -445,7 +445,7 @@ class Event(Player, metaclass=ABCMeta):
             return 30
         return 50
 
-    def clear_story_event_area(self, area_id:int, key, team_to_use:int=1):
+    def clear_story_event_area(self, area_id:int, key: object, team_to_use:int=1):
         area_stages = [x for x in self.gd.stages if x['m_area_id'] == area_id]
         for stage in area_stages:
             if self.is_stage_3starred(stage['id']):

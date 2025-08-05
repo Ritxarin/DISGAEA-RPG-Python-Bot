@@ -31359,5 +31359,82 @@
     "m_preview_id": 0,
     "area_special_type": 0,
     "sort": 1
+  },
+  {
+    "id": 1827101,
+    "m_episode_id": 18271,
+    "name": "Special Battle",
+    "heading": "",
+    "description": "None",
+    "bg_id": 0,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 1
+  },
+  {
+    "id": 1828101,
+    "m_episode_id": 18281,
+    "name": "The sea of the demon world and the sky of the heavens",
+    "heading": "",
+    "description": "I came to the sea of the demon world for a vacation\nIt was Marone and Ash, but...! ?",
+    "bg_id": 1023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 1
+  },
+  {
+    "id": 1828102,
+    "m_episode_id": 18281,
+    "name": "Who is the kidnapper?",
+    "heading": "",
+    "description": "Marone and his friends calmed Urmi's outrage.\nHowever, one problem goes away and another problem --",
+    "bg_id": 1023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 2
+  },
+  {
+    "id": 1828103,
+    "m_episode_id": 18281,
+    "name": "Aprico rescue operation",
+    "heading": "",
+    "description": "Burkano reveals his true identity. In that hand,\nAprico sealed in a bottle...! ?",
+    "bg_id": 1023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 3
+  },
+  {
+    "id": 1828104,
+    "m_episode_id": 18281,
+    "name": "Fight! Argento Pirates",
+    "heading": "",
+    "description": "The super hero Aurum rescues Aprico.\nAn unexpected struggle will be realized in the heavenly land!",
+    "bg_id": 1023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 4
+  },
+  {
+    "id": 1828105,
+    "m_episode_id": 18281,
+    "name": "Always together",
+    "heading": "",
+    "description": "The Argento Pirates gather here!\nShow the miracle of bonds to the arrogant angels!",
+    "bg_id": 1023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 5
+  },
+  {
+    "id": 1828201,
+    "m_episode_id": 18282,
+    "name": "EXTRA Area",
+    "heading": "",
+    "description": "Using the BOSS key,\nLet's challenge even more powerful enemies!",
+    "bg_id": 1023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 1
   }
 ]

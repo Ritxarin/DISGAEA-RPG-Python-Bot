@@ -24486,5 +24486,272 @@
     "description": "Crystal that can magically modify swimsuit asagi",
     "max_num": 9999,
     "sell_price": 0
+  },
+  {
+    "id": 340222,
+    "name": "PU character exchange ticket (paid)",
+    "item_type": 34,
+    "icon_no": 3420,
+    "effect_value": [
+      818
+    ],
+    "description": "Available at PU Character Exchange (paid)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 340223,
+    "name": "PU character exchange ticket (normal)",
+    "item_type": 34,
+    "icon_no": 3421,
+    "effect_value": [
+      819
+    ],
+    "description": "Available at PU Character Exchange (Normal)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 340224,
+    "name": "Festival Character Exchange Ticket (Normal)",
+    "item_type": 34,
+    "icon_no": 3482,
+    "effect_value": [
+      822
+    ],
+    "description": "Available at Festival Character Exchange (Normal)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 340227,
+    "name": "Festival character exchange ticket (paid)",
+    "item_type": 34,
+    "icon_no": 3481,
+    "effect_value": [
+      829
+    ],
+    "description": "Can be used at the Festival Character Exchange (paid)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2700353,
+    "name": "Swimsuit Demon Etna Crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "Crystal that can magically modify the swimsuit demon Etna",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 375,
+    "name": "Tropical juice",
+    "item_type": 3,
+    "icon_no": 375,
+    "effect_value": [
+      100
+    ],
+    "description": "Your ability to take action will be restored. Tropical juice made from Yvoir fruit",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 1944,
+    "name": "PB Selfish Key Ticket",
+    "item_type": 19,
+    "icon_no": 1944,
+    "effect_value": [
+      201125
+    ],
+    "description": "To celebrate the second collaboration, keeping yourself! Tickets for one All Star Festival",
+    "max_num": 999,
+    "sell_price": 0
+  },
+  {
+    "id": 4560,
+    "name": "BOSSPT",
+    "item_type": 45,
+    "icon_no": 4502,
+    "effect_value": [
+      828
+    ],
+    "description": "\"Phantom Brave\" BOSSPT for Angel Corps and the Disappeared Captains",
+    "max_num": 99999999,
+    "sell_price": 0
+  },
+  {
+    "id": 5928,
+    "name": "BOSS Key",
+    "item_type": 59,
+    "icon_no": 5901,
+    "effect_value": [
+      828
+    ],
+    "description": "\"Phantom Brave\" The key necessary to challenge BOSS with the Angel Corps and the Disappeared Captain",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 200027,
+    "name": "Event PT",
+    "item_type": 20,
+    "icon_no": 200027,
+    "effect_value": [
+      828
+    ],
+    "description": "\"Phantom Brave\" PT for the Angel Corps and the Disappeared Captain",
+    "max_num": 99999999,
+    "sell_price": 0
+  },
+  {
+    "id": 340225,
+    "name": "PU character exchange ticket (paid)",
+    "item_type": 34,
+    "icon_no": 3420,
+    "effect_value": [
+      824
+    ],
+    "description": "Can be used at PU character exchange (paid)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 340226,
+    "name": "PU character exchange ticket (normal)",
+    "item_type": 34,
+    "icon_no": 3421,
+    "effect_value": [
+      825
+    ],
+    "description": "Available at PU Character Exchange (Normal)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2300356,
+    "name": "Dedicated Mana Potion",
+    "item_type": 23,
+    "icon_no": 2302,
+    "effect_value": [
+      500,
+      356
+    ],
+    "description": "A mysterious drug that can earn Urmi's mana when used",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2300358,
+    "name": "Dedicated Mana Potion",
+    "item_type": 23,
+    "icon_no": 2302,
+    "effect_value": [
+      500,
+      358
+    ],
+    "description": "A mysterious drug that can earn Mayfair mana when used",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2320106,
+    "name": "Dedicated Mana Potion",
+    "item_type": 23,
+    "icon_no": 2302,
+    "effect_value": [
+      500,
+      20106
+    ],
+    "description": "A mysterious medicine that can earn you mana from a bottled apricot when used",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2700356,
+    "name": "The Crystal of Urmi",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "Crystal that can magically modify Urumi",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2700358,
+    "name": "Mayfair's Crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "Crystals that can magically modify Mayfair",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2700359,
+    "name": "Luang's Crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "Crystals that can magically modify Luan",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2720106,
+    "name": "Bottle Aprico Crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "Crystals that can magically modify bottle apricos",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 4600356,
+    "name": "Urmi's Demon Star",
+    "item_type": 46,
+    "icon_no": 4601,
+    "effect_value": [
+      356
+    ],
+    "description": "Demon stars that can turn Urmi into awakening state of 6★",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 4600358,
+    "name": "Mayfair's Demon Star",
+    "item_type": 46,
+    "icon_no": 4601,
+    "effect_value": [
+      358
+    ],
+    "description": "Demon stars that can turn Mayfair into awakening state of 6★",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 4620106,
+    "name": "Bottle Aprico's Demon Star",
+    "item_type": 46,
+    "icon_no": 4601,
+    "effect_value": [
+      20106
+    ],
+    "description": "A demon that can turn a bottle aprico into awakening state of 6★",
+    "max_num": 9999,
+    "sell_price": 0
   }
 ]
