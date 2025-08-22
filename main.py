@@ -258,7 +258,7 @@ class API(BaseAPI):
             self.log(f"No stage with id {m_stage_id} found")
             return
         self.log('doing quest:%s [%s]' % (stage['name'], m_stage_id))
-        if stage['exp'] == 0:
+        if stage['exp'] == 0 and stage['proper_level'] == "-":
             return self.client.battle_story(m_stage_id)
 
         if stage['act'] > self.current_ap:

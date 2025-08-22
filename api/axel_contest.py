@@ -77,12 +77,16 @@ class AxelContest(Player, metaclass=ABCMeta):
 
     def do_axel_contest_multiple_characters(self, numberOfCharacters, highestStageToClear):
         unit_count = 0
+        found = False
         while unit_count < numberOfCharacters:
-            character = self.find_character_for_axel_contest(highestStageToClear)
-            if character is None:
-                self.log("No characters left, please increase the level cap")
-                return
-            last_stage = self.do_axel_contest(character, highestStageToClear)
+            while not found:
+                character = self.find_character_for_axel_contest(highestStageToClear)
+                if character is None:
+                    self.log("No characters left. Increasing level cap by 5")
+                    highestStageToClear +=5
+                else:
+                    found = True
+            self.do_axel_contest(character, highestStageToClear)
             unit_count += 1
             self.log(f"Completed {unit_count} out of {numberOfCharacters} characters")
 

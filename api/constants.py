@@ -3,9 +3,9 @@ from enum import IntEnum
 
 class Constants:
     Current_Raid_ID_GL = 0
-    Current_Raid_ID_JP = 820
+    Current_Raid_ID_JP = 830
     Current_Story_Event_ID_GL = 826
-    Current_Story_Event_ID_JP = 805
+    Current_Story_Event_ID_JP = 828
     Etna_Resort_Item_Deposit_Size = 11
     UDT_Training_Area_ID_GL = 0
     UDT_Training_Event_ID_GL = 0
@@ -268,7 +268,7 @@ class Event_Type(IntEnum):
     Etna_Defense = 10
     Trial = 12
     Sugoroku = 13 # also final boss battle
-    Story_Event_New = 15
+    Map_Event = 15
     
 class Battle_Type(IntEnum):
     Story_Event = 1
