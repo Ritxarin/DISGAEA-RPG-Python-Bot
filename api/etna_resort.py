@@ -1,5 +1,6 @@
 from abc import ABCMeta
 from inspect import ismemberdescriptor
+import random
 
 from api.constants import Constants, Innocent_Training_Result, Innocent_ID, Alchemy_Effect_Type, ErrorMessages, JP_ErrorMessages
 from api.constants import Items as ItemsC
@@ -520,6 +521,12 @@ class EtnaResort(Items, metaclass=ABCMeta):
         if not self.etna_resort_can_effect_be_rolled_in_equipment(effect_id, item_type):
             self.log(f"The specified alchemy effect cannot be rolled for this equipment type. Exiting...")
             return
+        
+        item_effects = self.pd.get_item_alchemy_effects(item_id)
+        item_effect = next((x for x in item_effects if x['m_equipment_effect_type_id'] == effect_id), None)
+        if item_effect is not None and item_effect['effect_value'] >= effect_target:
+            self.log(f"{effect['description']} is already rolled on slot {item_effect['place_no']} with a better or equal value.")
+            return
 
         effect_value = 0
         attempt_count = 0
@@ -758,17 +765,16 @@ class EtnaResort(Items, metaclass=ABCMeta):
         if len(innocent_boost_effect['m_character_ids']) == 1 and innocent_boost_effect['m_character_ids'][0]:
             self.log(f"This item only has a unique innocent boost - Grazing is not possible")
             return
-        # Get the type of the innocent that is boosted (skip unique)
-        boost_innocent_type = innocent_boost_effect['m_character_ids'][0] if innocent_boost_effect['m_character_ids'][
-                                                                                 0] != 0 else \
-        innocent_boost_effect['m_character_ids'][1]
+        # Get the type of the innocents that are boosted (skip unique)
+        viable_boosted_innocents = [x for x in innocent_boost_effect['m_character_ids'] if x != 0]
         item_innocents = self.pd.get_item_innocents(item_id)
+
         for innocent in item_innocents:
             # If the innocent is not of the same type, graze
-            if innocent['m_character_id'] not in innocent_boost_effect['m_character_ids'] and innocent[
-                'm_character_id'] != 0:
-                self.etna_resort_graze(innocent=innocent['id'], 
-                                       target_character_id=boost_innocent_type)
+            if innocent['m_character_id'] not in viable_boosted_innocents and innocent['m_character_id'] != 0:
+                # select one at random
+                boost_innocent_type = random.choice(viable_boosted_innocents)
+                self.etna_resort_graze(innocent=innocent['id'], target_character_id=boost_innocent_type)
 
     def etna_resort_max_train_innocent(self, innocent, min_initial_value:int=0):        
         
@@ -799,7 +805,11 @@ class EtnaResort(Items, metaclass=ABCMeta):
             attempts += 1
         print(f"\tUpgraded innocent to Max Value. Total attempts: {attempts}")
 
-    def __get_innocent_max_effect(self, innocent_type:int):
+    def __get_innocent_max_effect(self, effect_type:int):
+       
+       if effect_type >= 52  and effect_type <= 63:
+        return 9
+       
        type_max_values = {
             1: 6, # regular inno
             2: 2, # HL/EXP
@@ -808,4 +818,4 @@ class EtnaResort(Items, metaclass=ABCMeta):
             48 : 0.1 # drop
        }
 
-       return type_max_values[innocent_type]
+       return type_max_values[effect_type]

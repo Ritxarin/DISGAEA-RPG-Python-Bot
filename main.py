@@ -127,6 +127,37 @@ class API(BaseAPI):
             with open('transfercode.txt', 'w') as f:
                 f.write(code['inherit_code'])
 
+    def quick_login_jp(self,public_id=None,inherit_code=None):
+        r = self.client.version_check()
+        if public_id and inherit_code:
+            public_id=str(public_id)
+            inherit_code=str(inherit_code)
+            self.client.signup()
+            self.client.login()
+            self.client.player_add(tracking_authorize=2)
+            self.client.inherit_check()
+            self.client.auth_providers()
+            if not self.client.inherit_conf_inherit(public_id=public_id,inherit_code=inherit_code):
+                self.log('wrong password or public_id')
+                exit(1)
+            self.client.inherit_exec_inherit(public_id=public_id,inherit_code=inherit_code)
+            self.client.version_check()
+        self.client.login()
+        self.client.app_constants()
+        self.check_ongoing_battle_data()
+        data = self.client.player_index()
+        if 'result' in data:
+            self.o.current_ap = int(data['result']['status']['act'])    
+        self.player_decks()    
+        self.player_stone_sum()
+        self.player_characters()
+        self.player_items()
+        self.client.auth_providers()
+        code=self.client.inherit_get_code()['result']
+        self.log('public_id: %s inherit_code: %s'%(code['public_id'],code['inherit_code']))
+        with open('transfercode.txt', 'w') as f:
+            f.write(code['inherit_code'])
+
     # Reads from logindata.json. Avoids new login (prevents issues with JP code transfer)
     def loginfromcache(self):
         self.client.login_from_cache()
@@ -297,12 +328,16 @@ class API(BaseAPI):
             else:
                 help_player = helper_data[0]
 
+        deck_data = self.player_get_deck_data()
+        memory_ids = deck_data['t_memory_ids_list'][team_num-1]
+        memory_ids = list(map(int, memory_ids.split(','))) # convert to list
         start = self.client.battle_start(
             m_stage_id=m_stage_id, help_t_player_id=help_player['t_player_id'],
             help_t_character_id=help_player['t_character']['id'], act=stage['act'],
             help_t_character_lv=help_player['t_character']['lv'],
             deck_no=team_num, reincarnation_character_ids=auto_rebirth_character_ids,
-            use_item_id=use_item_id, use_item_num=use_item_num
+            use_item_id=use_item_id, use_item_num=use_item_num,
+            memory_ids= memory_ids
         )
 
         if 'result' not in start:
@@ -409,7 +444,7 @@ class API(BaseAPI):
         return res
 
     def Is_Area_Event_Remembrance(self, area_id):
-        return area_id >=  2001101 and area_id <= 2154106
+        return area_id >=  2001101 and area_id <= 2178106
     
     def Is_Area_AnecdoteStory(self, area_id):
         return area_id >= 200000 and area_id <= 200315
@@ -835,8 +870,8 @@ class API(BaseAPI):
         if next_sr['magic_element'] > ne_count:
             self.log(f"SR costs {next_sr['magic_element']}, you only have {ne_count} Nether Essence")
             return
-        res = self.client.super_reincarnate(t_character_id=character_id, magic_element_num=next_sr['magic_element'])
         char = self.gd.get_character(unit['m_character_id'])
+        res = self.client.super_reincarnate(t_character_id=character_id, magic_element_num=next_sr['magic_element'])        
         if char is not None:
             self.log(
             f"Super Reincarnated {char['name']}. SR Count: {next_sr['super_rebirth_num']} - Karma Gained: {next_sr['karma']}")

@@ -302,6 +302,10 @@ class PlayerData:
             if i is None:
                 i = self.get_equipment_by_id(id)
         effects = []
+
+        if i is None:
+            Logger.log(f"No equipment/weapon found with id {i}")
+            return effects
         if 'm_weapon_id' in i:
             effects = self.get_weapon_alchemy_effects(i['id'])
         elif 'm_equipment_id' in i:

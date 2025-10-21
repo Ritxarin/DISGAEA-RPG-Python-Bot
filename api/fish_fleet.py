@@ -15,6 +15,7 @@ class FishFleet(Player, metaclass=ABCMeta):
         time_delta = -4 if self.o.region == 2 else 9
         server_date_time = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=time_delta)
         fish_fleet_data = self.client.survey_index()
+        completed_count = 0
         for fish_fleet in fish_fleet_data['result']['t_surveys']:
             fleet_name = self.survey_get_fleet_name(fish_fleet['m_survey_id'])
             end_time_string = fish_fleet['end_at']
@@ -26,11 +27,13 @@ class FishFleet(Player, metaclass=ABCMeta):
                     self.survey_complete_expedition(fish_fleet['m_survey_id'])
                     # Start expedition again
                     self.survey_start_expedition(fish_fleet['m_survey_id'], use_bribes, hours)
+                    completed_count += 1
                 else:
                     self.log(f"{fleet_name} fleet has not returned yet.")
             # Fleet not sent
             else:
                 self.survey_start_expedition(fish_fleet['m_survey_id'], use_bribes, hours)
+        return completed_count
 
     def survey_complete_expedition(self, m_survey_id):
         fleet_name = self.survey_get_fleet_name(m_survey_id)

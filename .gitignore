@@ -9,3 +9,5 @@ sp_nesh_auto_account.xml
 examples/decode.py
 auto_pilot.py
 player_data.json
+transfercode.txt
+logindata.json
