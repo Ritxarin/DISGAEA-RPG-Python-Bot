@@ -32976,5 +32976,148 @@
     "m_preview_id": 0,
     "area_special_type": 0,
     "sort": 1
+  },
+  {
+    "id": 2189101,
+    "m_episode_id": 21891,
+    "name": "tragic party venue",
+    "heading": "",
+    "description": "For the Christmas party\nSeraphine and the others prepare.\nHow did it appear there?\nIn a bright red costume...",
+    "bg_id": 10023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 1
+  },
+  {
+    "id": 2189102,
+    "m_episode_id": 21891,
+    "name": "The birth of the tragic black mortar",
+    "heading": "",
+    "description": "Usalia and Noel\nI was chasing Torachiyo.\nThere seems to be a reason...",
+    "bg_id": 10023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 2
+  },
+  {
+    "id": 2189103,
+    "m_episode_id": 21891,
+    "name": "black santa's misfortune",
+    "heading": "",
+    "description": "Became a black Santa\nShow no mercy to Lahar\nA large amount of rice balls\nIt was a gift...",
+    "bg_id": 10023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 3
+  },
+  {
+    "id": 2189104,
+    "m_episode_id": 21891,
+    "name": "Onigiri for couples",
+    "heading": "",
+    "description": "Enjoy Christmas together\nAdele and Rosalind.\nTo those two too\nThe devil's hand sneaks up on me.",
+    "bg_id": 10023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 4
+  },
+  {
+    "id": 2189105,
+    "m_episode_id": 21891,
+    "name": "Onigiri warrior, last place",
+    "heading": "",
+    "description": "A gift of rice balls\nI realized that I wasn't happy with it.\nTorachiyo is incredibly big\nIt seems like he was shocked...",
+    "bg_id": 10023,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 5
+  },
+  {
+    "id": 2189106,
+    "m_episode_id": 21891,
+    "name": "Reminiscence area",
+    "heading": "",
+    "description": "Santa Torachiyo Memorial Area",
+    "bg_id": 1005,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 6
+  },
+  {
+    "id": 1871101,
+    "m_episode_id": 18711,
+    "name": "Freon's favorite works",
+    "heading": "",
+    "description": "Surrounded by an atmosphere different from the demon world,\nSicily wakes up in the “Labyrinth”———",
+    "bg_id": 10154,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 1
+  },
+  {
+    "id": 1871102,
+    "m_episode_id": 18711,
+    "name": "monster leftovers",
+    "heading": "",
+    "description": "In order to compete with \"Fire Prinny\",\nFuron and his friends are searching for Belkanan friends.",
+    "bg_id": 10154,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 2
+  },
+  {
+    "id": 1871103,
+    "m_episode_id": 18711,
+    "name": "VR game",
+    "heading": "",
+    "description": "The true nature of the ``Labyrinth'' as told by Freon.\nWhat caused the two worlds to become involved...",
+    "bg_id": 10154,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 3
+  },
+  {
+    "id": 1871104,
+    "m_episode_id": 18711,
+    "name": "legendary weapon",
+    "heading": "",
+    "description": "Breaking through the traps of the labyrinth, everyone\nHe confronts Fire Prinny, but...! ?",
+    "bg_id": 10154,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 4
+  },
+  {
+    "id": 1871105,
+    "m_episode_id": 18711,
+    "name": "Blade & Bastard",
+    "heading": "",
+    "description": "Demons, angels, and foreign adventurers...\nIncorporate the manners of the demon world into the rules of the “Labyrinth”!",
+    "bg_id": 10154,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 5
+  },
+  {
+    "id": 1871201,
+    "m_episode_id": 18712,
+    "name": "EXTRA area",
+    "heading": "",
+    "description": "Use the BOSS key,\nLet's take on even stronger enemies!",
+    "bg_id": 10154,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 1
+  },
+  {
+    "id": 1872101,
+    "m_episode_id": 18721,
+    "name": "special battle",
+    "heading": "",
+    "description": "None",
+    "bg_id": 0,
+    "m_preview_id": 0,
+    "area_special_type": 0,
+    "sort": 1
   }
 ]

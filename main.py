@@ -249,7 +249,7 @@ class API(BaseAPI):
     def present_receive_all_except_equip_and_AP(self):
         initial_nq = self.player_stone_sum()['result']['_items'][0]['num']
         current_nq = initial_nq
-        present_data = self.client.present_index(conditions=[0, 1, 3, 99], order=0)
+        present_data = self.client.present_index(conditions=[0, 1, 3, 99], order=1)
         claim = True
         while claim:
             item_ids = []
@@ -444,7 +444,7 @@ class API(BaseAPI):
         return res
 
     def Is_Area_Event_Remembrance(self, area_id):
-        return area_id >=  2001101 and area_id <= 2178106
+        return area_id >=  2001101 and area_id <= 2189106
     
     def Is_Area_AnecdoteStory(self, area_id):
         return area_id >= 200000 and area_id <= 200315
@@ -871,7 +871,8 @@ class API(BaseAPI):
             self.log(f"SR costs {next_sr['magic_element']}, you only have {ne_count} Nether Essence")
             return
         char = self.gd.get_character(unit['m_character_id'])
-        res = self.client.super_reincarnate(t_character_id=character_id, magic_element_num=next_sr['magic_element'])        
+        res = self.client.super_reincarnate(t_character_id=character_id, magic_element_num=next_sr['magic_element'])   
+        self.check_resp(res)     
         if char is not None:
             self.log(
             f"Super Reincarnated {char['name']}. SR Count: {next_sr['super_rebirth_num']} - Karma Gained: {next_sr['karma']}")

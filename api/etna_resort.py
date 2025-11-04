@@ -507,7 +507,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
             return
 
         if not self.etna_resort_can_item_be_rolled(item_id):
-            self.log("{item_id} - Item has effects(s) locked and cannot be rolled. Exiting...")
+            self.log(f"{item_id} - Item has effects(s) locked and cannot be rolled. Exiting...")
             return
 
         e = self.pd.get_weapon_by_id(item_id)
@@ -567,6 +567,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
             f"{item_id} - Rolled {effect_value}% effect - Attempt count: {attempt_count} - "
             f"Priprism left: {prism_count}"
         )
+        self.player_weapon_effects(True)
 
     # This function re-rolls an item until a certain effect is rolled with max value
     # Specify and item ID, and a list of effects to roll for on the alchemy_effects list

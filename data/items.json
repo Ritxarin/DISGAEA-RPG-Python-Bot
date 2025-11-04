@@ -25379,7 +25379,7 @@
       500,
       366
     ],
-    "description": "A mysterious medicine that can earn you mana for nurse seraphine when used.",
+    "description": "A mysterious medicine that can earn you mana for Nurse Seraphina when used.",
     "max_num": 9999,
     "sell_price": 0
   },
@@ -25477,6 +25477,297 @@
       368
     ],
     "description": "Demon Star that can turn Ninja Piririka into awakening state of ★6",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 340243,
+    "name": "Chara crystal exchange ticket",
+    "item_type": 34,
+    "icon_no": 3453,
+    "effect_value": [
+      861
+    ],
+    "description": "Available at the Character Crystal Exchange",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 4600369,
+    "name": "Nekoneko Ao's Demon Star",
+    "item_type": 46,
+    "icon_no": 4601,
+    "effect_value": [
+      369
+    ],
+    "description": "A magical star that can bring Nekoneko Ao to a ★6 awakened state.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 201030,
+    "name": "Event PT",
+    "item_type": 20,
+    "icon_no": 201030,
+    "effect_value": [
+      860
+    ],
+    "description": "Halloween Lahar Kai Raid PT",
+    "max_num": 99999999,
+    "sell_price": 0
+  },
+  {
+    "id": 340244,
+    "name": "PU character exchange ticket (paid)",
+    "item_type": 34,
+    "icon_no": 3420,
+    "effect_value": [
+      864
+    ],
+    "description": "Available at the PU character exchange office (paid)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 340245,
+    "name": "PU character exchange ticket (normal)",
+    "item_type": 34,
+    "icon_no": 3421,
+    "effect_value": [
+      865
+    ],
+    "description": "Available at PU character exchange (normal)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2700370,
+    "name": "Witch Liselotta's Crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "A crystal that can magically transform the witch Liselotta.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 340246,
+    "name": "Festival character exchange ticket (paid)",
+    "item_type": 34,
+    "icon_no": 3481,
+    "effect_value": [
+      867
+    ],
+    "description": "Available at the Fes Character Exchange (paid)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 340247,
+    "name": "Festival character exchange ticket (normal)",
+    "item_type": 34,
+    "icon_no": 3482,
+    "effect_value": [
+      868
+    ],
+    "description": "Can be used at the festival character exchange (normal)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2700367,
+    "name": "Garbage Freon Crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "A crystal that can magically modify Garbage Freon.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 4563,
+    "name": "BOSSPT",
+    "item_type": 45,
+    "icon_no": 4502,
+    "effect_value": [
+      871
+    ],
+    "description": "Blade & Bastard of the Demon World ~ Selfish promotion, small fry of red death ~ Exclusive BOSSPT",
+    "max_num": 99999999,
+    "sell_price": 0
+  },
+  {
+    "id": 5931,
+    "name": "BOSS key",
+    "item_type": 59,
+    "icon_no": 5901,
+    "effect_value": [
+      871
+    ],
+    "description": "Keys needed to challenge BOSS in Demon World's Blade & Bastard - Selfish promotion, small fry of Red Death -",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 200030,
+    "name": "Event PT",
+    "item_type": 20,
+    "icon_no": 200030,
+    "effect_value": [
+      871
+    ],
+    "description": "Blade & Bastard of the Demon World ~ Selfish promotion, small fry of red death ~ Exclusive PT",
+    "max_num": 99999999,
+    "sell_price": 0
+  },
+  {
+    "id": 340248,
+    "name": "PU character exchange ticket (paid)",
+    "item_type": 34,
+    "icon_no": 3420,
+    "effect_value": [
+      869
+    ],
+    "description": "Available at the PU character exchange office (paid)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 340249,
+    "name": "PU character exchange ticket (normal)",
+    "item_type": 34,
+    "icon_no": 3421,
+    "effect_value": [
+      870
+    ],
+    "description": "Available at PU character exchange (normal)",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2300371,
+    "name": "Exclusive mana potion",
+    "item_type": 23,
+    "icon_no": 2302,
+    "effect_value": [
+      500,
+      371
+    ],
+    "description": "A mysterious medicine that allows you to obtain Belkanan's mana when used.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2300374,
+    "name": "Exclusive mana potion",
+    "item_type": 23,
+    "icon_no": 2302,
+    "effect_value": [
+      500,
+      374
+    ],
+    "description": "A mysterious medicine that allows you to obtain Ainikki mana when used.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2320109,
+    "name": "Exclusive mana potion",
+    "item_type": 23,
+    "icon_no": 2302,
+    "effect_value": [
+      500,
+      20109
+    ],
+    "description": "A mysterious medicine that allows you to obtain Fire Prinny mana when used.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2700371,
+    "name": "Belcanan Crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "A crystal that can magically transform Belcanan.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2700372,
+    "name": "garbage crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "A crystal that can magically transform garbage.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2700374,
+    "name": "Eye Nikki crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "A crystal that can magically modify Eye Nikki",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 2720109,
+    "name": "Fire Prinny Crystal",
+    "item_type": 27,
+    "icon_no": 2701,
+    "effect_value": [
+      100
+    ],
+    "description": "A crystal that can magically transform Fire Prinny.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 4600371,
+    "name": "Belcanan's Demon Star",
+    "item_type": 46,
+    "icon_no": 4601,
+    "effect_value": [
+      371
+    ],
+    "description": "A magical star that can bring Belkanan to a ★6 awakened state.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 4600374,
+    "name": "Ai Nikki's Demon Star",
+    "item_type": 46,
+    "icon_no": 4601,
+    "effect_value": [
+      374
+    ],
+    "description": "A demon star that can bring Ai Nikki to a ★6 awakened state.",
+    "max_num": 9999,
+    "sell_price": 0
+  },
+  {
+    "id": 4620109,
+    "name": "Fire Prinny's Demon Star",
+    "item_type": 46,
+    "icon_no": 4601,
+    "effect_value": [
+      20109
+    ],
+    "description": "A magical star that can make Fire Prinny a ★6 awakened state.",
     "max_num": 9999,
     "sell_price": 0
   }

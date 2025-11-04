@@ -114,48 +114,13 @@ class FinalBossLab(Player, metaclass=ABCMeta):
         # Use custom boss parts
         self.log(f"\tUsing Final Boss parts...")
         self.player_items(True)
-        self.__final_boss_lab_use_custom_parts(m_custom_parts_ids = [1001,1002,1003,1004,1005], effect_id=0, materials=materials)
-        # m_custom_parts_ids = [1001,1002,1003,1004,1005]
-        # use_nums = [0,0,0,0,0]      
-        # i = 0
-        # for part in m_custom_parts_ids:
-        #     material = next((x for x in materials if x['effect_value'] == [part]),None)
-        #     if material is not None:
-        #         material_pd = self.pd.get_item_by_m_item_id(material['id'])
-        #         if material_pd is not None:
-        #             use_nums[i] = material_pd['num']
-        #             self.log(f"\t\tUsing {material_pd['num']} {material['name']}")
-        #     i += 1
-        # if use_nums != [0,0,0,0,0]:
-        #     self.client.custombattle_use_parts(m_custom_parts_ids=m_custom_parts_ids, use_nums=use_nums, m_custom_boss_effect_ids=[0,0,0,0,0])
-
+        self.__final_boss_lab_use_custom_parts(m_custom_parts_ids = [1001,1002,1003,1004,1005], effect_id=0, materials=materials)        
+        
         red_geo_mats = [2001,2002,2003,2004,2005]
-        use_nums = [0,0,0,0,0]      
-        i = 0
-        for part in red_geo_mats:
-            material = next((x for x in materials if x['effect_value'] == [part]),None)
-            if material is not None:
-                material_pd = self.pd.get_item_by_m_item_id(material['id'])
-                if material_pd is not None:
-                    use_nums[i] = material_pd['num']
-                    self.log(f"\t\tUsing {material_pd['num']} {material['name']}")
-            i += 1
-        if use_nums != [0,0,0,0,0]:
-            self.client.custombattle_use_parts(m_custom_parts_ids=m_custom_parts_ids, use_nums=use_nums, m_custom_boss_effect_ids=[1,1,1,1,1])
+        self.__final_boss_lab_use_custom_parts(m_custom_parts_ids = red_geo_mats, effect_id=1, materials=materials)   
 
         green_geo_mats = [5001,5002,5003,5004,5005]
-        use_nums = [0,0,0,0,0]      
-        i = 0
-        for part in red_geo_mats:
-            material = next((x for x in materials if x['effect_value'] == [part]),None)
-            if material is not None:
-                material_pd = self.pd.get_item_by_m_item_id(material['id'])
-                if material_pd is not None:
-                    use_nums[i] = material_pd['num']
-                    self.log(f"\t\tUsing {material_pd['num']} {material['name']}")
-            i += 1
-        if use_nums != [0,0,0,0,0]:
-            self.client.custombattle_use_parts(m_custom_parts_ids=m_custom_parts_ids, use_nums=use_nums, m_custom_boss_effect_ids=[4,4,4,4,4])            
+        self.__final_boss_lab_use_custom_parts(m_custom_parts_ids = green_geo_mats, effect_id=14, materials=materials)          
 
         # Battle own boss
         while challenge_num < 5:
