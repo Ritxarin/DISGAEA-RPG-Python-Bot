@@ -567,7 +567,11 @@ class EtnaResort(Items, metaclass=ABCMeta):
             f"{item_id} - Rolled {effect_value}% effect - Attempt count: {attempt_count} - "
             f"Priprism left: {prism_count}"
         )
-        self.player_weapon_effects(True)
+
+        if item_type == 3:
+            self.player_weapon_effects(True)
+        else:
+            self.player_equipment_effects(True)
 
     # This function re-rolls an item until a certain effect is rolled with max value
     # Specify and item ID, and a list of effects to roll for on the alchemy_effects list
