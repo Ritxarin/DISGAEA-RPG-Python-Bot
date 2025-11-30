@@ -1,9 +1,9 @@
+import datetime
 import random
 from abc import ABCMeta
 from typing import List
-
-import jwt
-
+from api.CustomExceptions import NoAPLeftException
+from api.constants import Constants, Items as ItemsC
 from api.constants import Item_Types, Mission_Status
 from api.player import Player
 
@@ -78,6 +78,8 @@ class FinalBossLab(Player, metaclass=ABCMeta):
 
     def final_boss_lab_clear_battle(self, deck_no:int, enemy_t_player_id:int):
         
+        if self.current_ap < 10:
+            self.use_potion(item_id=ItemsC.AP_Pot)
         battle_start = self.client.custombattle_battle_start(deck_no=deck_no, enemy_t_player_id=enemy_t_player_id)
         if 'api_error' in battle_start:
             return
@@ -130,6 +132,9 @@ class FinalBossLab(Player, metaclass=ABCMeta):
             
         # Battle one oponent
         self.final_boss_lab_battle_player()  
+
+        # Complete monthly missions on the last day of the month
+        self.final_boss_farm_monthly_points()
         
         self.log(f"\tClaiming missions...")
         self.final_boss_lab_claim_daily_missions()
@@ -209,3 +214,29 @@ class FinalBossLab(Player, metaclass=ABCMeta):
                 use_nums=use_nums,
                 m_custom_boss_effect_ids=effect_ids
             )
+
+
+    def final_boss_farm_monthly_points(self):
+        data = self.client.custombattle_current()
+        monthly_points = data['result']['t_custom_battle']['challenge_point']
+        if monthly_points < Constants.Final_Boss_Lab_Monthly_Points and self.__is_last_day_of_month():
+            self.log(f"\tFarming points for monthly missions:...")
+            while monthly_points < Constants.Final_Boss_Lab_Monthly_Points:
+                self.final_boss_lab_battle_player()
+                data = self.client.custombattle_current()
+                monthly_points = data['result']['t_custom_battle']['challenge_point']
+                self.log(f"\tCurrent monthly points: {monthly_points}")
+            self.final_boss_lab_claim_monthly_missions()
+
+
+    def __is_last_day_of_month(self):
+    # Get today's date
+        today = datetime.date.today()
+
+        # Find the first day of the next month
+        next_month = today.replace(day=28) + datetime.timedelta(days=4)
+        # Get the last day of the current month by subtracting the days to get to the last day
+        last_day_of_month = next_month - datetime.timedelta(days=next_month.day)
+
+        # Check if today is the last day of the month
+        return today == last_day_of_month

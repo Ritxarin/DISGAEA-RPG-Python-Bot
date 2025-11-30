@@ -20,6 +20,7 @@ class Constants:
     Alchemy_Alchemize_Cost = 6000
     Alchemy_Realchemize_Cost = 12000
     Unique_Innocent_Character_ID = 0
+    Final_Boss_Lab_Monthly_Points = 60000
     Equipment_Alchemy_Effects = [10001, 20003, 20004, 20005, 30035, 30047, 30048, 30049, 30050, 30051, 30052, 30053,
                                  30054]
     Weapon_Alchemy_Effects = [10001, 20001, 20002, 30001, 30002, 30003, 30004, 30005, 30006, 30007, 30019, 30020, 30022,
