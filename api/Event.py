@@ -174,7 +174,7 @@ class Event(Player, metaclass=ABCMeta):
         # ongoing travel
         if status == 1:  # ongoing travel
             self.log(f'Continuing Netherworld Travel {travel_id} - {remaining_areas} Areas remaining')
-        if status == 2:  # ongoing travel - pending benefit selection
+        elif status == 2:  # ongoing travel - pending benefit selection
             self.log(f'Continuing Netherworld Travel {travel_id} - {remaining_areas} Areas remaining')
             # Select the benefit
             rewards = data['result']['t_travel_status']['lotteried_m_travel_benefit_ids']
@@ -201,6 +201,10 @@ class Event(Player, metaclass=ABCMeta):
             required_character_count = self.get_netherworld_travel_required_characters(travel_id)
             used_character_ids = data['result']['t_travel']['used_t_character_ids']
             available_characters = self.netherworld_travel_get_team(required_character_count, used_character_ids)
+            
+            if available_characters is None:
+                return False
+            
             t_character_ids = [char['id'] for char in available_characters] + [0] * (5 - len(available_characters))
             
             travel_start = self.client.netherworld_travel_start(
@@ -241,6 +245,7 @@ class Event(Player, metaclass=ABCMeta):
                             effect_id=negative_effect_selection['effect_id'])
             
     def get_netherworld_travel_benefit_id(self, possible_rewards: List[int]) -> int:
+        # Ranges that can be skipped but not permanently blacklisted
         skip_ranges = [
             (203001, 203125),  # axe statue
             (200501, 201250),  # statues
@@ -250,17 +255,29 @@ class Event(Player, metaclass=ABCMeta):
             (201626, 201750),
         ]
 
-        def is_not_skipped(x):
-            return all(not (start <= x <= end) for start, end in skip_ranges)
+        # Ranges that are fully blacklisted unless no alternative exists
+        # Nether essence ranges
+        blacklist_ranges = [
+            (200376, 200500),
+            (201251, 201375),
+            (202376, 202500),
+        ]
 
-        # Filter out skipped ranges
-        filtered_array = [x for x in possible_rewards if is_not_skipped(x)]
+        def in_ranges(x, ranges):
+            return any(start <= x <= end for start, end in ranges)
 
-        # Choose from filtered or fallback to original if nothing remains
-        if filtered_array:
-            return random.choice(filtered_array)
-        else:
-            return random.choice(possible_rewards)
+        # Step 1: Filter out blacklisted (magic essence) and skipped ranges
+        filtered = [x for x in possible_rewards if not in_ranges(x, skip_ranges) and not in_ranges(x, blacklist_ranges)]
+
+        # Step 2: If no non-Magic-Essence options are left, allow non-magic-essence skip ranges
+        if not filtered:
+            filtered = [x for x in possible_rewards if not in_ranges(x, blacklist_ranges)]
+
+        # Step 3: If *everything* is magic essence, we have no choice
+        if not filtered:
+            filtered = possible_rewards
+
+        return random.choice(filtered)
 
     def get_netherworld_travel_negative_effect(self, character_ids:List[int], cleared_areas:int):
         if cleared_areas == 0:
@@ -402,7 +419,8 @@ class Event(Player, metaclass=ABCMeta):
                 break
 
         if len(unique_chars) < required_characters:
-            raise ValueError(f'Not enough unused and unique characters available (need at least {required_characters})')
+            self.log(f'Not enough unused and unique characters available (need at least {required_characters})')
+            return None
 
         return unique_chars
     
@@ -436,12 +454,12 @@ class Event(Player, metaclass=ABCMeta):
             for area in another_areas:
                 self.clear_story_event_area(area_id=area['id'], key= key, team_to_use=team_to_use)
                 
-    def get_story_event_boss_stage_key_cost(self, defense_point:int):
-        if defense_point < 4200:
+    def get_story_event_boss_stage_key_cost(self, proper_level:int, rank:int):
+        if proper_level < 7000:
             return 5
-        if defense_point < 11400:
+        if rank == 1:
             return 15
-        if defense_point < 23000:
+        if rank == 2:
             return 30
         return 50
 
@@ -454,7 +472,7 @@ class Event(Player, metaclass=ABCMeta):
             else:
                 if(stage['defense_point'] != 0):
                     use_item_id = key['id']
-                    use_item_num = self.get_story_event_boss_stage_key_cost(stage['defense_point'])
+                    use_item_num = self.get_story_event_boss_stage_key_cost(int(stage['proper_level']), stage['rank'])
                     self.player_items(refresh=True)
                     key_pd = self.pd.get_item_by_m_item_id(key['id'])
                     if key is None or key_pd['num']< use_item_num:
