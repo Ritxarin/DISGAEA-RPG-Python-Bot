@@ -1531,5 +1531,26 @@
         "gacha_type": 3,
         "price": 10,
         "gacha_max_num": 0
+    },
+    {
+        "id": 220,
+        "m_event_id": 891,
+        "gacha_type": 1,
+        "price": 100,
+        "gacha_max_num": 5000
+    },
+    {
+        "id": 221,
+        "m_event_id": 891,
+        "gacha_type": 2,
+        "price": 50,
+        "gacha_max_num": 0
+    },
+    {
+        "id": 222,
+        "m_event_id": 891,
+        "gacha_type": 3,
+        "price": 10,
+        "gacha_max_num": 0
     }
 ]

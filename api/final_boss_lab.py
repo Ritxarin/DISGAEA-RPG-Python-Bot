@@ -230,8 +230,10 @@ class FinalBossLab(Player, metaclass=ABCMeta):
 
 
     def __is_last_day_of_month(self):
-    # Get today's date
-        today = datetime.date.today()
+        # Get today's date
+        timedelta = 9 if self.o.region == 1 else -4
+        serverTime = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=timedelta)
+        today = serverTime.date()
 
         # Find the first day of the next month
         next_month = today.replace(day=28) + datetime.timedelta(days=4)

@@ -2,7 +2,7 @@ from abc import ABCMeta
 from inspect import ismemberdescriptor
 import random
 
-from api.constants import Constants, Innocent_Training_Result, Innocent_ID, Alchemy_Effect_Type, ErrorMessages, JP_ErrorMessages
+from api.constants import Constants, Innocent_Status, Innocent_Training_Result, Innocent_ID, Alchemy_Effect_Type, ErrorMessages, JP_ErrorMessages
 from api.constants import Items as ItemsC
 from api.items import Items
 
@@ -487,7 +487,11 @@ class EtnaResort(Items, metaclass=ABCMeta):
         self.log('completing recipe "%s" with innocents: %s' % (recipe['name'], innocent_ids))
 
         resp = self.client.innocent_combine(recipe_id, innocent_ids)
-        self.check_resp(resp)
+        if 'api_error' in resp:
+            if 'message' in resp['api_error'] and (resp['api_error']['message'] == 'Insufficient Items' or resp['api_error']['message'] == JP_ErrorMessages.Not_Enough_Items):
+                print("No recipe tickets left")
+        else:
+            self.check_resp(resp)
         return resp
 
     # This function re-rolls an item until a certain % boost is reached for a specific effect, ignoring all other rolls
@@ -786,6 +790,10 @@ class EtnaResort(Items, metaclass=ABCMeta):
         starting_value = innocent['effect_values'][0]
         print(f"Training innocent. Starting value: {starting_value}")
 
+        if innocent['status'] == Innocent_Status.NOT_SUBDUED:
+            print(f"Innocent not subdued. Skipping...")  
+            return 
+
         if starting_value  < min_initial_value:
             print(f"Starting value below minimum threshold. Skipping...")  
             return 
@@ -808,6 +816,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
             print(
                 f"\tTrained innocent with result {self.innocent_get_training_result(res['result']['training_result'])} - Current value: {res['result']['after_t_data']['innocents'][0]['effect_values'][0]}")
             attempts += 1
+            self.check_resp(res)
         print(f"\tUpgraded innocent to Max Value. Total attempts: {attempts}")
 
     def __get_innocent_max_effect(self, effect_type:int):

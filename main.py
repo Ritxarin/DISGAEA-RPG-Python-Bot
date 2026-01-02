@@ -186,6 +186,9 @@ class API(BaseAPI):
         self.client.app_constants()
         self.player_stone_sum()
         self.check_ongoing_battle_data()
+        data = self.client.player_index()
+        if 'result' in data:
+            self.o.current_ap = int(data['result']['status']['act'])    
         
     def check_ongoing_battle_data(self):
         bs = self.client.battle_status()
@@ -289,7 +292,7 @@ class API(BaseAPI):
             self.log(f"No stage with id {m_stage_id} found")
             return
         self.log('doing quest:%s [%s]' % (stage['name'], m_stage_id))
-        if stage['exp'] == 0 and stage['proper_level'] == "-":
+        if stage['proper_level'] == "-":
             return self.client.battle_story(m_stage_id)
 
         if stage['act'] > self.current_ap:
@@ -444,7 +447,7 @@ class API(BaseAPI):
         return res
 
     def Is_Area_Event_Remembrance(self, area_id):
-        return area_id >=  2001101 and area_id <= 2189106
+        return area_id >=  2001101 and area_id <= 2201106
     
     def Is_Area_AnecdoteStory(self, area_id):
         return area_id >= 200000 and area_id <= 200315
