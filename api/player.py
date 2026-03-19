@@ -223,17 +223,38 @@ class Player(Base):
                     print(
                     f"\t{e['name']} - Rarity: {equipment['rarity_value']} - Remake Count: {equipment['remake_count']} - ID: {equipment['id']}")
 
-    def friend_print_full_list(self):
-        print("\nPrinting full friend list....")
+    def friend_print_full_list(self):   
         data = self.client.friend_index()
-        for friend in data['result']['friends']:
-            print(f"\tName: {friend['name']} - ID: {friend['id']}")
+        print(f"\nPrinting full friend list.... {len(data['result']['friends'])}")
+        data_sorted = sorted(
+            data['result']['friends'],
+            key=lambda x: datetime.datetime.strptime(x["last_play_at"], "%Y-%m-%d %H:%M:%S")
+        )
+        for friend in data_sorted:
+            print(f"\tName: {friend['name']} - ID: {friend['id']} - Last Login: {friend["last_play_at"]}")
+
+
 
     def player_get_equipment_presets(self, refresh=False):
+        # if len(self.pd.equipment_presets) > 0 and not refresh:
+        #     return self.pd.equipment_presets
+        # self.pd.equipment_presets = self.client.player_equipment_decks()['result']['_items']
+        # return self.pd.equipment_presets
+    
         if len(self.pd.equipment_presets) > 0 and not refresh:
             return self.pd.equipment_presets
-        self.pd.equipment_presets = self.client.player_equipment_decks()['result']['_items']
-        return self.pd.equipment_presets
+        self.pd.equipment_presets = []
+        self.logger.debug("refreshing player equipment presets...")
+
+        page_index = 1
+        iterate_next_page = True
+        while iterate_next_page:
+            data = self.client.player_equipment_decks(updated_at=0, page=page_index)
+            if len(data['result']['_items']) <= 0:
+                iterate_next_page = False
+            self.pd.equipment_presets = self.pd.equipment_presets + data['result']['_items']
+            page_index += 1
+            return self.pd.equipment_presets
     
     def player_get_arena_defense(self):
         if len(self.pd.arena_gear_ids) == 0:        
@@ -241,6 +262,8 @@ class Player(Base):
             arena_data = self.client.pvp_enemy_player_detail(t_player_id=player_id)
             gear_ids = []
             for character in arena_data['result']['enemy_player']['characters']:
+                if character is None: 
+                    continue
                 if 'weapons' in character:
                     for weapon in character['weapons']:
                         gear_ids.append(weapon['id'])

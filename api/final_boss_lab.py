@@ -215,11 +215,12 @@ class FinalBossLab(Player, metaclass=ABCMeta):
                 m_custom_boss_effect_ids=effect_ids
             )
 
-
-    def final_boss_farm_monthly_points(self):
+    # farms points on the last day of the month to complete monthly missions
+    # set ignore_date = True to override date check and farm any day with leftover ap
+    def final_boss_farm_monthly_points(self, ignore_date=False):
         data = self.client.custombattle_current()
         monthly_points = data['result']['t_custom_battle']['challenge_point']
-        if monthly_points < Constants.Final_Boss_Lab_Monthly_Points and self.__is_last_day_of_month():
+        if monthly_points < Constants.Final_Boss_Lab_Monthly_Points and (self.__is_last_day_of_month() or ignore_date == True):
             self.log(f"\tFarming points for monthly missions:...")
             while monthly_points < Constants.Final_Boss_Lab_Monthly_Points:
                 self.final_boss_lab_battle_player()

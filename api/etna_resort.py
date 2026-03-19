@@ -535,6 +535,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
         effect_value = 0
         attempt_count = 0
 
+        self.player_items(True)
         prism_count = self.pd.get_item_by_m_item_id(ItemsC.PriPrism.value)['num']
         current_hl = self.pd.get_item_by_m_item_id(ItemsC.HL.value)['num']
         self.log(f"{item_id} - Rolling item - Priprism count: {prism_count} - Current HL: {current_hl}")
@@ -771,12 +772,16 @@ class EtnaResort(Items, metaclass=ABCMeta):
             return
         innocent_boost_effect = next(
             (x for x in effects if x['m_equipment_effect_type_id'] == Alchemy_Effect_Type.Innocent_Effect), None)
-        if len(innocent_boost_effect['m_character_ids']) == 1 and innocent_boost_effect['m_character_ids'][0]:
+        if len(innocent_boost_effect['m_character_ids']) == 1 and innocent_boost_effect['m_character_ids'][0] == 0:
             self.log(f"This item only has a unique innocent boost - Grazing is not possible")
             return
         # Get the type of the innocents that are boosted (skip unique)
         viable_boosted_innocents = [x for x in innocent_boost_effect['m_character_ids'] if x != 0]
         item_innocents = self.pd.get_item_innocents(item_id)
+
+        if len(viable_boosted_innocents) == 0:
+            self.log(f"This item only has a unique innocent boost - Grazing is not possible")
+            return
 
         for innocent in item_innocents:
             # If the innocent is not of the same type, graze
@@ -784,6 +789,15 @@ class EtnaResort(Items, metaclass=ABCMeta):
                 # select one at random
                 boost_innocent_type = random.choice(viable_boosted_innocents)
                 self.etna_resort_graze(innocent=innocent['id'], target_character_id=boost_innocent_type)
+
+    # Will train all item items to the max possible value
+    def etna_resort_max_train_item_innocents(self, item_id):
+
+        item_innocents = self.pd.get_item_innocents(item_id)
+        for innocent in item_innocents:
+            self.etna_resort_max_train_innocent(innocent=innocent, min_initial_value=0)
+
+        print(f"Finished training innocents...")
 
     def etna_resort_max_train_innocent(self, innocent, min_initial_value:int=0):        
         
@@ -809,7 +823,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
         current_value = starting_value     
         while current_value < max_value:
             res = self.client.innocent_training(innocent['id'])
-            if 'api_error' in res and 'message' in res['api_error'] and (res['api_error']['message'] == 'Insufficient Items' or res['api_error']['message'] == 'データが見つかりません'):
+            if 'api_error' in res and 'message' in res['api_error'] and (res['api_error']['message'] == 'Insufficient Items' or res['api_error']['message'] == 'アイテムが足りません'):
                 print("No caretaker tickets left")
                 break
             current_value = res['result']['after_t_data']['innocents'][0]['effect_values'][0]
@@ -828,6 +842,7 @@ class EtnaResort(Items, metaclass=ABCMeta):
             1: 6, # regular inno
             2: 2, # HL/EXP
             3: 1, # SPEED
+            7: 100, # WM/SM
             9 : 9, #Ancients
             48 : 0.1 # drop
        }

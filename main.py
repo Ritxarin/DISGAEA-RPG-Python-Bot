@@ -4,7 +4,7 @@ import random
 import time
 
 from api.CustomExceptions import NoAPLeftException
-from api.constants import Item_World_Mode
+from api.constants import Drink_Type, Item_World_Mode
 
 from dateutil import parser
 
@@ -447,7 +447,7 @@ class API(BaseAPI):
         return res
 
     def Is_Area_Event_Remembrance(self, area_id):
-        return area_id >=  2001101 and area_id <= 2201106
+        return area_id >=  2001101 and area_id <= 2244106
     
     def Is_Area_AnecdoteStory(self, area_id):
         return area_id >= 200000 and area_id <= 200315
@@ -857,6 +857,21 @@ class API(BaseAPI):
         self.client.friend_send_request(friend_data['result']['friends'][0]['id'])
 
 
+    def max_level_with_drinks(self, character_id:int, min_reinc_count:int=96):
+        unit = self.pd.get_character_by_id(character_id)
+        if unit is None:
+            self.log(f"No character with id {character_id} found")
+            return
+        if unit['rebirth_num'] < min_reinc_count or unit['rebirth_num'] == 99:
+            return
+        drink_count = 99 - unit['rebirth_num']
+        char = self.gd.get_character(unit['m_character_id'])
+        res = self.client.drink_bar_use_drink(t_character_id=character_id, drink_id=Drink_Type.Reincarnation, drink_num=drink_count)   
+        self.check_resp(res)     
+        if char is not None:
+            self.log(
+            f"Maxed {char['name']} level")
+
     def super_reincarnate(self, character_id, log:bool=True):
         unit = self.pd.get_character_by_id(character_id)
         if unit is None:
@@ -867,13 +882,18 @@ class API(BaseAPI):
             return
         sr_count = unit['super_rebirth_num']
         from data import data as gamedata
+        char = self.gd.get_character(unit['m_character_id'])
         sr_data = gamedata['super_rebirth_data']
         next_sr = next((x for x in sr_data if x['super_rebirth_num'] == sr_count + 1), None)
+        if next_sr is None:
+            self.log(
+            f"Character {char['name']} has reached Max SR.")
+            return
         ne_count = self.pd.get_item_by_m_item_id(ItemsC.Nether_Essence)['num']
         if next_sr['magic_element'] > ne_count:
             self.log(f"SR costs {next_sr['magic_element']}, you only have {ne_count} Nether Essence")
             return
-        char = self.gd.get_character(unit['m_character_id'])
+        
         res = self.client.super_reincarnate(t_character_id=character_id, magic_element_num=next_sr['magic_element'])   
         self.check_resp(res)     
         if char is not None:

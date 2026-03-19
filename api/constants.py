@@ -3,7 +3,7 @@ from enum import IntEnum
 
 class Constants:
     Current_Raid_ID_GL = 0
-    Current_Raid_ID_JP = 891
+    Current_Raid_ID_JP = 905
     Current_Story_Event_ID_GL = 826
     Current_Story_Event_ID_JP = 901
     Etna_Resort_Item_Deposit_Size = 11
@@ -281,3 +281,6 @@ class Innocent_Rank(IntEnum):
     Common = 1
     Rare = 6
     Legendary = 9
+
+class Drink_Type(IntEnum):
+    Reincarnation = 1

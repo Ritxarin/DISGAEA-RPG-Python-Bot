@@ -349,6 +349,7 @@ class PlayerData:
 
     def update_from_resp(self, resp):
         if 'result' in resp:
+            characters_by_id = {c['id']: c for c in self.characters}
             if 'after_t_data' in resp['result']:
                 if 'innocents' in resp['result']['after_t_data']:
                     for i in resp['result']['after_t_data']['innocents']:
@@ -358,7 +359,12 @@ class PlayerData:
                         self.update_items(i)
                 if 'characters' in resp['result']['after_t_data']:
                     for character in resp['result']['after_t_data']['characters']:
-                        self.characters.append(character)
+                        char_id = character['id']
+                        if char_id in characters_by_id:
+                            characters_by_id[char_id].update(character)
+                        else:
+                            self.characters.append(character)
+                            characters_by_id[char_id] = character
             if 'after_t_characters' in resp['result']:
                 for char in resp['result']['after_t_characters']:
                     self.update_character(char)

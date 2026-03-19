@@ -1232,9 +1232,17 @@ class Client:
         data=self.__rpc('inherit/get_code',{})
         return data
     
+    #########################
+    # Drink Bar endpoints
+    #########################
+
     def drink_bar_collect(self):
         data=self.__rpc('drink/top',{})
         return data    
+    
+    def drink_bar_use_drink(self, t_character_id:int, drink_id:int, drink_num:int):
+        data= self.__rpc('drink/use_drink', {"t_character_id":t_character_id, "use_drinks":[{"m_drink_id":drink_id,"use_num":drink_num}]})
+        return data  
         
     #########################
     # Innocent endpoints
