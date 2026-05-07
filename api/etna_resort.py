@@ -746,6 +746,218 @@ class EtnaResort(Items, metaclass=ABCMeta):
         self.log(
             f"{item_id} - Rolled {effect['effect_value']}%  - Attempt count: {attempt_count} - "
             f"Prilixir left: {prilixir_count}")
+        
+    def etna_resort_reroll_effect_with_innocent_overlap(self, item_id: int,
+                                                     alchemy_effect_id: int,
+                                                     place_no: int,
+                                                     overlap_place_no: int,
+                                                     min_overlaps: int,
+                                                     effect_target: int = 0,
+                                                     unique_innocent: bool = False):
+
+        # verify value can be rolled
+        if effect_target != 0:
+            effect = self.gd.get_alchemy_effect(alchemy_effect_id)
+            if effect is None or effect_target > effect['effect_value_max']:
+                self.log(
+                    f"The specified value is higher than the maximum possible roll ({effect['effect_value_max']}). Exiting...")
+                return
+
+        # verify slot is not locked
+        if not self.etna_resort_can_effect_be_rerolled(item_id, place_no):
+            self.log("The effect is locked and cannot be rerolled. Exiting...")
+            return
+
+        e = self.pd.get_weapon_by_id(item_id)
+        if e is not None:
+            item_type = 3
+            t_data_key = 'weapon_effects'
+        else:
+            item_type = 4
+            t_data_key = 'equipment_effects'
+
+        # verify effect can be rerolled for that equipment
+        if not self.etna_resort_can_effect_be_rolled_in_equipment(alchemy_effect_id, item_type):
+            effect = self.gd.get_alchemy_effect(alchemy_effect_id)
+            self.log(f"{effect['description']} cannot be rolled for this equipment type.")
+            return
+
+        # verify effect can be rolled in that slot
+        if not self.etna_resort_can_effect_be_rolled_in_place(alchemy_effect_id, place_no):
+            effect = self.gd.get_alchemy_effect(alchemy_effect_id)
+            self.log(f"{effect['description']} cannot be rolled on slot {place_no}.")
+            return
+
+        # fetch the innocent faces on the overlap slot — this is fixed throughout the whole roll loop
+        effects = self.pd.get_item_alchemy_effects(item_id)
+        overlap_slot_effect = next((x for x in effects if x['place_no'] == overlap_place_no), None)        
+        if overlap_slot_effect is None:
+            self.log(f"No effect found on overlap slot {overlap_place_no}. Exiting...")
+            return
+        overlap_character_ids = set(overlap_slot_effect['m_character_ids'])
+
+        prilixir_count = self.pd.get_item_by_m_item_id(ItemsC.Prilixir.value)['num']
+        current_hl = self.pd.get_item_by_m_item_id(ItemsC.HL.value)['num']
+        self.log(f"{item_id} - Re-rolling item with innocent overlap - Prilixir count: {prilixir_count} - Current HL: {current_hl}")
+
+        roll = True
+        attempt_count = 0
+
+        max_effect_value = self.gd.get_alchemy_effect(alchemy_effect_id)['effect_value_max']
+
+        while roll and prilixir_count > 0 and current_hl > Constants.Alchemy_Alchemize_Cost:
+            res = self.client.etna_resort_reroll_alchemy_effect(item_type, item_id, place_no)
+
+            effect = res['result']['after_t_data'][t_data_key][0]
+
+            attempt_count += 1
+            prilixir_count -= 1
+            if prilixir_count == 0:
+                self.log(f"{item_id} - Ran out of prilixir.")
+            current_hl -= Constants.Alchemy_Realchemize_Cost
+            if current_hl < Constants.Alchemy_Realchemize_Cost:
+                self.log(f"{item_id} - Ran out of HL.")
+
+            is_correct_effect = effect['m_equipment_effect_type_id'] == alchemy_effect_id
+            is_max_effect = is_correct_effect and effect['effect_value']== max_effect_value
+
+            # check effect value condition
+            value_condition_met = (
+                is_max_effect or
+                (effect_target != 0 and effect['effect_value'] >= effect_target and is_correct_effect) or
+                (effect_target == 0 and is_correct_effect)
+            )
+
+            # check innocent overlap condition
+            rolled_character_ids = set(effect['m_character_ids'])
+            overlap_count = len(rolled_character_ids & overlap_character_ids)
+            overlap_condition_met = overlap_count >= min_overlaps
+
+            if value_condition_met:
+                test = 3
+
+            if value_condition_met and overlap_condition_met:
+                if unique_innocent and Constants.Unique_Innocent_Character_ID not in effect['m_character_ids']:
+                    r = self.client.etna_resort_update_alchemy_effect(False)
+                else:
+                    r = self.client.etna_resort_update_alchemy_effect(True)
+                    roll = False
+            else:
+                r = self.client.etna_resort_update_alchemy_effect(False)
+
+        self.log(
+            f"{item_id} - Rolled {effect['effect_value']}% - Attempt count: {attempt_count} - "
+            f"Prilixir left: {prilixir_count}")
+
+    def etna_resort_reroll_effect_with_innocent_overlap_multislot(
+        self,
+        item_id: int,
+        alchemy_effect_id: int,
+        place_no: int,
+        overlap_place_nos: list[int],
+        min_overlaps: int,
+        effect_target: int = 0,
+        unique_innocent: bool = False
+    ):
+        # verify value can be rolled
+        effect_data = self.gd.get_alchemy_effect(alchemy_effect_id)
+        if effect_target != 0:
+            if effect_data is None or effect_target > effect_data['effect_value_max']:
+                self.log(
+                    f"The specified value is higher than the maximum possible roll ({effect_data['effect_value_max']}). Exiting...")
+                return
+
+        # verify slot is not locked
+        if not self.etna_resort_can_effect_be_rerolled(item_id, place_no):
+            self.log("The effect is locked and cannot be rerolled. Exiting...")
+            return
+
+        e = self.pd.get_weapon_by_id(item_id)
+        if e is not None:
+            item_type = 3
+            t_data_key = 'weapon_effects'
+        else:
+            item_type = 4
+            t_data_key = 'equipment_effects'
+
+        # verify effect can be rerolled for that equipment
+        if not self.etna_resort_can_effect_be_rolled_in_equipment(alchemy_effect_id, item_type):
+            self.log(f"{effect_data['description']} cannot be rolled for this equipment type.")
+            return
+
+        # verify effect can be rolled in that slot
+        if not self.etna_resort_can_effect_be_rolled_in_place(alchemy_effect_id, place_no):
+            self.log(f"{effect_data['description']} cannot be rolled on slot {place_no}.")
+            return
+
+        # --- NEW: collect innocents from multiple overlap slots ---
+        effects = self.pd.get_item_alchemy_effects(item_id)
+
+        overlap_character_ids = set()
+        missing_slots = []
+
+        for slot in overlap_place_nos:
+            slot_effect = next((x for x in effects if x['place_no'] == slot), None)
+            if slot_effect is None:
+                missing_slots.append(slot)
+            else:
+                overlap_character_ids.update(slot_effect['m_character_ids'])
+
+        if not overlap_character_ids:
+            self.log(f"No valid overlap effects found on slots {overlap_place_nos}. Exiting...")
+            return
+
+        if missing_slots:
+            self.log(f"Warning: No effect found on slots {missing_slots}, ignoring them.")
+
+        # resources
+        prilixir_count = self.pd.get_item_by_m_item_id(ItemsC.Prilixir.value)['num']
+        current_hl = self.pd.get_item_by_m_item_id(ItemsC.HL.value)['num']
+
+        self.log(
+            f"{item_id} - Re-rolling with overlap slots {overlap_place_nos} "
+            f"(min overlaps: {min_overlaps}) - Prilixir: {prilixir_count} - HL: {current_hl}"
+        )
+
+        max_value = effect_data['effect_value_max']
+
+        roll = True
+        attempt_count = 0
+
+        while roll and prilixir_count > 0 and current_hl >= Constants.Alchemy_Realchemize_Cost:
+            res = self.client.etna_resort_reroll_alchemy_effect(item_type, item_id, place_no)
+            effect = res['result']['after_t_data'][t_data_key][0]
+
+            attempt_count += 1
+            prilixir_count -= 1
+            current_hl -= Constants.Alchemy_Realchemize_Cost
+
+            is_correct_effect = effect['m_equipment_effect_type_id'] == alchemy_effect_id
+            is_max_effect = is_correct_effect and effect['effect_value'] == max_value
+
+            value_condition_met = (
+                is_max_effect or
+                (effect_target != 0 and is_correct_effect and effect['effect_value'] >= effect_target) or
+                (effect_target == 0 and is_correct_effect)
+            )
+
+            rolled_character_ids = set(effect['m_character_ids'])
+            shared_innocents = rolled_character_ids & overlap_character_ids
+            overlap_condition_met = len(shared_innocents) >= min_overlaps
+
+            if value_condition_met and overlap_condition_met:
+                if unique_innocent and Constants.Unique_Innocent_Character_ID not in rolled_character_ids:
+                    self.client.etna_resort_update_alchemy_effect(False)
+                else:
+                    self.client.etna_resort_update_alchemy_effect(True)
+                    roll = False
+            else:
+                self.client.etna_resort_update_alchemy_effect(False)
+
+        self.log(
+            f"{item_id} - Final roll: {effect['effect_value']}% - Attempts: {attempt_count} "
+            f"- Prilixir left: {prilixir_count}"
+        )
 
     def etna_resort_can_effect_be_rolled_in_place(self, alchemy_effect_id: int, place_no: int):
         if alchemy_effect_id in Constants.Place_1_Effects:

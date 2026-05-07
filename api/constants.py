@@ -3,9 +3,9 @@ from enum import IntEnum
 
 class Constants:
     Current_Raid_ID_GL = 0
-    Current_Raid_ID_JP = 905
+    Current_Raid_ID_JP = 956
     Current_Story_Event_ID_GL = 826
-    Current_Story_Event_ID_JP = 901
+    Current_Story_Event_ID_JP = 969 # +20?
     Etna_Resort_Item_Deposit_Size = 11
     UDT_Training_Area_ID_GL = 0
     UDT_Training_Event_ID_GL = 0
